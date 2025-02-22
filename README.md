@@ -39,6 +39,3 @@ This adaptation introduces several exciting changes to enhance gameplay:
    - Marbles cannot pass through their own marbles.
    - Special cards allow unique interactions like burning or saving marbles.
 4. **Winning Condition**: The first player to move all 4 marbles into the Safe Zone wins!
-
-📌 This README serves as a quick guide to understand the updated game mechanics and rule changes in the **Jackaroo: A New Game Spin** project. Happy gaming! 🎉
-
