@@ -1,2 +1,14 @@
-# Exclude Visual Studio Code files and directories
+# Eclipse specific files
+.classpath
+.project
+.settings/
+
+# VS Code specific folder
 .vscode/
+
+# Build output directories (adjust as needed)
+bin/
+target/
+
+# Compiled class files
+*.class
