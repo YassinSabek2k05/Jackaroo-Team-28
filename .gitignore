@@ -1,14 +1,14 @@
-# Eclipse specific files
-.classpath
-.project
-.settings/
+# # Eclipse specific files
+# .classpath
+# .project
+# .settings/
 
-# VS Code specific folder
-.vscode/
+# # VS Code specific folder
+# .vscode/
 
-# Build output directories (adjust as needed)
-bin/
-target/
+# # Build output directories (adjust as needed)
+# bin/
+# target/
 
-# Compiled class files
-*.class
+# # Compiled class files
+# *.class
