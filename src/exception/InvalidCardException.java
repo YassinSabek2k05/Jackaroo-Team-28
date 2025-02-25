@@ -5,6 +5,6 @@ public class InvalidCardException extends InvalidSelectionException{
         super();
     }
     InvalidCardException(String message){
-        
+        super(message);
     }
 }
