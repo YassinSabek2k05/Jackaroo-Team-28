@@ -1,0 +1,2 @@
+•methods should be public (getters and setters)
+•attributeds should be private
