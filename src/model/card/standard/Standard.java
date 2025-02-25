@@ -1,5 +1,6 @@
 package model.card.standard;
 import model.card.standard.Suit;
+import model.card.*;
 
 public class Standard extends Card {
 	private final int rank;
