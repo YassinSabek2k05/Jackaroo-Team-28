@@ -5,4 +5,4 @@
  * @author pc
  *
  */
-package board;
+package model;
