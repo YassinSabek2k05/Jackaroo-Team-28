@@ -1,10 +1,11 @@
 package model.card.standard;
-import model.card.standard.Suit;
-import model.card.*;
+
+import model.card.Card;
+
 
 public class Standard extends Card {
-	private final int rank;
-	private final Suit suit;
+	private int rank;
+	private Suit suit;
 	
 	
 	
