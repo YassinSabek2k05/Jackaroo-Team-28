@@ -1,7 +1,5 @@
 package engine.board;
 
 public enum CellType {
-	NORMAL,SAFE,BAQSE,ENTRY;
+	NORMAL,SAFE,BASE,ENTRY;
 }
-//attribute ----> private
-//method -------> public

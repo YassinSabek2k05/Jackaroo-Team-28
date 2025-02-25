@@ -1,4 +1,4 @@
 •methods should be public (getters and setters)
 •attributes should be private
 If an attribute will never be changed once initialized, you should declare it as final.
-If a particular member (variable or method) belongs to the class, rather than instances of the class then it’s said to be static
+If a particular member (variable or method) belongs to the class and should, rather than instances of the class then it’s said to be static
