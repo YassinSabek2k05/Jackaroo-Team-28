@@ -1,7 +1,11 @@
 package exception;
 
 public class InvalidSelectionException extends GameException{
-    InvalidSelectionException(){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	InvalidSelectionException(){
         super();
     }
     InvalidSelectionException(String message){

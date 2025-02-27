@@ -1,7 +1,11 @@
 package exception;
 
 abstract public class InvalidCardException extends InvalidSelectionException{
-    InvalidCardException(){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	InvalidCardException(){
         super();
     }
     InvalidCardException(String message){
