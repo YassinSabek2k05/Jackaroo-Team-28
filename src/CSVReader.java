@@ -15,7 +15,7 @@ public class CSVReader {
                 for (String value : values) {
                     
                     for (String str : value.split(" ")) {
-                        System.out.print("element"+str + " ");
+                        System.out.print(str + " ");
                     }
                     System.out.println();
                 }
