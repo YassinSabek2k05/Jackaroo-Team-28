@@ -21,5 +21,4 @@ public class SafeZone {
 		return this.cells;
 	}
 
-	
 }
