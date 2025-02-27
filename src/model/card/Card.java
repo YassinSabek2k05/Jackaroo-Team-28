@@ -3,18 +3,14 @@ import engine.GameManager;
 import engine.board.BoardManager;
 
 abstract public class Card {
+
 	private final String name;
 	private final String description;
 	protected BoardManager boardManager;
 	protected GameManager gameManager;
 	
-	
-	
-	
-	
-	
-	public Card(String name, String description, BoardManager boardManager,
-			GameManager gameManager) {
+	public Card(String name, String description, BoardManager boardManager,GameManager gameManager) 
+	{
 		super();
 		this.name = name;
 		this.description = description;
