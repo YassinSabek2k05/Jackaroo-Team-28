@@ -35,16 +35,17 @@ import model.card.Card;
 			this.selectedMarbles = new ArrayList<>();
 		}
 
-	public ArrayList<Card> getHand() {
-		return hand;
-	}
 
 
+	//setters
 	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
 	}
 
-
+	//getters
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
 	public Card getSelectedCard() {
 		return selectedCard;
 	}
@@ -60,11 +61,4 @@ import model.card.Card;
 	public ArrayList<Marble> getMarbles() {
 		return marbles;
 	}
-
-
-	public static void main(String[] args) {
-		
-
-	}
-
 }
