@@ -1,6 +1,6 @@
 package exception;
 
-public abstract class GameException extends Exception {
+abstract public class GameException extends Exception {
     GameException() {
         super();
     }

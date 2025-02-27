@@ -1,6 +1,6 @@
 package exception;
 
-public class InvalidCardException extends InvalidSelectionException{
+abstract public class InvalidCardException extends InvalidSelectionException{
     InvalidCardException(){
         super();
     }
