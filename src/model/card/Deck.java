@@ -62,7 +62,8 @@ public class Deck
     public static ArrayList<Card> drawCards(){
         Collections.shuffle(cardsPool);
         ArrayList<Card> cardsDrawn = new ArrayList<>();
-        for(int i=4;i>=0;i--){
+        if(cardsPool.size()<4) return null;
+        for(int i=4;i>0;i--){
 //        	cardsDrawn.add(cardsPool.removeFirst());
             cardsDrawn.add(cardsPool.get(0));
             cardsPool.remove(0);
@@ -84,7 +85,11 @@ public class Deck
         for(int i=0;i<a.size();i++){
             System.out.println(a.get(i).getName());
         }
+        for(int i=0;i<39;i++){
+            drawCards();
         System.out.println(cardsPool.size());
+
+        }
 
 
     }
