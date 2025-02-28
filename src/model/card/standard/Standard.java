@@ -7,12 +7,11 @@ import model.card.Card;
 
 
 public class Standard extends Card{
-	private int rank;
-	private Suit suit;
+	private final int rank;
+	private final Suit suit;
 	
 
-	public Standard(String name, String description,int rank, Suit suit, BoardManager boardManager,
-			GameManager gameManager ) {
+	public Standard(String name, String description,int rank, Suit suit, BoardManager boardManager, GameManager gameManager ) {
 		super(name, description, boardManager, gameManager);
 		this.rank = rank;
 		this.suit = suit;
@@ -28,12 +27,4 @@ public class Standard extends Card{
 	public Suit getSuit() {
 		return suit;
 	}
-
-
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public class CSVReader {
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\pc\\Desktop\\Cs\\cs4\\java\\Jackaroo\\Cards.csv"; // If inside the project folder
-        // String filePath = "C:\\path\\to\\your\\file.csv"; // Absolute path for Windows
+        String filePath = "C:\\Users\\pc\\Desktop\\Cs\\cs4\\java\\Jackaroo\\Cards.csv"; 
         ArrayList<String[]> a = new ArrayList();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import model.Colour;
 
 public class SafeZone {
-	private Colour colour ;
-	private ArrayList<Cell> cells;
+	private final Colour colour ;
+	private final ArrayList<Cell> cells;
 	
 	public SafeZone(Colour colour){
 		this.colour=colour;
