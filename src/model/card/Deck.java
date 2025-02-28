@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class Deck
 {
-    static final String CARDS_FILE = "C:\\Users\\pc\\Desktop\\Cs\\cs4\\java\\Jackaroo\\Cards.csv";
+    static final String CARDS_FILE = "Cards.csv";
     static ArrayList<Card> cardsPool = new ArrayList<>(); 
 
     public Deck()

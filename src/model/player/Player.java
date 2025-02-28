@@ -23,14 +23,8 @@ import model.card.Card;
 			this.colour = colour;
 			this.hand = new ArrayList<>();
 			this.marbles = new ArrayList<>();
-			Marble marble1= new Marble(colour);
-			Marble marble2= new Marble(colour);
-			Marble marble3= new Marble(colour);
-			Marble marble4= new Marble(colour);
-			marbles.add(marble1);
-			marbles.add(marble2);
-			marbles.add(marble3);
-			marbles.add(marble4);
+			for (int i = 0; i < 4; i++)
+				marbles.add(new Marble(colour));
 			this.selectedCard = null;
 			this.selectedMarbles = new ArrayList<>();
 		}
