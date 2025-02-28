@@ -7,13 +7,14 @@ import java.util.Collections;
 import model.card.standard.*;
 import model.card.wild.*;
 
-/**
+/*
  * CSV to List Example
  * Generated with AI assistance (ChatGPT)
  * Session Log:
  * - User asked how to import a CSV file into a Java project.
  * - AI provided methods using BufferedReader and OpenCSV.
- */
+*/
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

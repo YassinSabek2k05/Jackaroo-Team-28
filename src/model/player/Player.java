@@ -1,6 +1,5 @@
 package model.player;
 
-	
 import java.util.ArrayList;
 
 import model.Colour;
