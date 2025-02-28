@@ -7,10 +7,9 @@ public class King extends Standard {
 	
 	
 
-	public King(String name, String description, Suit suit,
-			BoardManager boardManager, GameManager gameManager) {
-		super(name, description, 13, suit, boardManager, gameManager);
-		
+	public King(String name, String description, Suit suit,BoardManager boardManager, GameManager gameManager) 
+	{
+		super(name, description, 13, suit, boardManager, gameManager);	
 	}
 
 	public static void main(String[] args) {
