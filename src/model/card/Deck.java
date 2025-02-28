@@ -68,7 +68,7 @@ public class Deck
         return cardsDrawn;
     }
     public static void main(String[] args) throws IOException {
-        
+        //testing eftekro neb2a nesheelo
         loadCardPool(new BoardManager(){
             @Override
             public int getSplitDistance() {
