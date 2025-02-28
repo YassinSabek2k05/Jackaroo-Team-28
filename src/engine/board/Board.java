@@ -1,5 +1,10 @@
 package engine.board;
 
+import java.util.ArrayList;
+
+import engine.GameManager;
+import model.Colour;
+
 public class Board
 {
     private final GameManager gameManager;
