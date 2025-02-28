@@ -1,4 +1,5 @@
 package model.player;
+
 import model.Colour;
 
 public class Marble {
@@ -10,5 +11,6 @@ public class Marble {
 	
 	public Colour getColour(){
 		return colour;
+
 	}
 }

@@ -1,4 +1,4 @@
-import model.player
+import model.Player;
 
 public class CPU extends Player
 {
@@ -6,7 +6,7 @@ public class CPU extends Player
 
     public CPU(String name, Colour colour, BoardManager boardManager)
     {
-        super(name,colour);
+        super(name, colour);
         this.boardManager = boardManager;
     }
 }
