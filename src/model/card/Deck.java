@@ -63,12 +63,14 @@ public class Deck
         Collections.shuffle(cardsPool);
         ArrayList<Card> cardsDrawn = new ArrayList<>();
         for(int i=4;i>=0;i--){
-            cardsDrawn.add(cardsPool.removeFirst());
+//        	cardsDrawn.add(cardsPool.removeFirst());
+            cardsDrawn.add(cardsPool.get(0));
+            cardsPool.remove(0);
         }
         return cardsDrawn;
     }
     public static void main(String[] args) throws IOException {
-        //testing eftekro neb2a nesheelo
+        //testing
         loadCardPool(new BoardManager(){
             @Override
             public int getSplitDistance() {

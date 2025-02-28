@@ -10,5 +10,6 @@ public class InvalidSelectionException extends GameException{
     }
     InvalidSelectionException(String message){
         super(message);
+        
     }
 }
