@@ -13,6 +13,7 @@ import model.card.Card;
 		private ArrayList<Card> hand;
 		private final ArrayList<Marble> marbles;
 		private Card selectedCard;
+		@SuppressWarnings("unused")
 		private final ArrayList<Marble> selectedMarbles;
 
 
