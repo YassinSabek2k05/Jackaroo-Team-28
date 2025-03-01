@@ -17,8 +17,8 @@ import model.card.Card;
 		private final ArrayList<Marble> selectedMarbles;
 
 
-	public Player(String name, Colour colour) {
-			super();
+		public Player(String name, Colour colour) 
+		{
 			this.name = name;
 			this.colour = colour;
 			this.hand = new ArrayList<>();

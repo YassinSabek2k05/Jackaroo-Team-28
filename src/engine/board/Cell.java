@@ -19,11 +19,9 @@ public class Cell {
 		return marble;
 	}
 
-
 	public void setMarble(Marble marble) {
 		this.marble = marble;
 	}
-
 
 	public CellType getCellType() {
 		return cellType;

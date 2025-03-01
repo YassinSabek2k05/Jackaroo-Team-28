@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import model.Colour;
 
-public class SafeZone {
+public class SafeZone 
+{
 	private final Colour colour ;
 	private final ArrayList<Cell> cells;
 	
@@ -20,5 +21,4 @@ public class SafeZone {
 	public ArrayList<Cell> getCells() {
 		return this.cells;
 	}
-
 }
