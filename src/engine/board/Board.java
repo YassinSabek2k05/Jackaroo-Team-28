@@ -47,10 +47,9 @@ public class Board
         while(count<8)
         {
             int x = random.nextInt(99)+1;
-
-            if(x % 25!=0 && (x+2) % 25 !=0 && !track.get(x).isTrap())
-            {
-                track.get(x).setTrap(true);
+            Cell tmp = track.get(x);
+            if(tmp.getCellType()==CellType.NORMAL && !tmp.isTrap()){
+                tmp.setTrap(true);
                 count++;
             }
         }
