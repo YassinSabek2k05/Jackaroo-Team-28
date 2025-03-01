@@ -16,7 +16,9 @@ public class Game implements GameManager{
     private final Board board;
     private final ArrayList<Player> players;
     private final ArrayList<Card> firePit;
+    @SuppressWarnings("unused")
     private int currentPlayerIndex;
+    @SuppressWarnings("unused")
     private int turn;
     
 

@@ -12,8 +12,8 @@ public class SafeZone
 	public SafeZone(Colour colour){
 		this.colour=colour;
 		this.cells= new ArrayList<Cell>(4);
-		for (Cell cell : cells) {
-			cell = new Cell(CellType.SAFE);
+		for (int i = 0; i < 4; i++) {
+			cells.add(new Cell(CellType.SAFE));
 		}
 	}
 
