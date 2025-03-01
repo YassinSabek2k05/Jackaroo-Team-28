@@ -6,7 +6,7 @@ import java.util.Random;
 import engine.GameManager;
 import model.Colour;
 
-public class Board
+public class Board implements BoardManager
 {
    
     private final GameManager gameManager;
@@ -63,6 +63,23 @@ public class Board
     {
         for (int i = 0; i < 4; i++) 
             safeZones.add(new SafeZone(colourOrder.get(i))); // Store SafeZone in Board's safeZones list
+    }
+
+    public ArrayList<Cell> getTrack(){
+        return this.track;
+    }
+
+    public ArrayList<SafeZone> safeZones(){
+        return this.safeZones;
+    }
+    
+    @Override
+    public int getSplitDistance(){
+        return this.splitDistance;
+    }
+
+    public void setSplitDistance(int splitDistance){
+        this.splitDistance = splitDistance;
     }
 
     
