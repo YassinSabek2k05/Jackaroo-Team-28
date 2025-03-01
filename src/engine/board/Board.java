@@ -20,6 +20,9 @@ public class Board
         this.track = new ArrayList<Cell>();
         this.safeZones = new ArrayList<SafeZone>();
         this.splitDistance = 3; 
+
+        createTrack();
+        assignTrapCell();
     }    
 
     public void createTrack() //assigns cell types to the cells in the track
