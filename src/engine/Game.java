@@ -49,4 +49,7 @@ public class Game implements GameManager{
     public ArrayList<Player> getPlayers(){
         return players;
     }
+    public Board getBoard(){
+        return board;
+    }
 }
