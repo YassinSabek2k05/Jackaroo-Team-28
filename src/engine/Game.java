@@ -43,4 +43,10 @@ public class Game implements GameManager{
         this.firePit = new ArrayList<>();
 
     }
+    public ArrayList<Card> getFirePit(){
+        return firePit;
+    }
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
 }
