@@ -10,8 +10,11 @@ public class SafeZone
 	private final ArrayList<Cell> cells;
 	
 	public SafeZone(Colour colour){
-		this.colour = colour;
-		this.cells = new ArrayList<Cell>(4);
+		this.colour=colour;
+		this.cells= new ArrayList<Cell>(4);
+		for (Cell cell : cells) {
+			cell = new Cell(CellType.SAFE);
+		}
 	}
 
 	public Colour getColour() {
