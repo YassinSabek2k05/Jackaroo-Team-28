@@ -51,8 +51,9 @@ public class Deck
                     default: card = new Standard(values[2], values[3], Integer.parseInt(values[4]), Suit.valueOf(values[5]), boardManager, gameManager);break;//code=0
                 }
                 int frequency = Integer.parseInt(values[1]);
-                if(card!=null)for(;frequency>0;frequency--){
-                        cardsPool.add(card);
+                if(card!=null)
+                    for(;frequency>0;frequency--){
+                            cardsPool.add(card);
                     }
             }
         } catch (IOException e) {
