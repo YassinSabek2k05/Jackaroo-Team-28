@@ -11,10 +11,4 @@ public class Queen extends Standard {
 	{
 		super(name, description,12, suit, boardManager, gameManager);
 	}
-
-	public static void main(String[] args) {
-		
-
-	}
-
 }
