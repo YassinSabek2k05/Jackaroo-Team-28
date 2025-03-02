@@ -5,10 +5,10 @@ public abstract class ActionException extends GameException{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ActionException(){
+	public ActionException(){
         super();
     }
-    ActionException(String message){
+    public ActionException(String message){
         super(message);
     }
 }

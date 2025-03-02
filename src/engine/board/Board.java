@@ -68,7 +68,7 @@ public class Board implements BoardManager
         return this.track;
     }
 
-    public ArrayList<SafeZone> safeZones(){
+    public ArrayList<SafeZone> getSafeZones(){
         return this.safeZones;
     }
     

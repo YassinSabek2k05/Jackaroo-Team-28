@@ -1,10 +1,10 @@
 package exception;
 
 public class IllegalMovementException extends ActionException{
-    IllegalMovementException(){
+    public IllegalMovementException(){
         super();
     }
-    IllegalMovementException(String message){
+    public IllegalMovementException(String message){
         super(message);
     }
 }

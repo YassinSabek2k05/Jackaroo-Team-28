@@ -1,6 +1,6 @@
 package exception;
 
-abstract public class InvalidCardException extends InvalidSelectionException{
+ public class InvalidCardException extends InvalidSelectionException{
     /**
 	 * 
 	 */

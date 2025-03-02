@@ -1,10 +1,10 @@
 package exception;
 
 public class CannotFieldException extends ActionException{
-    CannotFieldException(){
+    public CannotFieldException(){
         super();
     }
-    CannotFieldException(String message){
+    public CannotFieldException(String message){
         super(message);
     }
 }
