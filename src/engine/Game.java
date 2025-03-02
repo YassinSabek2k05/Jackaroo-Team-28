@@ -30,7 +30,7 @@ public class Game implements GameManager{
         colourOrder.add(Colour.YELLOW);
         Collections.shuffle(colourOrder);
         this.board = new Board(colourOrder, this);
-        Deck.loadCardPool((BoardManager) this.board, this);
+        Deck.loadCardPool((BoardManager) this.board, (GameManager)this);
         ArrayList<Player> playersTmp = new ArrayList<>();
 
         playersTmp.add(new Player(playerName, colourOrder.get(0)));

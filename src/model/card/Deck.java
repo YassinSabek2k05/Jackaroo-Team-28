@@ -36,7 +36,8 @@ public class Deck
             while ((line = br.readLine()) != null) {
                 Card card;
                 String[] values = line.split(",");
-                switch(Integer.parseInt(values[0]))
+                int code = Integer.parseInt(values[0]);
+                switch(code)
                 {
                     case 1: card = new Ace(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
                     case 4: card = new Four(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
@@ -51,6 +52,7 @@ public class Deck
                     default: card = new Standard(values[2], values[3], Integer.parseInt(values[4]), Suit.valueOf(values[5]), boardManager, gameManager);break;//code=0
                 }
                 int frequency = Integer.parseInt(values[1]);
+                System.out.println("Loaded card: " + values[2] + " with code: " + code+" frequency: "+frequency);
                 if(card!=null)
                     for(;frequency>0;frequency--){
                             cardsPool.add(card);
@@ -64,7 +66,10 @@ public class Deck
     public static ArrayList<Card> drawCards(){
         Collections.shuffle(cardsPool);
         ArrayList<Card> cardsDrawn = new ArrayList<>();
-        if(cardsPool.size()<4) return null;
+        if(cardsPool.size()<4) {
+            cardsPool.clear();
+            return null;
+        }
         for(int i=4;i>0;i--){
 //        	cardsDrawn.add(cardsPool.removeFirst());
             cardsDrawn.add(cardsPool.get(0));
@@ -72,30 +77,30 @@ public class Deck
         }
         return cardsDrawn;
     }
-    // public static void main(String[] args) throws IOException {
-    //     //testing
-    //     loadCardPool(new BoardManager(){
-    //         @Override
-    //         public int getSplitDistance() {
-    //             return 4;
-    //         }
-    //     },new GameManager(){
+    public static void main(String[] args) throws IOException {
+        //testing
+        loadCardPool(new BoardManager(){
+            @Override
+            public int getSplitDistance() {
+                return 4;
+            }
+        },new GameManager(){
 
-    //     });
-    //     System.out.println(cardsPool.size());
-    //     for(int j=0;j<10;j++){
-    //         ArrayList<Card> a = drawCards();
-    //         for(int i=0;i<a.size();i++){
-    //             System.out.println(a.get(i).getName() +" "+ a.get(i).getDescription());
-    //         }
-    //     }
+        });
+        System.out.println(cardsPool.size());
+        for(int j=0;j<10;j++){
+            ArrayList<Card> a = drawCards();
+            for(int i=0;i<a.size();i++){
+                System.out.println("Name: "+a.get(i).getName() +" Description: "+ a.get(i).getDescription());
+            }
+        }
 
-    //     for(int i=0;i<39;i++){
-    //         drawCards();
-    //     System.out.println(cardsPool.size());
+        for(int i=0;!cardsPool.isEmpty();i++){
+            drawCards();
+        System.out.println(cardsPool.size());
 
-    //     }
+        }
 
 
-//  }
+ }
 }
