@@ -1,10 +1,10 @@
 package exception;
 
 public class IllegalSwapException extends ActionException {
-    IllegalSwapException(){
+    public IllegalSwapException(){
         super();
     }
-    IllegalSwapException(String message){
+    public IllegalSwapException(String message){
         super(message);
     }
 }

@@ -83,10 +83,13 @@ public class Deck
 
         });
         System.out.println(cardsPool.size());
-        ArrayList<Card> a = drawCards();
-        for(int i=0;i<a.size();i++){
-            System.out.println(a.get(i).getName());
+        for(int j=0;j<10;j++){
+            ArrayList<Card> a = drawCards();
+            for(int i=0;i<a.size();i++){
+                System.out.println(a.get(i).getName() +" "+ a.get(i).getDescription());
+            }
         }
+
         for(int i=0;i<39;i++){
             drawCards();
         System.out.println(cardsPool.size());

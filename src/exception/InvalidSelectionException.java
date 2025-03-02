@@ -5,10 +5,10 @@ public class InvalidSelectionException extends GameException{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	InvalidSelectionException(){
+	public InvalidSelectionException(){
         super();
     }
-    InvalidSelectionException(String message){
+    public InvalidSelectionException(String message){
         super(message);
         
     }

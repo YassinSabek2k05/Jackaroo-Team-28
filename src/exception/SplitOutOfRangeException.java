@@ -5,10 +5,10 @@ public class SplitOutOfRangeException extends GameException{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	SplitOutOfRangeException(){
+	public SplitOutOfRangeException(){
         super();
     }
-    SplitOutOfRangeException(String message){
+    public SplitOutOfRangeException(String message){
         super(message);
     }
 }

@@ -5,10 +5,10 @@ abstract public class InvalidCardException extends InvalidSelectionException{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	InvalidCardException(){
+	public InvalidCardException(){
         super();
     }
-    InvalidCardException(String message){
+    public InvalidCardException(String message){
         super(message);
     }
 }
