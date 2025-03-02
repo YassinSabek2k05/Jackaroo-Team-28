@@ -22,7 +22,7 @@ import java.io.IOException;
 public class Deck
 {
     static final String CARDS_FILE = "Cards.csv";
-    static ArrayList<Card> cardsPool = new ArrayList<>(); 
+    private static ArrayList<Card> cardsPool = new ArrayList<>(); 
 
     public Deck()
     {
@@ -72,30 +72,30 @@ public class Deck
         }
         return cardsDrawn;
     }
-    public static void main(String[] args) throws IOException {
-        //testing
-        loadCardPool(new BoardManager(){
-            @Override
-            public int getSplitDistance() {
-                return 4;
-            }
-        },new GameManager(){
+    // public static void main(String[] args) throws IOException {
+    //     //testing
+    //     loadCardPool(new BoardManager(){
+    //         @Override
+    //         public int getSplitDistance() {
+    //             return 4;
+    //         }
+    //     },new GameManager(){
 
-        });
-        System.out.println(cardsPool.size());
-        for(int j=0;j<10;j++){
-            ArrayList<Card> a = drawCards();
-            for(int i=0;i<a.size();i++){
-                System.out.println(a.get(i).getName() +" "+ a.get(i).getDescription());
-            }
-        }
+    //     });
+    //     System.out.println(cardsPool.size());
+    //     for(int j=0;j<10;j++){
+    //         ArrayList<Card> a = drawCards();
+    //         for(int i=0;i<a.size();i++){
+    //             System.out.println(a.get(i).getName() +" "+ a.get(i).getDescription());
+    //         }
+    //     }
 
-        for(int i=0;i<39;i++){
-            drawCards();
-        System.out.println(cardsPool.size());
+    //     for(int i=0;i<39;i++){
+    //         drawCards();
+    //     System.out.println(cardsPool.size());
 
-        }
+    //     }
 
 
-    }
+//  }
 }

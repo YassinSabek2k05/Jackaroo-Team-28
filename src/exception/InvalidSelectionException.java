@@ -1,6 +1,6 @@
 package exception;
 
-public class InvalidSelectionException extends GameException{
+abstract public class InvalidSelectionException extends GameException{
     /**
 	 * 
 	 */

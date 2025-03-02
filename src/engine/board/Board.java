@@ -38,7 +38,7 @@ public class Board implements BoardManager
         }
     }
 
-    public void assignTrapCell() //assigning the "Trap" type to 8 random normal cells in our track
+    private void assignTrapCell() //assigning the "Trap" type to 8 random normal cells in our track
     {
         Random random = new Random();
         int count = 0;
