@@ -6,8 +6,8 @@ abstract public class Card {
 
 	private final String name;
 	private final String description;
-	protected BoardManager boardManager;
-	protected GameManager gameManager;
+	protected final BoardManager boardManager;
+	protected final GameManager gameManager;
 	
 	public Card(String name, String description, BoardManager boardManager,GameManager gameManager) 
 	{
@@ -24,13 +24,4 @@ abstract public class Card {
 	public String getDescription(){
 		return description ;
 	}
-	
-
-
-
-	public static void main(String[] args) {
-		
-
-	}
-
 }

@@ -30,12 +30,12 @@ public class Game implements GameManager{
         colourOrder.add(Colour.YELLOW);
         Collections.shuffle(colourOrder);
         this.board = new Board(colourOrder, this);
-        Deck.loadCardPool((BoardManager) this.board, (GameManager)this);
+        Deck.loadCardPool(this.board, this);
         ArrayList<Player> playersTmp = new ArrayList<>();
 
         playersTmp.add(new Player(playerName, colourOrder.get(0)));
         for (int i = 1; i <=3; i++) {
-            playersTmp.add(new CPU("CPU "+i, colourOrder.get(i),(BoardManager) this.board));
+            playersTmp.add(new CPU("CPU "+i, colourOrder.get(i), this.board));
         }
         this.players = playersTmp;
         for (Player player : this.players) {

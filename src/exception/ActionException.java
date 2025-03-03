@@ -1,6 +1,6 @@
 package exception;
 
-public abstract class ActionException extends GameException{
+abstract public class ActionException extends GameException{
     /**
 	 * 
 	 */
