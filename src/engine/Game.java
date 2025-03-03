@@ -19,7 +19,7 @@ public class Game implements GameManager{
     @SuppressWarnings("unused")
     private int currentPlayerIndex;
     @SuppressWarnings("unused")
-    private int turn;
+    private int turn = 0;
     
 
     public Game(String playerName) throws IOException{
