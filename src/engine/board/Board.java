@@ -31,7 +31,7 @@ public class Board implements BoardManager
         {
             if(i % 25 == 0)
                 track.add(new Cell(CellType.BASE)); //adding base cells every 25 positions(0,25,50,75)
-            if((i+2) % 25 == 0)
+            else if((i+2) % 25 == 0)
                 track.add(new Cell(CellType.ENTRY)); //adding entry cells every 25 positions(98,23,48,73)
             else
                 track.add(new Cell(CellType.NORMAL)); //adding normal cells in all other postions

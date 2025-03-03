@@ -30,7 +30,7 @@ public class Deck
     }
     public static void loadCardPool(BoardManager boardManager, GameManager gameManager) throws IOException{
         String filePath = CARDS_FILE;
-        cardsPool.clear(); // Clear the cardsPool before loading new cards
+        cardsPool.clear();
         
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
