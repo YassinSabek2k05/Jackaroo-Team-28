@@ -7,6 +7,8 @@ import java.util.Collections;
 import model.card.standard.*;
 import model.card.wild.*;
 
+import static org.junit.Assert.fail;
+
 /*
  * CSV to List Example
  * Generated with AI assistance (ChatGPT)
@@ -18,28 +20,26 @@ import model.card.wild.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class Deck
 {
     static final String CARDS_FILE = "Cards.csv";
-    private static ArrayList<Card> cardsPool = new ArrayList<>(); 
+    private static ArrayList<Card> cardsPool; 
 
-    public Deck()
-    {
-        super();
-    }
     public static void loadCardPool(BoardManager boardManager, GameManager gameManager) throws IOException{
         String filePath = CARDS_FILE;
+        cardsPool = new ArrayList<>();
         cardsPool.clear();
-        
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-//                Card card;
                 String[] values = line.split(",");
                 int code = Integer.parseInt(values[0]);
                 int frequency = Integer.parseInt(values[1]);
-                System.out.println("Loading card with code: " + code + ", frequency: " + frequency + ", name: " + values[2] + ", description: " + values[3]);
+
                 switch(code)
                 {
                     case 1: 
@@ -97,19 +97,9 @@ public class Deck
                             cardsPool.add(new Standard(values[2], values[3], Integer.parseInt(values[4]), Suit.valueOf(values[5]), boardManager, gameManager));
                     }
                     break;
-                    // case 4: card = new Four(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
-                    // case 5: card = new Five(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
-                    // case 7: card = new Seven(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
-                    // case 10: card = new Ten(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
-                    // case 11: card = new Jack(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
-                    // case 12: card = new Queen(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
-                    // case 13: card = new King(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
-                    // case 14: card = new Burner(values[2], values[3], boardManager, gameManager);break;
-                    // case 15: card = new Saver(values[2], values[3], boardManager, gameManager);break;
-                    // default: card = new Standard(values[2], values[3], Integer.parseInt(values[4]), Suit.valueOf(values[5]), boardManager, gameManager);break;//code=0
                 }
-                System.out.println("Loaded card: " + values[2] + " with code: " + code+" frequency: "+frequency);
-System.out.println(cardsPool.size());
+                // System.out.println("Loaded card: " + values[2] + " with code: " + code+" frequency: "+frequency);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,39 +109,42 @@ System.out.println(cardsPool.size());
     public static ArrayList<Card> drawCards(){
         Collections.shuffle(cardsPool);
         ArrayList<Card> cardsDrawn = new ArrayList<Card>();
-        if(cardsPool.size()<4) {
-            cardsPool.clear();
-            return null;
-        }
-        for(int i=4;i>0;i--){
-//        cardsDrawn.add(cardsPool.removeFirst());
-            cardsDrawn.add(cardsPool.get(0));
-            cardsPool.remove(0);
+        for (int i = 0; i < 4 && !cardsPool.isEmpty(); i++) {
+            cardsDrawn.add(cardsPool.remove(0));
         }
         return cardsDrawn;
     }
     public static void main(String[] args) throws IOException {
         //testing
+
         loadCardPool(new BoardManager(){
             @Override
-            public int getSplitDistance() {
-                return 4;
-            }
-        },new GameManager(){
-
-        });
+            public int getSplitDistance() {return 4;}},new GameManager(){});
         System.out.println(cardsPool.size());
-            ArrayList<Card>a=cardsPool;
-            for(int i=0;i<a.size();i++){
-                System.out.println("Name: "+a.get(i).getName() +" Description: "+ a.get(i).getDescription()+" number:"+(i+1));
-            }
-
+        ArrayList<Card>a=cardsPool;
+        for(int i=0;i<a.size();i++){
+            System.out.println("Name: "+a.get(i).getName() +" Description: "+ a.get(i).getDescription()+" number:"+(i+1));
+        }
         while(!cardsPool.isEmpty()){
             drawCards();
-        System.out.println(cardsPool.size());
+            System.out.println(cardsPool.size());
 
         }
-
-
  }
 }
+/*
+                switch(code){
+                    case 1: card = new Ace(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
+                    case 4: card = new Four(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
+                    case 5: card = new Five(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
+                    case 7: card = new Seven(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
+                    case 10: card = new Ten(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
+                    case 11: card = new Jack(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
+                    case 12: card = new Queen(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
+                    case 13: card = new King(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager);break;
+                    case 14: card = new Burner(values[2], values[3], boardManager, gameManager);break;
+                    case 15: card = new Saver(values[2], values[3], boardManager, gameManager);break;
+                    default: card = new Standard(values[2], values[3], Integer.parseInt(values[4]), Suit.valueOf(values[5]), boardManager, gameManager);break;//code=0
+                }
+                
+ */
