@@ -29,7 +29,8 @@ public class Deck
         super();
     }
     public static void loadCardPool(BoardManager boardManager, GameManager gameManager) throws IOException{
-        String filePath = CARDS_FILE; 
+        String filePath = CARDS_FILE;
+        cardsPool.clear(); // Clear the cardsPool before loading new cards
         
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -38,6 +39,7 @@ public class Deck
                 String[] values = line.split(",");
                 int code = Integer.parseInt(values[0]);
                 int frequency = Integer.parseInt(values[1]);
+                System.out.println("Loading card with code: " + code + ", frequency: " + frequency + ", name: " + values[2] + ", description: " + values[3]);
                 switch(code)
                 {
                     case 1: 
