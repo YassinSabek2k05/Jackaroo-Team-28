@@ -24,11 +24,13 @@ public class Deck
 {
     private static final String CARDS_FILE = "Cards.csv";
     private static ArrayList<Card> cardsPool; 
-
+    private Deck(){
+        //private default constructor to prevent instantiation of Deck object
+    }
     public static void loadCardPool(BoardManager boardManager, GameManager gameManager) throws IOException{
         String filePath = CARDS_FILE;
         cardsPool = new ArrayList<>();
-        cardsPool.clear();
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
