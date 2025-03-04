@@ -7,8 +7,6 @@ import java.util.Collections;
 import model.card.standard.*;
 import model.card.wild.*;
 
-import static org.junit.Assert.fail;
-
 /*
  * CSV to List Example
  * Generated with AI assistance (ChatGPT)
@@ -20,9 +18,7 @@ import static org.junit.Assert.fail;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
 
 public class Deck
 {
@@ -40,64 +36,43 @@ public class Deck
                 int code = Integer.parseInt(values[0]);
                 int frequency = Integer.parseInt(values[1]);
 
-                switch(code)
-                {
-                    case 1: 
-                    for(;frequency>0;frequency--){
+                for(;frequency>0;frequency--)
+                    switch(code)
+                    {
+                        case 1:
                             cardsPool.add(new Ace(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager));
-                    }
-                    break;
-                    case 4: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 4: 
                             cardsPool.add(new Four(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager));
-                    }
-                    break;
-                    case 5: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 5: 
                             cardsPool.add(new Five(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager));
-                    }
-                    break;
-                    case 7: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 7: 
                             cardsPool.add(new Seven(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager));
-                    }
-                    break;
-                    case 10: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 10: 
                             cardsPool.add(new Ten(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager));
-                    }
-                    break;
-                    case 11: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 11: 
                             cardsPool.add(new Jack(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager));
-                    }
-                    break;
-                    case 12: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 12: 
                             cardsPool.add(new Queen(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager));
-                    }
-                    break;
-                    case 13: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 13: 
                             cardsPool.add(new King(values[2], values[3], Suit.valueOf(values[5]), boardManager, gameManager));
-                    }
-                    break;
-                    case 14: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 14:                    
                             cardsPool.add(new Burner(values[2], values[3], boardManager, gameManager));
-                    }
-                    break;
-                    case 15: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 15: 
                             cardsPool.add( new Saver(values[2], values[3], boardManager, gameManager));
-                    }
-                    break;
-                    case 0: 
-                    for(;frequency>0;frequency--){
+                            break;
+                        case 0: 
                             cardsPool.add(new Standard(values[2], values[3], Integer.parseInt(values[4]), Suit.valueOf(values[5]), boardManager, gameManager));
+                            break;
                     }
-                    break;
-                }
                 // System.out.println("Loaded card: " + values[2] + " with code: " + code+" frequency: "+frequency);
 
             }
@@ -114,23 +89,23 @@ public class Deck
         }
         return cardsDrawn;
     }
-//     public static void main(String[] args) throws IOException {
-//         //testing
+    public static void main(String[] args) throws IOException {
+        //testing
 
-//         loadCardPool(new BoardManager(){
-//             @Override
-//             public int getSplitDistance() {return 4;}},new GameManager(){});
-//         System.out.println(cardsPool.size());
-//         ArrayList<Card>a=cardsPool;
-//         for(int i=0;i<a.size();i++){
-//             System.out.println("Name: "+a.get(i).getName() +" Description: "+ a.get(i).getDescription()+" number:"+(i+1));
-//         }
-//         while(!cardsPool.isEmpty()){
-//             drawCards();
-//             System.out.println(cardsPool.size());
+        loadCardPool(new BoardManager(){
+            @Override
+            public int getSplitDistance() {return 4;}},new GameManager(){});
+        System.out.println(cardsPool.size());
+        ArrayList<Card>a=cardsPool;
+        for(int i=0;i<a.size();i++){
+            System.out.println("Name: "+a.get(i).getName() +" Description: "+ a.get(i).getDescription()+" number:"+(i+1));
+        }
+        while(!cardsPool.isEmpty()){
+            drawCards();
+            System.out.println(cardsPool.size());
 
-//         }
-//  }
+        }
+ }
 }
 /*
                 switch(code){
