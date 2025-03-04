@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class Deck
 {
-    static final String CARDS_FILE = "Cards.csv";
+    private static final String CARDS_FILE = "Cards.csv";
     private static ArrayList<Card> cardsPool; 
 
     public static void loadCardPool(BoardManager boardManager, GameManager gameManager) throws IOException{
