@@ -8,6 +8,7 @@ import model.Colour;
 
 public class Board implements BoardManager
 {
+    @SuppressWarnings("unused")
     private final GameManager gameManager;
     private final ArrayList<Cell> track;
     private final ArrayList<SafeZone> safeZones;
