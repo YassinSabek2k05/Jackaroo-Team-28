@@ -59,7 +59,7 @@ public class Board implements BoardManager
     // Each SafeZone will contain 4 cells of type SAFE
     // after creating each safzone object and initializing all its cells with the correct celltype(SAFE) we then add it to our safeZones arraylist that will have all 4 safezones
 
-    public void createSafeZones(ArrayList<Colour> colourOrder) 
+    private void createSafeZones(ArrayList<Colour> colourOrder) 
     {
         for (int i = 0; i < 4; i++) 
             safeZones.add(new SafeZone(colourOrder.get(i))); // Store SafeZone in Board's safeZones list

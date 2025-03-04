@@ -89,23 +89,23 @@ public class Deck
         }
         return cardsDrawn;
     }
-    public static void main(String[] args) throws IOException {
-        //testing
+//     public static void main(String[] args) throws IOException {
+//         //testing
 
-        loadCardPool(new BoardManager(){
-            @Override
-            public int getSplitDistance() {return 4;}},new GameManager(){});
-        System.out.println(cardsPool.size());
-        ArrayList<Card>a=cardsPool;
-        for(int i=0;i<a.size();i++){
-            System.out.println("Name: "+a.get(i).getName() +" Description: "+ a.get(i).getDescription()+" number:"+(i+1));
-        }
-        while(!cardsPool.isEmpty()){
-            drawCards();
-            System.out.println(cardsPool.size());
+//         loadCardPool(new BoardManager(){
+//             @Override
+//             public int getSplitDistance() {return 4;}},new GameManager(){});
+//         System.out.println(cardsPool.size());
+//         ArrayList<Card>a=cardsPool;
+//         for(int i=0;i<a.size();i++){
+//             System.out.println("Name: "+a.get(i).getName() +" Description: "+ a.get(i).getDescription()+" number:"+(i+1));
+//         }
+//         while(!cardsPool.isEmpty()){
+//             drawCards();
+//             System.out.println(cardsPool.size());
 
-        }
- }
+//         }
+//  }
 }
 /*
                 switch(code){
