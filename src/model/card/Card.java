@@ -6,8 +6,8 @@ abstract public class Card {
 
 	private final String name;
 	private final String description;
-	protected final BoardManager boardManager;
-	protected final GameManager gameManager;
+	protected BoardManager boardManager;
+	protected GameManager gameManager;
 	
 	public Card(String name, String description, BoardManager boardManager,GameManager gameManager) 
 	{
