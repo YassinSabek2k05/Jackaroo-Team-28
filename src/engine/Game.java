@@ -13,17 +13,17 @@ import model.player.CPU;
 import model.player.Player;
 
 public class Game implements GameManager{
+
     private final Board board;
     private final ArrayList<Player> players;
     private final ArrayList<Card> firePit;
-    @SuppressWarnings("unused")
     private int currentPlayerIndex;
-    @SuppressWarnings("unused")
-    private int turn = 0;
+    private int turn;
     
 
     public Game(String playerName) throws IOException{
         ArrayList<Colour> colourOrder = new ArrayList<>();
+        this.players = new ArrayList<>();
         colourOrder.add(Colour.BLUE);
         colourOrder.add(Colour.GREEN);
         colourOrder.add(Colour.RED);
@@ -31,19 +31,16 @@ public class Game implements GameManager{
         Collections.shuffle(colourOrder);
         this.board = new Board(colourOrder, this);
         Deck.loadCardPool(this.board, this);
-        ArrayList<Player> playersTmp = new ArrayList<>();
-
-        playersTmp.add(new Player(playerName, colourOrder.get(0)));
+        this.players.add(new Player(playerName, colourOrder.get(0)));
         for (int i = 1; i <=3; i++) {
-            playersTmp.add(new CPU("CPU "+i, colourOrder.get(i), this.board));
+            this.players.add(new CPU("CPU "+i, colourOrder.get(i), this.board));
         }
-        this.players = playersTmp;
         for (Player player : this.players) {
             player.setHand(Deck.drawCards());
         }
+        this.turn = 0;
         this.currentPlayerIndex = 0;
         this.firePit = new ArrayList<>();
-
     }
     public ArrayList<Card> getFirePit(){
         return firePit;
@@ -54,4 +51,15 @@ public class Game implements GameManager{
     public Board getBoard(){
         return board;
     }
+    // public static void main(String[] args) {
+    //     try {
+    //         Game game = new Game("Player1");
+    //         for (Player player : game.getPlayers()) {
+    //             System.out.println(player.getName());
+    //             System.out.println(player.getColour());
+    //         }
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 }
