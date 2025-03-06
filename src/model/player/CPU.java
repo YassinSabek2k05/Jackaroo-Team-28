@@ -5,7 +5,6 @@ import model.Colour;
 
 public class CPU extends Player
 {
-    @SuppressWarnings("unused")
     private final BoardManager boardManager;
 
     public CPU(String name, Colour colour, BoardManager boardManager)

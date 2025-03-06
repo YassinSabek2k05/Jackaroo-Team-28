@@ -21,14 +21,7 @@ public class Board implements BoardManager
         this.safeZones = new ArrayList<SafeZone>();
         this.splitDistance = 3;
 
-        createTrack();
-        assignTrapCell();
-        createSafeZones(colourOrder);
-    }    
-
-    public void createTrack() //assigns cell types to the cells in the track
-    {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 100; i++)//assigns cell types to the cells in the track
         {
             if(i % 25 == 0)
                 track.add(new Cell(CellType.BASE)); //adding base cells every 25 positions(0,25,50,75)
@@ -37,7 +30,12 @@ public class Board implements BoardManager
             else
                 track.add(new Cell(CellType.NORMAL)); //adding normal cells in all other postions
         }
-    }
+
+        assignTrapCell();
+        
+        for (int i = 0; i < 4; i++) 
+            safeZones.add(new SafeZone(colourOrder.get(i))); // Store SafeZone in Board's safeZones list
+    }    
 
     private void assignTrapCell() //assigning the "Trap" type to 8 random normal cells in our track
     {
@@ -58,12 +56,6 @@ public class Board implements BoardManager
     // We will create a new ArrayList called safeZones, which will store our 4 SafeZones
     // Each SafeZone will contain 4 cells of type SAFE
     // after creating each safzone object and initializing all its cells with the correct celltype(SAFE) we then add it to our safeZones arraylist that will have all 4 safezones
-
-    private void createSafeZones(ArrayList<Colour> colourOrder) 
-    {
-        for (int i = 0; i < 4; i++) 
-            safeZones.add(new SafeZone(colourOrder.get(i))); // Store SafeZone in Board's safeZones list
-    }
 
     public ArrayList<Cell> getTrack(){
         return this.track;
