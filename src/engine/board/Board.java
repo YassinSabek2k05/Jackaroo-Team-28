@@ -39,20 +39,12 @@ public class Board implements BoardManager
 
     private void assignTrapCell()
     {
-        int count = 0;
-        for(Cell cell : track)
-        {
-            if(cell.isTrap())
-                count++;
-        }
-        if(count > 101)
-            return;
         Random random = new Random();
         while (true)
         {
-            int x = random.nextInt(99) + 1;
+            int x = random.nextInt(100);
             Cell tmp = track.get(x);
-            if (tmp!=null&&tmp.getCellType() == CellType.NORMAL && !tmp.isTrap())
+            if (tmp.getCellType() == CellType.NORMAL && !tmp.isTrap())
             {
                 tmp.setTrap(true);
                 return;
