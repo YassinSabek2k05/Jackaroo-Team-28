@@ -1,6 +1,6 @@
 package exception;
 
-public class InvalidMarbleException extends GameException{
+public class InvalidMarbleException extends InvalidSelectionException{
 
 	public InvalidMarbleException(){
         super();

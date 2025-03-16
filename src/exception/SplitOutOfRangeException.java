@@ -1,6 +1,6 @@
 package exception;
 
-public class SplitOutOfRangeException extends GameException{
+public class SplitOutOfRangeException extends InvalidSelectionException{
 
 	public SplitOutOfRangeException(){
         super();
