@@ -42,7 +42,7 @@ public class Board implements BoardManager
         Random random = new Random();
         while (true)
         {
-            int x = random.nextInt(100);
+            int x = random.nextInt(this.track.size());
             Cell tmp = track.get(x);
             if (tmp.getCellType() == CellType.NORMAL && !tmp.isTrap())
             {
