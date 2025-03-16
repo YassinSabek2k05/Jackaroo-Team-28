@@ -30,25 +30,32 @@ public class Board implements BoardManager
             else
                 track.add(new Cell(CellType.NORMAL)); //adding normal cells in all other postions
         }
-
+        for(int i=0;i<8;i++)
         assignTrapCell();
         
         for (int i = 0; i < 4; i++) 
             safeZones.add(new SafeZone(colourOrder.get(i))); // Store SafeZone in Board's safeZones list
     }    
 
-    private void assignTrapCell() //assigning the "Trap" type to 8 random normal cells in our track
+    private void assignTrapCell()
     {
-        Random random = new Random();
         int count = 0;
-        
-        while(count<8)
+        for(Cell cell : track)
         {
-            int x = random.nextInt(99)+1;
-            Cell tmp = track.get(x);
-            if(tmp.getCellType()==CellType.NORMAL && !tmp.isTrap()){
-                tmp.setTrap(true);
+            if(cell.isTrap())
                 count++;
+        }
+        if(count > 101)
+            return;
+        Random random = new Random();
+        while (true)
+        {
+            int x = random.nextInt(99) + 1;
+            Cell tmp = track.get(x);
+            if (tmp!=null&&tmp.getCellType() == CellType.NORMAL && !tmp.isTrap())
+            {
+                tmp.setTrap(true);
+                return;
             }
         }
     }
