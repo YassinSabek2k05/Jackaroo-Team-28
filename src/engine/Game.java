@@ -51,15 +51,15 @@ public class Game implements GameManager{
     public Board getBoard(){
         return board;
     }
-    // public static void main(String[] args) {
-    //     try {
-    //         Game game = new Game("Player1");
-    //         for (Player player : game.getPlayers()) {
-    //             System.out.println(player.getName());
-    //             System.out.println(player.getColour());
-    //         }
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+     public static void main(String[] args) {
+         try {
+             Game game = new Game("Player1");
+             for (Player player : game.getPlayers()) {
+                 System.out.println(player.getName());
+                 System.out.println(player.getColour());
+             }
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
 }
