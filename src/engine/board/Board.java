@@ -3,7 +3,8 @@ package engine.board;
 import java.util.ArrayList;
 
 import engine.GameManager;
-import model.Colour;
+imporimport model.Co
+import model.player.Marble;lour;
 
 @SuppressWarnings("unused")
 public class Board implements BoardManager {
@@ -61,8 +62,7 @@ public class Board implements BoardManager {
         while(this.track.get(randIndex).getCellType() != CellType.NORMAL || this.track.get(randIndex).isTrap());
         
         this.track.get(randIndex).setTrap(true);
-    }
-        private int getPositionInPath(ArrayList<Cell> path, Marble marble){
+          private int getPositionInPath(ArrayList<Cell> path, Marble marble){
     	for(int i=0;i<path.size();i++){
     		if(path.get(i).getMarble()==marble)
     			return i;
@@ -70,5 +70,56 @@ public class Board implements BoardManager {
     	}return -1;
     	
     }
-    
+    private ArrayList<Cell> getSafeZone(Colour colour){
+        for(SafeZone safeZone : this.safeZones)
+            if(safeZone.getColour()==colour)
+                return safeZone.getCells();
+        return null;
+    }
+    private int getBasePosition(Colour colour){
+        int i=-1;
+        for(SafeZone safeZone: this.safeZones){
+            if(safeZone.getColour()==colour)
+                i=this.getSafeZones().indexOf(safeZone);
+        }
+        switch (i) {
+            case 0:
+                return 0;
+            case 1:
+                return 25;   
+            case 2: 
+                return 50;
+            case 3:
+                return 75;             
+            default:
+                return -1;
+        }
+    }
+    private int getEntryPosition(Colour colour){
+        int i=-1;
+        for(SafeZone safeZone: this.safeZones){
+            if(safeZone.getColour()==colour)
+                i=this.getSafeZones().indexOf(safeZone);
+        }
+        switch (i) {
+            case 0:
+                return 98;
+            case 1:
+                return 23;   
+            case 2: 
+                return 48;
+            case 3:
+                return 73;             
+            default:
+                return -1;
+        }
+    }
+    private ArrayList<Cell> validateSteps(Marble marble, int steps) throws
+IllegalMovementException {
+    boolean five = steps==5;
+    ArrayList<Cell> path = new ArrayList<>();
+    ArrayList<Cell> marbleSafeZone = this.getSafeZone(marble.getColour());
+    int entry = getEntryPosition(marble.getColour());
+    int current = getPosit
 }
+  }
