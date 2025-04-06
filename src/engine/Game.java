@@ -24,10 +24,7 @@ public class Game implements GameManager{
     public Game(String playerName) throws IOException{
         ArrayList<Colour> colourOrder = new ArrayList<>();
         this.players = new ArrayList<>();
-        colourOrder.add(Colour.BLUE);
-        colourOrder.add(Colour.GREEN);
-        colourOrder.add(Colour.RED);
-        colourOrder.add(Colour.YELLOW);
+        Collections.addAll(colourOrder, Colour.BLUE, Colour.GREEN, Colour.RED, Colour.YELLOW);
         Collections.shuffle(colourOrder);
         this.board = new Board(colourOrder, this);
         Deck.loadCardPool(this.board, this);

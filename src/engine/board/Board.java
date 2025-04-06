@@ -31,7 +31,7 @@ public class Board implements BoardManager
                 track.add(new Cell(CellType.NORMAL)); //adding normal cells in all other postions
         }
         for(int i=0;i<8;i++)
-        assignTrapCell();
+            assignTrapCell();
         
         for (int i = 0; i < 4; i++) 
             safeZones.add(new SafeZone(colourOrder.get(i))); // Store SafeZone in Board's safeZones list
@@ -73,7 +73,25 @@ public class Board implements BoardManager
         this.splitDistance = splitDistance;
     }
 
-    
+    public static void main(String[] args) {
+        ArrayList<Colour> colourOrder = new ArrayList<>();
+        colourOrder.add(Colour.BLUE);
+        colourOrder.add(Colour.GREEN);
+        colourOrder.add(Colour.RED);
+        colourOrder.add(Colour.YELLOW);
+        
+        Board board = new Board(colourOrder, null); // Pass null for GameManager in this example
+        ArrayList<Cell> track = board.getTrack();
+        for (Cell cell : track) {
+            System.out.println("Cell Type: " + cell.getCellType() + ", Trap: " + cell.isTrap());
+        }
+        for(SafeZone safeZone : board.getSafeZones()) {
+            System.out.println("SafeZone Colour: " + safeZone.getColour() + ", Cells: " + safeZone.getCells().size());
+            for (Cell cell : safeZone.getCells()) {
+                System.out.println("  Cell Type: " + cell.getCellType());
+            }
+        }
+    }
     
 }
 
