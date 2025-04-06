@@ -2,61 +2,59 @@ package engine;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import engine.board.Board;
-
 import model.Colour;
 import model.card.Card;
 import model.card.Deck;
-import model.player.CPU;
-import model.player.Player;
+import model.player.*;
 
-public class Game implements GameManager{
-
+@SuppressWarnings("unused")
+public class Game implements GameManager {
     private final Board board;
     private final ArrayList<Player> players;
+	private int currentPlayerIndex;
     private final ArrayList<Card> firePit;
-    private int currentPlayerIndex;
     private int turn;
-    
 
-    public Game(String playerName) throws IOException{
+    public Game(String playerName) throws IOException {
+        turn = 0;
+        currentPlayerIndex = 0;
+        firePit = new ArrayList<>();
+
         ArrayList<Colour> colourOrder = new ArrayList<>();
-        this.players = new ArrayList<>();
-        Collections.addAll(colourOrder, Colour.BLUE, Colour.GREEN, Colour.RED, Colour.YELLOW);
+        
+        colourOrder.addAll(Arrays.asList(Colour.values()));
+        
         Collections.shuffle(colourOrder);
+        
         this.board = new Board(colourOrder, this);
-        Deck.loadCardPool(this.board, this);
+        
+        Deck.loadCardPool(this.board, (GameManager)this);
+        
+        this.players = new ArrayList<>();
         this.players.add(new Player(playerName, colourOrder.get(0)));
-        for (int i = 1; i <=3; i++) {
-            this.players.add(new CPU("CPU "+i, colourOrder.get(i), this.board));
-        }
-        for (Player player : this.players) {
-            player.setHand(Deck.drawCards());
-        }
-        this.turn = 0;
-        this.currentPlayerIndex = 0;
-        this.firePit = new ArrayList<>();
+        
+        for (int i = 1; i < 4; i++) 
+            this.players.add(new CPU("CPU " + i, colourOrder.get(i), this.board));
+        
+        for (int i = 0; i < 4; i++) 
+            this.players.get(i).setHand(Deck.drawCards());
+        
     }
-    public ArrayList<Card> getFirePit(){
-        return firePit;
-    }
-    public ArrayList<Player> getPlayers(){
-        return players;
-    }
-    public Board getBoard(){
+    
+    public Board getBoard() {
         return board;
     }
-     public static void main(String[] args) {
-         try {
-             Game game = new Game("Player1");
-             for (Player player : game.getPlayers()) {
-                 System.out.println(player.getName());
-                 System.out.println(player.getColour());
-             }
-         } catch (IOException e) {
-             e.printStackTrace();
-         }
-     }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public ArrayList<Card> getFirePit() {
+        return firePit;
+    }
+    
 }

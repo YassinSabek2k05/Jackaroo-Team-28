@@ -1,5 +1,5 @@
 package engine.board;
 
-public interface BoardManager {
-    int getSplitDistance();
+public interface BoardManager { 
+    public int getSplitDistance();
 }

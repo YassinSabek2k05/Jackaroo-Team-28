@@ -1,11 +1,13 @@
 package exception;
 
- public class InvalidCardException extends InvalidSelectionException{
+public class InvalidCardException extends InvalidSelectionException {
 
-	public InvalidCardException(){
+    public InvalidCardException() {
         super();
     }
-    public InvalidCardException(String message){
+
+    public InvalidCardException(String message) {
         super(message);
     }
+
 }
