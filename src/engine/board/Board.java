@@ -62,5 +62,13 @@ public class Board implements BoardManager {
         
         this.track.get(randIndex).setTrap(true);
     }
+        private int getPositionInPath(ArrayList<Cell> path, Marble marble){
+    	for(int i=0;i<path.size();i++){
+    		if(path.get(i).getMarble()==marble)
+    			return i;
+    		
+    	}return -1;
+    	
+    }
     
 }
