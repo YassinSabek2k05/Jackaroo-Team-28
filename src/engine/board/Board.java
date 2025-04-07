@@ -3,6 +3,7 @@ package engine.board;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import engine.Game;
 import engine.GameManager;
 import exception.CannotFieldException;
 import exception.IllegalDestroyException;
@@ -231,6 +232,7 @@ public class Board implements BoardManager {
     }
     //17
     public ArrayList<Marble> getActionableMarbles(){
+        Game.class.getName();
         // ArrayList<Marble> marbles = new ArrayList<>();
         // for(Cell cell:this.track){
         //     if(cell.getMarble()!=null){
