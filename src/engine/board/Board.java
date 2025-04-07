@@ -1,5 +1,6 @@
 package engine.board;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,6 +13,7 @@ import exception.IllegalSwapException;
 import exception.InvalidMarbleException;
 import model.Colour;
 import model.player.Marble;
+import model.player.Player;
 
 @SuppressWarnings("unused")
 public class Board implements BoardManager {
@@ -193,9 +195,9 @@ public class Board implements BoardManager {
 
     }
     //11
-    private void validateSaving(int positionInSafeZone, int positionOnTrack) throws InvalidMarbleException {
-        if(this.track.get(positionOnTrack).getMarble()==null || )
-    }
+    // private void validateSaving(int positionInSafeZone, int positionOnTrack) throws InvalidMarbleException {
+    //     if(this.track.get(positionOnTrack).getMarble()==null || )
+    // }
     //12
     void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
 
@@ -213,26 +215,27 @@ public class Board implements BoardManager {
 
     }
     //16
-    public void sendToSafe(Marble marble) throws InvalidMarbleException{
-        ArrayList<Cell> safeZ = this.getSafeZone(marble.getColour());
-        int posInSafeZone = this.getPositionInPath(safeZ, marble);
-        int posInPath = this.getPositionInPath(this.track, marble);
-        this.validateSaving(posInSafeZone, posInPath);//checking if 1.the marble was in the SafeZone
-        ArrayList<Cell> unoccupied = new ArrayList<>();
-        for(Cell cell: safeZ)
-            if(cell.getMarble()==null) 
-                unoccupied.add(cell);
-        if(unoccupied.size()==0) 
-            throw new InvalidMarbleException();   
-        int rand = (int)(Math.random() * unoccupied.size());
-        Cell target = unoccupied.get(rand);
-        target.setMarble(marble);
-        this.track.get(posInPath).setMarble(null);
+    // public void sendToSafe(Marble marble) throws InvalidMarbleException{
+    //     ArrayList<Cell> safeZ = this.getSafeZone(marble.getColour());
+    //     int posInSafeZone = this.getPositionInPath(safeZ, marble);
+    //     int posInPath = this.getPositionInPath(this.track, marble);
+    //     this.validateSaving(posInSafeZone, posInPath);//checking if 1.the marble was in the SafeZone
+    //     ArrayList<Cell> unoccupied = new ArrayList<>();
+    //     for(Cell cell: safeZ)
+    //         if(cell.getMarble()==null) 
+    //             unoccupied.add(cell);
+    //     if(unoccupied.size()==0) 
+    //         throw new InvalidMarbleException();   
+    //     int rand = (int)(Math.random() * unoccupied.size());
+    //     Cell target = unoccupied.get(rand);
+    //     target.setMarble(marble);
+    //     this.track.get(posInPath).setMarble(null);
         
-    }
+    // }
     //17
     public ArrayList<Marble> getActionableMarbles(){
-        Game.class.getName();
+        Game game = (Game) this.gameManager;
+        
         // ArrayList<Marble> marbles = new ArrayList<>();
         // for(Cell cell:this.track){
         //     if(cell.getMarble()!=null){
@@ -240,6 +243,18 @@ public class Board implements BoardManager {
         //     }
         // }
         // return marbles;
+    }
+    public static void main(String[] args) throws IOException {
+        Game game = new Game("Yassin");
+        ArrayList<Colour> colourOrder = new ArrayList<>();
+        colourOrder.add(Colour.RED);
+        colourOrder.add(Colour.BLUE);
+        colourOrder.add(Colour.GREEN);
+        colourOrder.add(Colour.YELLOW);
+
+        Board board = new Board(colourOrder, game);
+        System.out.println(board.test().get(1).getName());
+
     }
 }
   
