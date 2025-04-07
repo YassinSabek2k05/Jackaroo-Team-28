@@ -129,18 +129,19 @@ public class Board implements BoardManager {
         if (steps <= 0) {
             throw new IllegalMovementException("Steps must be greater than zero.");
         }
-        boolean five = steps==5;
+        boolean five = steps == -1; //if true the steps will be performed by one of the players on an opponent's marble
+        steps = !five?steps:5;
         ArrayList<Cell> path = new ArrayList<>();
         ArrayList<Cell> marbleSafeZone = this.getSafeZone(marble.getColour());
         int entry = getEntryPosition(marble.getColour());
         int current = getPositionInPath(path, marble);
-        if(current!=-1){
+        if(current!=-1){//the marble is on track
             for(;steps>=0;steps--,current++){
                 if(current>=100)
                     current=0;
                 if(current==entry&&!five){
                     if(steps>4)
-                        throw new IllegalMovementException("Cannot enter the safe zone without rolling a 5.");
+                        throw new IllegalMovementException("the number of moves exceeds the available cells.");
                     else
                         for(int i=0;steps>=0;steps--,i++){
                             path.add(marbleSafeZone.get(i));
@@ -150,6 +151,21 @@ public class Board implements BoardManager {
                     path.add(this.track.get(current));
                 }
 
+            }
+        }
+        else {//the marble is either in the safe zone or in the home zone
+            ArrayList<Cell> safe = this.getSafeZone(marble.getColour());
+            int posInSafeZone = getPositionInPath(safe, marble);
+            if(posInSafeZone!=-1){//the marble is in the safezone
+                for(;steps>=0&&posInSafeZone<4;steps--,posInSafeZone++){
+                    path.add(safe.get(posInSafeZone));
+                }
+                if(steps!=0)
+                    throw new IllegalMovementException("the number of moves exceeds the available cells.");
+
+            }
+            else{//the marble is in the homezone
+                throw new IllegalMovementException("To add the cell from the homezone to the track, the Card must be a King or an Ace.");
             }
         }
         return path;
