@@ -1,6 +1,7 @@
 package engine.board;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import engine.GameManager;
 import exception.CannotFieldException;
@@ -170,6 +171,34 @@ public class Board implements BoardManager {
         }
         return path;
     }
+    //6
+    private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
+
+    }
+    //7
+    private void move(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalDestroyException {
+
+    }
+    //8
+    private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException {
+
+    }
+    //9
+    private void validateDestroy(int positionInPath) throws IllegalDestroyException {
+
+    }
+    //10
+    private void validateFielding(Cell occupiedBaseCell) throws CannotFieldException {
+
+    }
+    //11
+    private void validateSaving(int positionInSafeZone, int positionOnTrack) throws InvalidMarbleException {
+        if(this.track.get(positionOnTrack).getMarble()==null || )
+    }
+    //12
+    void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
+
+    }
     //13
     void swap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
 
@@ -184,17 +213,31 @@ public class Board implements BoardManager {
     }
     //16
     public void sendToSafe(Marble marble) throws InvalidMarbleException{
-
+        ArrayList<Cell> safeZ = this.getSafeZone(marble.getColour());
+        int posInSafeZone = this.getPositionInPath(safeZ, marble);
+        int posInPath = this.getPositionInPath(this.track, marble);
+        this.validateSaving(posInSafeZone, posInPath);//checking if 1.the marble was in the SafeZone
+        ArrayList<Cell> unoccupied = new ArrayList<>();
+        for(Cell cell: safeZ)
+            if(cell.getMarble()==null) 
+                unoccupied.add(cell);
+        if(unoccupied.size()==0) 
+            throw new InvalidMarbleException();   
+        int rand = (int)(Math.random() * unoccupied.size());
+        Cell target = unoccupied.get(rand);
+        target.setMarble(marble);
+        this.track.get(posInPath).setMarble(null);
+        
     }
     //17
     public ArrayList<Marble> getActionableMarbles(){
-        ArrayList<Marble> marbles = new ArrayList<>();
-        for(Cell cell:this.track){
-            if(cell.getMarble()!=null){
-                marbles.add(cell.getMarble());
-            }
-        }
-        return marbles;
+        // ArrayList<Marble> marbles = new ArrayList<>();
+        // for(Cell cell:this.track){
+        //     if(cell.getMarble()!=null){
+        //         marbles.add(cell.getMarble());
+        //     }
+        // }
+        // return marbles;
     }
 }
   
