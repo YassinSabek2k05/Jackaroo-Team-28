@@ -185,38 +185,26 @@ public class Board implements BoardManager {
         if(currColour!= marble.getColour()&& i!=fullPath.size()-1)
         	counter++;
         
-        try{
+        
         	if(currColour==marble.getColour())
         		throw new IllegalMovementException("Self-Blocking: A marble cannot move if there is another marble owned by the same player either in its path or at the target position.");}
-        catch(IllegalMovementException e){
-       System.out.println("Exception:"+ e.getMessage());}
+       
+    
         
-
-        try{
         	if(currType== CellType.ENTRY )
         		throw new IllegalMovementException("Safe Zone Blockage: Cannot enter when a marble is at safezone Entry");}
-        catch(IllegalMovementException e){
-        	System.out.println("Exception:"+ e.getMessage());}
         
         
-        try{
+    
         	if(currType == CellType.BASE&& currColour!= marble.getColour())
         		throw new IllegalMovementException("Base Cell Blockage: another player in current player's base cell/path");}
-        catch(IllegalMovementException e){
-        	System.out.println("Exception:"+ e.getMessage());
-        }
+            }
         
-        
-	
-	}}
-	try{
-		if(counter>1)
-			throw new IllegalMovementException("Path Blockage: More than one marble of opponent blocking path");
-	}
-	catch(IllegalMovementException e){
-		System.out.println("Exception:"+ e.getMessage());}
 
-    }
+	
+		if(counter>1)
+			throw new IllegalMovementException("Path Blockage: More than one marble of opponent blocking path");}
+	
     //7
     private void move(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalDestroyException {
 
@@ -299,7 +287,7 @@ public class Board implements BoardManager {
         ArrayList<Cell> safeZ = this.getSafeZone(marble.getColour());
         int posInSafeZone = this.getPositionInPath(safeZ, marble);
         int posInPath = this.getPositionInPath(this.track, marble);
-        this.validateSaving(posInSafeZone, posInPath);//checking if 1.the marble was in the SafeZone or 2. wasn't on the track
+        this.validateSaving(posInSafeZone, posInPath);//checking if 1.the marble was in the SafeZone
         ArrayList<Cell> unoccupied = new ArrayList<>();
         for(Cell cell: safeZ)
             if(cell.getMarble()==null) 
@@ -314,15 +302,13 @@ public class Board implements BoardManager {
     }
     //17
     public ArrayList<Marble> getActionableMarbles(){
-        Game gameRef = (Game)this.gameManager;
-        Colour currentMarbleColour = gameRef.getActivePlayerColour();
-        ArrayList<Marble> marbles = new ArrayList<>();
-        for(Cell cell:this.track){
-            if(cell.getMarble().getColour()==currentMarbleColour){
-                marbles.add(cell.getMarble());
-            }
-        }
-        return marbles;
+        // ArrayList<Marble> marbles = new ArrayList<>();
+        // for(Cell cell:this.track){
+        //     if(cell.getMarble()!=null){
+        //         marbles.add(cell.getMarble());
+        //     }
+        // }
+        // return marbles;
     }
     public static void main(String[] args) throws IOException {
         Game game = new Game("Yassin");
