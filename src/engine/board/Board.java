@@ -1,8 +1,10 @@
 package engine.board;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import engine.Game;
 import engine.GameManager;
 import exception.CannotFieldException;
 import exception.IllegalDestroyException;
@@ -319,6 +321,18 @@ public class Board implements BoardManager {
         //     }
         // }
         // return marbles;
+    }
+    public static void main(String[] args) throws IOException {
+        Game game = new Game("Yassin");
+        ArrayList<Colour> colourOrder = new ArrayList<>();
+        colourOrder.add(Colour.RED);
+        colourOrder.add(Colour.BLUE);
+        colourOrder.add(Colour.GREEN);
+        colourOrder.add(Colour.YELLOW);
+
+        Board board = new Board(colourOrder, game);
+
+
     }
 }
   

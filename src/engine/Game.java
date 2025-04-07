@@ -85,7 +85,9 @@ public class Game implements GameManager {
 
     }
     //7
-    
+    void endPlayerTurn(){
+        
+    }
     //8
     //9
     //10
