@@ -6,7 +6,10 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import engine.board.Board;
+import exception.CannotDiscardException;
+import exception.CannotFieldException;
 import exception.GameException;
+import exception.IllegalDestroyException;
 import exception.InvalidCardException;
 import exception.InvalidMarbleException;
 import exception.SplitOutOfRangeException;
@@ -61,38 +64,61 @@ public class Game implements GameManager {
         return firePit;
     }
     //1
-    void selectCard(Card card) throws InvalidCardException {
+    public void selectCard(Card card) throws InvalidCardException {
 
     }
     //2
-    void selectMarble(Marble marble) throws InvalidMarbleException{
+    public void selectMarble(Marble marble) throws InvalidMarbleException{
 
     }
     //3
-    void deselectAll(){
+    public void deselectAll(){
 
     }
     //4
-    void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
+    public void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
 
     }
     //5
-    boolean canPlayTurn(){
+    public boolean canPlayTurn(){
 
     }
     //6
-    void playPlayerTurn() throws GameException {
+    public void playPlayerTurn() throws GameException {
 
     }
     //7
-    void endPlayerTurn(){
-        
+    public void endPlayerTurn(){
+
     }
     //8
+    public Colour checkWin(){
+
+    }
     //9
+    public void sendHome(Marble marble){
+
+    }
     //10
+    public void fieldMarble() throws CannotFieldException, IllegalDestroyException{
+
+    }
     //11
+    public void discardCard(Colour colour) throws CannotDiscardException {
+
+    }
     //12
+    public void discardCard() throws CannotDiscardException {
+
+    }
+    //13
+    public Colour getActivePlayerColour(){
+        return this.players.get(currentPlayerIndex).getColour();
+    }
+    //14
+    public Colour getNextPlayerColour(){
+        return this.players.get((currentPlayerIndex>=3)?0:currentPlayerIndex+1).getColour();
+    }
 
 
     
