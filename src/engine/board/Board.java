@@ -302,13 +302,15 @@ public class Board implements BoardManager {
     }
     //17
     public ArrayList<Marble> getActionableMarbles(){
-        // ArrayList<Marble> marbles = new ArrayList<>();
-        // for(Cell cell:this.track){
-        //     if(cell.getMarble()!=null){
-        //         marbles.add(cell.getMarble());
-        //     }
-        // }
-        // return marbles;
+        Game gameRef = (Game)this.gameManager;
+        Colour currentMarbleColour = gameRef.getActivePlayerColour();
+        ArrayList<Marble> marbles = new ArrayList<>();
+        for(Cell cell:this.track){
+            if(cell.getMarble().getColour()==currentMarbleColour){
+                marbles.add(cell.getMarble());
+            }
+        }
+        return marbles;
     }
     public static void main(String[] args) throws IOException {
         Game game = new Game("Yassin");
