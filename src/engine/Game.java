@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import engine.board.Board;
+import engine.board.SafeZone;
 import exception.CannotDiscardException;
 import exception.CannotFieldException;
 import exception.GameException;
@@ -13,6 +14,7 @@ import exception.IllegalDestroyException;
 import exception.InvalidCardException;
 import exception.InvalidMarbleException;
 import exception.SplitOutOfRangeException;
+import engine.board.Cell;
 import model.Colour;
 import model.card.Card;
 import model.card.Deck;
@@ -65,7 +67,7 @@ public class Game implements GameManager {
     }
     //1
     public void selectCard(Card card) throws InvalidCardException {
-
+        this.players.get(this.currentPlayerIndex).
     }
     //2
     public void selectMarble(Marble marble) throws InvalidMarbleException{
@@ -93,11 +95,24 @@ public class Game implements GameManager {
     }
     //8
     public Colour checkWin(){
-
+        ArrayList<SafeZone> safeZ = this.getBoard().getSafeZones();
+        for(SafeZone safe: safeZ){
+            boolean noNulls = true;
+            for(Cell cell:safe.getCells()){
+                if(cell.getMarble()==null){
+                    noNulls=false;
+                    break;
+                }
+            }
+            if(noNulls)
+                return safe.getColour();
+        }
+        return null;
     }
     //9
-    public void sendHome(Marble marble){
-
+    public void sendHome(Marble marble) throws IllegalDestroyException{
+        Board board = this.getBoard();
+        board.destroyMarble(marble);
     }
     //10
     public void fieldMarble() throws CannotFieldException, IllegalDestroyException{

@@ -55,5 +55,36 @@ public class Player {
     public Card getSelectedCard() {
         return selectedCard;
     }
+    //milestone 2
+    //1
+    public void regainMarble(Marble marble){
+        this.marbles.add(marble);
+        
+    }
+    //2
+    public Marble getOneMarble(){
+        if(this.marbles.size()>0)
+            return this.marbles.get(0);
+        return null;
+    }    
+    //3
+    public void selectCard(Card card) throws InvalidCardException{
+
+    }
+    //4
+    public void selectMarble(Marble marble) throws InvalidMarbleException{
+
+    }
+    //5
+    public void deselectAll(){
+
+    }
+    //6
+    public void play() throws GameException{
+
+    }
+
+    
+
 
 }

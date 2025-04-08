@@ -71,7 +71,7 @@ public class Board implements BoardManager {
         this.track.get(randIndex).setTrap(true);
     }
     //1
-    private int getPositionInPath(ArrayList<Cell> path, Marble marble){
+    private int getPositionInPath(ArrayList<Cell> path, Colour marble){
             for(int i=0;i<path.size();i++){
                 if(path.get(i).getMarble()==marble)
                     return i;
@@ -260,15 +260,15 @@ public class Board implements BoardManager {
         if(this.track.get(positionOnTrack).getMarble()==null || )
     }
     //12
-    void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
+    public void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
 
     }
     //13
-    void swap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
+    public void swap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
 
     }
     //14
-    void destroyMarble(Marble marble) throws IllegalDestroyException{
+    public void destroyMarble(Marble marble) throws IllegalDestroyException{
 
     }
     //15
@@ -309,6 +309,10 @@ public class Board implements BoardManager {
             if(cell.getMarble().getColour()==currentMarbleColour){
                 marbles.add(cell.getMarble());
             }
+        }
+        for(Cell cell:this.getSafeZone(currentMarbleColour)){
+            if(cell.getMarble()!=null)
+                marbles.add(cell.getMarble());
         }
         return marbles;
     }
