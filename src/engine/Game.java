@@ -65,7 +65,8 @@ public class Game implements GameManager {
     public ArrayList<Card> getFirePit() {
         return firePit;
     }
-    //1
+    //milestone 2
+    //1 🔍 REVIEW: Needs code review – YS
     public void selectCard(Card card) throws InvalidCardException {
         this.players.get(this.currentPlayerIndex).
     }
@@ -93,8 +94,8 @@ public class Game implements GameManager {
     public void endPlayerTurn(){
 
     }
-    //8
-    public Colour checkWin(){
+    //8 🔍 REVIEW: Needs code review – YS
+    public Colour checkWin(){ 
         ArrayList<SafeZone> safeZ = this.getBoard().getSafeZones();
         for(SafeZone safe: safeZ){
             boolean noNulls = true;
@@ -109,7 +110,7 @@ public class Game implements GameManager {
         }
         return null;
     }
-    //9
+    //9 🔍 REVIEW: Needs code review – YS
     public void sendHome(Marble marble) throws IllegalDestroyException{
         Board board = this.getBoard();
         board.destroyMarble(marble);
@@ -126,11 +127,11 @@ public class Game implements GameManager {
     public void discardCard() throws CannotDiscardException {
 
     }
-    //13
+    //13 🔍 REVIEW: Needs code review – YS
     public Colour getActivePlayerColour(){
         return this.players.get(currentPlayerIndex).getColour();
     }
-    //14
+    //14 🔍 REVIEW: Needs code review – YS
     public Colour getNextPlayerColour(){
         return this.players.get((currentPlayerIndex>=3)?0:currentPlayerIndex+1).getColour();
     }

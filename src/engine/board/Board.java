@@ -71,7 +71,7 @@ public class Board implements BoardManager {
         this.track.get(randIndex).setTrap(true);
     }
     //1
-    private int getPositionInPath(ArrayList<Cell> path, Colour marble){
+    private int getPositionInPath(ArrayList<Cell> path, Marble marble){
             for(int i=0;i<path.size();i++){
                 if(path.get(i).getMarble()==marble)
                     return i;
@@ -80,14 +80,14 @@ public class Board implements BoardManager {
             return -1;                              
     }
     
-    //2
+    //2 🔍 REVIEW: Needs code review – YS
     private ArrayList<Cell> getSafeZone(Colour colour){
         for(SafeZone safeZone : this.safeZones)
             if(safeZone.getColour()==colour)
                 return safeZone.getCells();
         return null;
     }
-    //3
+    //3 🔍 REVIEW: Needs code review – YS
     private int getBasePosition(Colour colour){
         int i=-1;
         for(SafeZone safeZone: this.safeZones){
@@ -107,7 +107,7 @@ public class Board implements BoardManager {
                 return -1;
         }
     }
-    //4
+    //4 🔍 REVIEW: Needs code review – YS
     private int getEntryPosition(Colour colour){
         int i=-1;
         for(SafeZone safeZone: this.safeZones){
@@ -127,13 +127,13 @@ public class Board implements BoardManager {
                 return -1;
         }
     }
-    //5
+    //5 🧪 TESTING: Check for edge cases – YS
     private ArrayList<Cell> validateSteps(Marble marble, int steps) throws IllegalMovementException {
         if (steps <= 0) {
             throw new IllegalMovementException("Steps must be greater than zero.");
         }
-        boolean five = steps == -1; //if true the steps will be performed by one of the players on an opponent's marble
-        steps = !five?steps:5;
+        Game game = (Game) this.gameManager;
+        boolean five = (game.getActivePlayerColour()!=marble.getColour()); //if true the steps will be performed by one of the players on an opponent's marble
         ArrayList<Cell> path = new ArrayList<>();
         ArrayList<Cell> marbleSafeZone = this.getSafeZone(marble.getColour());
         int entry = getEntryPosition(marble.getColour());
@@ -257,7 +257,11 @@ public class Board implements BoardManager {
     }
     //11
     private void validateSaving(int positionInSafeZone, int positionOnTrack) throws InvalidMarbleException {
-        if(this.track.get(positionOnTrack).getMarble()==null || )
+        Game game = (Game) this.gameManager;
+        Colour currentColour = game.getActivePlayerColour();
+        if(this.track.get(positionOnTrack).getMarble()==null || this.getSafeZone(currentColour).get(positionInSafeZone)!=null){//already in the safeZone or in the home zone
+
+        }
     }
     //12
     public void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
@@ -282,7 +286,7 @@ public class Board implements BoardManager {
 
 
     }
-    //16
+    //16 🔍 REVIEW: Needs code review – YS
     public void sendToSafe(Marble marble) throws InvalidMarbleException{
         ArrayList<Cell> safeZ = this.getSafeZone(marble.getColour());
         int posInSafeZone = this.getPositionInPath(safeZ, marble);
@@ -300,7 +304,7 @@ public class Board implements BoardManager {
         this.track.get(posInPath).setMarble(null);
         
     }
-    //17
+    //17 🔍 REVIEW: Needs code review – YS
     public ArrayList<Marble> getActionableMarbles(){
         Game gameRef = (Game)this.gameManager;
         Colour currentMarbleColour = gameRef.getActivePlayerColour();

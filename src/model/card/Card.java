@@ -31,12 +31,15 @@ public abstract class Card {
         return description;
     }
     //milestone 2
-    //1
+    //1 // 🚧 WIP: Logic under development – YS
     public boolean validateMarbleSize(ArrayList<Marble> marbles){
         int size = marbles.size();
         if((this instanceof Jack || this instanceof Seven)||size!=2)
             return false;
-        if(this instanceof )
+        if(size==1 )
+            return false;
+        if(size==0)
+            return false;
         return true;
     }
     //2
