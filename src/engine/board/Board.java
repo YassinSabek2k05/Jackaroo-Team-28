@@ -13,8 +13,6 @@ import exception.IllegalSwapException;
 import exception.InvalidMarbleException;
 import model.Colour;
 import model.player.Marble;
-
-@SuppressWarnings("unused")
 public class Board implements BoardManager {
     private final ArrayList<Cell> track;
     private final ArrayList<SafeZone> safeZones;
@@ -137,18 +135,18 @@ public class Board implements BoardManager {
         ArrayList<Cell> path = new ArrayList<>();
         ArrayList<Cell> marbleSafeZone = this.getSafeZone(marble.getColour());
         int entry = getEntryPosition(marble.getColour());
-        int current = getPositionInPath(path, marble);
+        int current = getPositionInPath(this.track, marble);
         if(current!=-1){//the marble is on track
-            for(;steps>=0;steps--,current++){
-                if(current>=100)
+            for(;steps>0;steps--,current++){
+                if(current>=this.track.size())
                     current=0;
                 if(current==entry&&!five){
-                    if(steps>4)
+                    if(steps>marbleSafeZone.size())
                         throw new IllegalMovementException("the number of moves exceeds the available cells.");
-                    else
-                        for(int i=0;steps>=0;steps--,i++){
-                            path.add(marbleSafeZone.get(i));
-                        }
+                    for(int i=0;steps>0;steps--,i++){
+                        path.add(marbleSafeZone.get(i));
+                    }
+                    return path;
                 }
                 else{
                     path.add(this.track.get(current));
@@ -160,7 +158,7 @@ public class Board implements BoardManager {
             ArrayList<Cell> safe = this.getSafeZone(marble.getColour());
             int posInSafeZone = getPositionInPath(safe, marble);
             if(posInSafeZone!=-1){//the marble is in the safezone
-                for(;steps>=0&&posInSafeZone<4;steps--,posInSafeZone++){
+                for(;steps>0&&posInSafeZone<safe.size();steps--,posInSafeZone++){
                     path.add(safe.get(posInSafeZone));
                 }
                 if(steps!=0)
