@@ -83,11 +83,11 @@ public class Deck {
         return cards;
     }
 	//milestone2
-	//1
+	//1 🔍 REVIEW: Needs code review – Y
 	public static void refillPool(ArrayList<Card> cards){
-		
+		cardsPool.addAll(cards);
 	}
-	//2
+	//2 🔍 REVIEW: Needs code review – Y
 	public static int getPoolSize(){
 		if(cardsPool==null){
 			return 0;

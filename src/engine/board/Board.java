@@ -172,7 +172,7 @@ public class Board implements BoardManager {
         return path;
     }
     //6
-    // private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
+    private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
     //     int counter=0;
 	// for(int i=0;i<fullPath.size();i++){
     //     if(fullPath.get(i)!=null&& destroy==false){
@@ -201,7 +201,8 @@ public class Board implements BoardManager {
 
 	
 	// 	if(counter>1)
-	// 		throw new IllegalMovementException("Path Blockage: More than one marble of opponent blocking path");}
+	// 		throw new IllegalMovementException("Path Blockage: More than one marble of opponent blocking path");
+    }
 	
     //7 🔍 REVIEW: Needs code review – R/Y
     private void move(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalDestroyException {
@@ -317,11 +318,13 @@ public class Board implements BoardManager {
         }
 
     }
-    //12
+    //12 🔍 REVIEW: Needs code review – Y
     public void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
-
+        ArrayList<Cell> fullPath = this.validateSteps(marble, steps);
+        this.validatePath(marble, fullPath, destroy);
+        move(marble, fullPath, destroy);
     }
-    //13
+    //13 🔍 REVIEW: Needs code review – Y
     public void swap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
         this.validateSwap(marble_1, marble_2);
         Cell cell1 = this.track.get(this.getPositionInPath(track, marble_1));
