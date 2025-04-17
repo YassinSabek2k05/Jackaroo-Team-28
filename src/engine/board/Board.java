@@ -218,7 +218,7 @@ public class Board implements BoardManager {
                 }
             }
         }
-        else{ // not a King: it destroys only the marble in the target cell if one exists
+        else{ //if not a King: it destroys only the marble in the target cell if one exists
             if(fullPath.get(fullPath.size()-1).getMarble()!=null){
                 destroyMarble(targetCell.getMarble());
             }
@@ -235,7 +235,7 @@ public class Board implements BoardManager {
         }
     }
     //8
-//     private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException {
+    private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException {
 //         boolean marble1Exists=false;
 // 	boolean marble2Exists=false;
 // 	boolean marble1Base=false;
@@ -266,7 +266,7 @@ public class Board implements BoardManager {
 // 	catch(IllegalSwapException e){System.out.println("Exception:"+ e.getMessage());}
 		
 	
-// }
+}
 
 
     // }
@@ -323,7 +323,11 @@ public class Board implements BoardManager {
     }
     //13
     public void swap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
-
+        this.validateSwap(marble_1, marble_2);
+        Cell cell1 = this.track.get(this.getPositionInPath(track, marble_1));
+        Cell cell2 = this.track.get(this.getPositionInPath(track, marble_2));
+        cell1.setMarble(marble_2);
+        cell2.setMarble(marble_1);
     }
     //14 🔍 REVIEW: Needs code review – Y
     public void destroyMarble(Marble marble) throws IllegalDestroyException{
