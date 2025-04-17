@@ -68,7 +68,7 @@ public class Game implements GameManager {
     //milestone 2
     //1 🔍 REVIEW: Needs code review – YS
     public void selectCard(Card card) throws InvalidCardException {
-        this.players.get(this.currentPlayerIndex).
+        // this.players.get(this.currentPlayerIndex).
     }
     //2
     public void selectMarble(Marble marble) throws InvalidMarbleException{
@@ -76,7 +76,8 @@ public class Game implements GameManager {
     }
     //3
     public void deselectAll(){
-
+    	Player currentPlayer = this.players.get(currentPlayerIndex);
+        currentPlayer.deselectAll();
     }
     //4
     public void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
@@ -84,7 +85,13 @@ public class Game implements GameManager {
     }
     //5
     public boolean canPlayTurn(){
-
+        Player currentPlayer = this.players.get(currentPlayerIndex);
+        
+        if (currentPlayer.getHand().size() >= turn) {
+            return true;  
+        } else {
+            return false;  
+        }
     }
     //6
     public void playPlayerTurn() throws GameException {
@@ -136,6 +143,10 @@ public class Game implements GameManager {
         return this.players.get((currentPlayerIndex>=3)?0:currentPlayerIndex+1).getColour();
     }
 
+    public static void main(String[] args) throws Throwable{
+        Game g = new Game("Y");
+        System.out.println(Deck.getPoolSize());
 
+    }
     
 }

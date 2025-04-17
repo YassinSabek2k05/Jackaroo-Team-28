@@ -82,6 +82,19 @@ public class Deck {
         cardsPool.subList(0, 4).clear();
         return cards;
     }
+	//milestone2
+	//1
+	public static void refillPool(ArrayList<Card> cards){
+		
+	}
+	//2
+	public static int getPoolSize(){
+		if(cardsPool==null){
+			return 0;
+		}
+		else	
+			return Deck.cardsPool.size();
+	}
 
 }
 
