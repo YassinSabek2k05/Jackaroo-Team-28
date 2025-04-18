@@ -152,7 +152,12 @@ public class Game implements GameManager {
     }
     //10
     public void fieldMarble() throws CannotFieldException, IllegalDestroyException{
-
+	Marble marble= this.players.get(this.currentPlayerIndex).getOneMarble();
+	    if(marble ==null)
+		    throw new CannotFieldException();
+	    board.sendToBase(marble);
+	    this.players.get(this.currentPlayerIndex).getMarbles().remove(0);
+	    
     }
     //11
     public void discardCard(Colour colour) throws CannotDiscardException {
