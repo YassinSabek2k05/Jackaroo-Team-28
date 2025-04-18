@@ -68,10 +68,11 @@ public class Game implements GameManager {
     //milestone 2
     //1 🔍 REVIEW: Needs code review – YS
     public void selectCard(Card card) throws InvalidCardException {
-        // this.players.get(this.currentPlayerIndex).
+        this.players.get(this.currentPlayerIndex).selectCard(card);
     }
     //2
     public void selectMarble(Marble marble) throws InvalidMarbleException{
+	    this.players.get(this.currentPlayerIndex).selectMarble(marble);
 
     }
     //3
@@ -81,6 +82,11 @@ public class Game implements GameManager {
     }
     //4
     public void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
+	    if(splitDistance<1 || splitDistance>6)
+	    	throw new SplitOutOfRangeException();
+	    board.getSplitDistance()= splitDistance;
+	    
+	    
 
     }
     //5
