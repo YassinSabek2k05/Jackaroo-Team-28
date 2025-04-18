@@ -30,7 +30,6 @@ public class Standard extends Card {
     // 🚧 WIP: Logic under development – YS
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'act'");
+        this.boardManager.moveBy(marbles.get(0), rank, false);
     }
 }

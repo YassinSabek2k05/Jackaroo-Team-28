@@ -19,7 +19,7 @@ public class Burner extends Wild {
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'act'");
+        this.boardManager.destroyMarble(marbles.get(0));
     }
 
 }

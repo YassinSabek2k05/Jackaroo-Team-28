@@ -17,7 +17,10 @@ public class King extends Standard {
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         // TODO Auto-generated method stub
-        Game game = (Game) this.gameManager;
-        
+        if(marbles.size()==0){
+            this.gameManager.getActivePlayerColour();
+            
+        this.boardManager.sendToBase(marbles.get(0));}
+        this.boardManager.moveBy(marbles.get(0), getRank(), true);
     }
 }
