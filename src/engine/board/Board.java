@@ -97,15 +97,16 @@ public class Board implements BoardManager {
             if(safeZone.getColour()==colour)
                 i=this.getSafeZones().indexOf(safeZone);
         }
+        int size = this.track.size();
         switch (i) {
             case 0:
                 return 0;
             case 1:
-                return 25;   
+                return size/4;   
             case 2: 
-                return 50;
+                return size/2;
             case 3:
-                return 75;             
+                return size*3/4;             
             default:
                 return -1;
         }
@@ -117,15 +118,16 @@ public class Board implements BoardManager {
             if(safeZone.getColour()==colour)
                 i=this.getSafeZones().indexOf(safeZone);
         }
+        int size = this.track.size();
         switch (i) {
             case 0:
-                return 98;
+                return size-2;
             case 1:
-                return 23;   
+                return (size/4)-2;   
             case 2: 
-                return 48;
+                return (size/2)-2;
             case 3:
-                return 73;             
+                return (size*3/4)-2;             
             default:
                 return -1;
         }
@@ -291,22 +293,22 @@ private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapEx
     // Updated logic by Y – minor changes
     private void validateDestroy(int positionInPath) throws IllegalDestroyException {//🔴position in track?
         // if(positionInPath==-1 && this.track.get(positionInPath).getMarble()!=null) throw new IllegalDestroyException("Cannot destroy marble: Marble is not on track");
+        
         if (positionInPath < 0 || positionInPath >= track.size()) {
 	        throw new IllegalDestroyException("Invalid destroy: Position is outside the track.");
-	    }
+	    }  
+
 	    Cell targetCell = track.get(positionInPath);
-	    
-	    if (targetCell.getMarble() == null) {
-	        throw new IllegalDestroyException("Invalid destroy: No marble found at the given track position.");
+        Marble marble = targetCell.getMarble();
+	    if(targetCell.getCellType()!=CellType.BASE) return;
+
+	    if (marble == null) {
+	        // throw new IllegalDestroyException("Invalid destroy: No marble found at the given track position.");
+            return;
 	    }
-	    
-	    if (targetCell.getCellType() == CellType.BASE) {
-	        Colour marbleColour = targetCell.getMarble().getColour();
-            int baseCellIndex = this.getBasePosition(marbleColour);
-	        if (baseCellIndex==positionInPath) {
-	            throw new IllegalDestroyException("Invalid destroy: Cannot destroy a marble that is safe in its own Base Cell.");
-	        }
-	    }
+	    if(this.getBasePosition(marble.getColour())==positionInPath)
+            throw new IllegalDestroyException("Invalid destroy: Cannot destroy a marble that is safe in its own Base Cell.");
+
     }
     //10 🔍 REVIEW: Needs code review – R
     private void validateFielding(Cell occupiedBaseCell) throws CannotFieldException {
