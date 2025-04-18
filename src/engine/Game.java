@@ -161,7 +161,13 @@ public class Game implements GameManager {
     }
     //11
     public void discardCard(Colour colour) throws CannotDiscardException {
-
+        ArrayList<Card> tmp = null;
+        for(Player player:this.getPlayers()){
+            if(player.getColour()==colour)
+                tmp = player.getHand();
+        }
+        if(tmp==null)
+            throw new CannotDiscardException("This player has no cards");
     }
     //12
     public void discardCard() throws CannotDiscardException {
