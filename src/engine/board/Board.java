@@ -369,12 +369,14 @@ private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapEx
     //15
     @Override
     public void sendToBase(Marble marble) throws CannotFieldException, IllegalDestroyException{
-    //    int targetPos= getBasePosition(marble.getColour());
-    //    if(track.get(targetPos)!=null){
-    //     validateFielding(Cell occupiedBaseCell);
-    //     destroyMarble(track.get(targetPos).getMarble());
-    //    }
-    //    track.add(targetPos, marble);
+     int targetPos= getBasePosition(marble.getColour());
+    	       if(track.get(targetPos)!=null){
+    	         validateFielding(track.get(targetPos));
+    	        destroyMarble(track.get(targetPos).getMarble());
+    	        }
+    	       Cell cell= (new Cell(CellType.BASE));
+    	       cell.setMarble(marble);
+    	        track.add(targetPos,cell);
 
 
     }
