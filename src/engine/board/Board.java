@@ -200,7 +200,7 @@ public class Board implements BoardManager {
 
         
 		if(counter>1)
-			throw new IllegalMovementException("Path Blockage: More than one marble blocking path");}
+			throw new IllegalMovementException("Path Blockage: More than one marble blocking path");
 	
 }
 	
@@ -242,13 +242,13 @@ private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapEx
 	boolean marble1Base=false;
 	boolean marble2Base=false;
 
-    int i1= getPositioninPath(track,marble_1);
-    int i2= getPositioninPath(track,marble_2);
+    int i1= getPositionInPath(track,marble_1);
+    int i2= getPositionInPath(track,marble_2);
 
     if(marble_1.getColour()==marble_2.getColour())
         throw new IllegalSwapException("same player");
 	if(i1!=-1)
-		{if(track.get(i).getCellType()!= CellType.BASE)
+		{if(track.get(i1).getCellType()!= CellType.BASE)
 				marble1Exists=true;
 			else
 				marble1Base=true;}
@@ -265,8 +265,9 @@ private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapEx
 		throw new IllegalSwapException("one of the marbles not on track");
 
 	if(marble1Base==true||marble2Base==true)
-		throw new IllegalSwapException("Opponent in Base cell");}
-
+		throw new IllegalSwapException("Opponent in Base cell");
+    }
+    
     //9 🔍 REVIEW: Needs code review – R
     // Updated logic by Y – minor changes
     private void validateDestroy(int positionInPath) throws IllegalDestroyException {//🔴position in track?
@@ -314,10 +315,11 @@ private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapEx
         }
 
     }
-    //12
+    //12 🔍 REVIEW: Needs code review – Y
     public void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
-
-
+        ArrayList<Cell> fullPath = this.validateSteps(marble, steps);
+        this.validatePath(marble, fullPath, destroy);
+        move(marble, fullPath, destroy);
     }
     //13
     public void swap(Marble marble_1, Marble marble_2) throws IllegalSwapException{
