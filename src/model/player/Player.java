@@ -59,7 +59,6 @@ public class Player {
     //1
     public void regainMarble(Marble marble){
         this.marbles.add(marble);
-        
     }
     //2
     public Marble getOneMarble(){
@@ -69,22 +68,35 @@ public class Player {
     }    
     //3
     public void selectCard(Card card) throws InvalidCardException{
-
+        boolean flag = false;
+        for(Card handCard: this.hand){
+            if(card==handCard){ //if the given card is available in the player’s hand
+                this.selectedCard = card; //sets it to the selectedCard
+                flag = true;
+                break;
+            }
+        }
+        if(!flag) //Throws an InvalidCardException if the card does not belong to the current player’s hand.
+            throw new InvalidCardException("the card does not belong to the current player's hand");
     }
     //4
-    public void selectMarble(Marble marble) throws InvalidMarbleException{
-
+    public void selectMarble(Marble marble) throws InvalidMarbleException{//Selects a marble to be used in the game
+        if(this.selectedMarbles.size()>2) //Throws an InvalidMarbleException if trying to select more than two marbles.
+            throw new InvalidMarbleException("Can't select more than 2 Marbles");
+        this.selectedMarbles.add(marble);  //adding it to the selectedMarbles
     }
     //5
     public void deselectAll(){
-
+        this.selectedCard = null;
+        this.selectedMarbles.clear();
     }
     //6
     public void play() throws GameException{
-
+        if(this.selectedCard==null) //it checks if a card has been selected
+            throw new InvalidCardException("No card has been selected");
+        //It then validates the number and color of the selected marbles are appropriate for the selected card
+        this.selectedCard.validateMarbleSize(marbles);
+        this.selectedCard.validateMarbleColours(marbles);
+        this.selectedCard.act(marbles);// Upon passing all checks, the method allows the selected card to act with the selected marbles.
     }
-
-    
-
-
 }
