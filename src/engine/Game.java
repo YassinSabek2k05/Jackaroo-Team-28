@@ -104,7 +104,7 @@ public class Game implements GameManager {
 	    this.players.get(this.currentPlayerIndex).play();
 
     }
-    //7 code rev - MKKKKK
+    //7
     public void endPlayerTurn(){
 	    
 		firePit.add(this.players.get(this.currentPlayerIndex).getSelectedCard());
