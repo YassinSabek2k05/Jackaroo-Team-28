@@ -101,10 +101,32 @@ public class Game implements GameManager {
     }
     //6
     public void playPlayerTurn() throws GameException {
+	    this.players.get(this.currentPlayerIndex).play();
 
     }
-    //7
+    //7 code rev - MKKKKK
     public void endPlayerTurn(){
+	    
+		firePit.add(this.players.get(this.currentPlayerIndex).getSelectedCard());
+	    this.players.get(this.currentPlayerIndex).deselectAll();
+	    
+	    if(currentPlayerIndex>3){
+		    currentPlayerIndex=0;
+		    turn++;
+	    }
+	    else
+		currentPlayerIndex++;
+	    if(turn>4)
+	    {turn=0;
+	     Deck.drawCards();
+	     Deck.refillPool(firePit);
+	     if(Deck.getPoolSize()<4)
+		     Deck.refillPool(null);
+	    }
+	    
+	    
+	    
+	    
 
     }
     //8 🔍 REVIEW: Needs code review – YS
