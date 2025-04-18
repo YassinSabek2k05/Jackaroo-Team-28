@@ -68,10 +68,11 @@ public class Game implements GameManager {
     //milestone 2
     //1 🔍 REVIEW: Needs code review – YS
     public void selectCard(Card card) throws InvalidCardException {
-        // this.players.get(this.currentPlayerIndex).
+        this.players.get(this.currentPlayerIndex).selectCard(card);
     }
     //2
     public void selectMarble(Marble marble) throws InvalidMarbleException{
+	    this.players.get(this.currentPlayerIndex).selectMarble(marble);
 
     }
     //3
@@ -81,6 +82,11 @@ public class Game implements GameManager {
     }
     //4
     public void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
+	    if(splitDistance<1 || splitDistance>6)
+	    	throw new SplitOutOfRangeException();
+	    board.getSplitDistance()= splitDistance;
+	    
+	    
 
     }
     //5
@@ -95,10 +101,32 @@ public class Game implements GameManager {
     }
     //6
     public void playPlayerTurn() throws GameException {
+	    this.players.get(this.currentPlayerIndex).play();
 
     }
     //7
     public void endPlayerTurn(){
+	    
+		firePit.add(this.players.get(this.currentPlayerIndex).getSelectedCard());
+	    this.players.get(this.currentPlayerIndex).deselectAll();
+	    
+	    if(currentPlayerIndex>3){
+		    currentPlayerIndex=0;
+		    turn++;
+	    }
+	    else
+		currentPlayerIndex++;
+	    if(turn>4)
+	    {turn=0;
+	     Deck.drawCards();
+	     Deck.refillPool(firePit);
+	     if(Deck.getPoolSize()<4)
+		     Deck.refillPool(null);
+	    }
+	    
+	    
+	    
+	    
 
     }
     //8 🔍 REVIEW: Needs code review – YS
@@ -124,7 +152,12 @@ public class Game implements GameManager {
     }
     //10
     public void fieldMarble() throws CannotFieldException, IllegalDestroyException{
-
+	Marble marble= this.players.get(this.currentPlayerIndex).getOneMarble();
+	    if(marble ==null)
+		    throw new CannotFieldException();
+	    board.sendToBase(marble);
+	    this.players.get(this.currentPlayerIndex).getMarbles().remove(0);
+	    
     }
     //11
     public void discardCard(Colour colour) throws CannotDiscardException {
