@@ -166,12 +166,24 @@ public class Game implements GameManager {
             if(player.getColour()==colour)
                 tmp = player.getHand();
         }
-        if(tmp==null)
+        if(tmp==null||tmp.isEmpty())
             throw new CannotDiscardException("This player has no cards");
+        int rand = (int) (Math.random() * tmp.size());
+        firePit.add(tmp.remove(rand));
     }
     //12
     public void discardCard() throws CannotDiscardException {
-
+        int numberOfPlayers = this.getPlayers().size();
+        Player randomPlayer = this.getPlayers().get((int) (Math.random() * numberOfPlayers));
+        do{
+            randomPlayer = this.getPlayers().get((int) (Math.random() * numberOfPlayers));
+        }
+        while(randomPlayer.getColour()==this.getActivePlayerColour());
+            if(randomPlayer.getHand()==null||randomPlayer.getHand().isEmpty()){
+                throw new CannotDiscardException("This player has no cards");
+        }
+        int rand = (int) (Math.random() * randomPlayer.getHand().size());
+        firePit.add(randomPlayer.getHand().remove(rand));
     }
     //13 🔍 REVIEW: Needs code review – YS
     public Colour getActivePlayerColour(){
