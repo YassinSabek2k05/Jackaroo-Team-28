@@ -16,9 +16,9 @@ public class Ace extends Standard {
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         // TODO Auto-generated method stub
-        if(marbles.size()==2)
-           this.gameManager.fieldMarble();
         if(marbles.size()==1)
+           this.gameManager.fieldMarble();
+        if(marbles.size()==0)
             super.act(marbles);
     }
 
