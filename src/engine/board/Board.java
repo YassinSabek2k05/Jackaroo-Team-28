@@ -397,6 +397,7 @@ private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapEx
             this.validateDestroy(this.getPositionInPath(track, marble));
         }
         this.track.get(getPositionInPath(track, marble)).setMarble(null);
+        this.gameManager.sendHome(marble);
     }
     //15
     @Override

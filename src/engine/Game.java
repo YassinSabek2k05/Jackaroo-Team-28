@@ -146,9 +146,13 @@ public class Game implements GameManager {
         return null;
     }
     //9 🔍 REVIEW: Needs code review – YS
-    public void sendHome(Marble marble) throws IllegalDestroyException{
+    public void sendHome(Marble marble){
         Board board = this.getBoard();
-        board.destroyMarble(marble);
+        for(Player player: this.getPlayers()){
+            if(player.getColour()==marble.getColour()){
+                player.getMarbles().add(marble);
+            }
+        }
     }
     //10
     public void fieldMarble() throws CannotFieldException, IllegalDestroyException{

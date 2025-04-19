@@ -19,6 +19,6 @@ public class Jack extends Standard {
         if(marbles.size()==2)
             this.boardManager.swap(marbles.get(0), marbles.get(1));
         if(marbles.size()==1)
-            this.boardManager.moveBy(marbles.get(0), this.getRank(), false);
+            super.act(marbles);
     }
 }
