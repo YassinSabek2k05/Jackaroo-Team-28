@@ -73,7 +73,6 @@ public class Game implements GameManager {
     //2
     public void selectMarble(Marble marble) throws InvalidMarbleException{
 	    this.players.get(this.currentPlayerIndex).selectMarble(marble);
-
     }
     //3
     public void deselectAll(){
@@ -106,27 +105,29 @@ public class Game implements GameManager {
     }
     //7
     public void endPlayerTurn(){
-	    
-		firePit.add(this.players.get(this.currentPlayerIndex).getSelectedCard());
-	    this.players.get(this.currentPlayerIndex).deselectAll();
-	    
-	    if(currentPlayerIndex>3){
-		    currentPlayerIndex=0;
-		    turn++;
-	    }
-	    else
-		currentPlayerIndex++;
-	    if(turn>4)
-	    {turn=0;
-	     Deck.drawCards();
-	     Deck.refillPool(firePit);
-	     if(Deck.getPoolSize()<4)
-		     Deck.refillPool(null);
-	    }
-	    
-	    
-	    
-	    
+        Player player = this.getPlayers().get(currentPlayerIndex);
+        firePit.add(player.getSelectedCard());//a
+        player.deselectAll(); //b
+        this.currentPlayerIndex++; //c
+        if(this.currentPlayerIndex==this.players.size()){//d
+            this.currentPlayerIndex=0; 
+            turn++;
+        }
+        if(turn==4) {
+            turn=0;
+            for(Player pl: this.getPlayers()){
+                if(Deck.getPoolSize()<4){
+                    Deck.refillPool(firePit);
+                    firePit.clear();
+                }
+                pl.setHand(Deck.drawCards());
+
+            }
+        }
+
+        
+        
+        
 
     }
     //8 🔍 REVIEW: Needs code review – YS

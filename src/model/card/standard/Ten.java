@@ -14,6 +14,10 @@ public class Ten extends Standard {
         super(name, description, 10, suit, boardManager, gameManager);
     }
     @Override
+    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
+        return (marbles.size()==0 || marbles.size()==1);
+    }
+    @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         // TODO Auto-generated method stub
         if(marbles.size()==0)

@@ -34,25 +34,12 @@ public abstract class Card {
     }
     //milestone 2
     //1 // 🚧 WIP: Logic under development – YS
-    public boolean validateMarbleSize(ArrayList<Marble> marbles){
-        int size = marbles.size();
-        // if((this instanceof Jack || this instanceof Seven)||size!=2)
-        //     return false;
-        // if(size==1 )
-        //     return false;
-        // if(size==0)
-        //     return false;
-        if(size==0)
-            if(!(this instanceof Ten||this instanceof Queen))
-                return false;
-        if(size==2)
-            if(!(this instanceof Seven || this instanceof Jack))
-                return false;
-        return true;
+    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
+        return marbles.size()==1;
     }
-    //2
-    public boolean validateMarbleColours(ArrayList<Marble> marbles){
-        return false;
+    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
+        if(marbles.size()==0) return true;
+        return marbles.get(0).getColour()==this.gameManager.getActivePlayerColour();
     }
     //3
     public abstract void act(ArrayList<Marble> marbles) throws ActionException,InvalidMarbleException;

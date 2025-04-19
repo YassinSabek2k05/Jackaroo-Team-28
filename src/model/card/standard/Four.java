@@ -16,6 +16,6 @@ public class Four  extends Standard {
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         // TODO Auto-generated method stub
-        super.act(marbles);
+        this.boardManager.moveBy(marbles.get(0), -4, false);
     }
 }

@@ -13,13 +13,16 @@ public class Saver extends Wild {
     public Saver(String name, String description, BoardManager boardManager, GameManager gameManager) {
         super(name, description, boardManager, gameManager);
     }
-    
+    @Override
+    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
+        return marbles.get(0).getColour()==this.gameManager.getActivePlayerColour();
+    }
     //milestone 2
     // 🚧 WIP: Logic under development – YS
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'act'");
+        this.boardManager.sendToSafe(marbles.get(0));
     }
 
 }

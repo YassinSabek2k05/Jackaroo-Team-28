@@ -14,8 +14,29 @@ public class Seven extends Standard {
         super(name, description, 7, suit, boardManager, gameManager);
     }
     @Override
+    public boolean validateMarbleColours(ArrayList<Marble> marbles) {
+        if(marbles.size()==2)
+            return marbles.get(0).getColour()==marbles.get(1).getColour();
+        if(marbles.size()==1)
+            return marbles.get(0).getColour() == this.gameManager.getActivePlayerColour();
+        return false;
+    }
+    @Override
+    public boolean validateMarbleSize(ArrayList<Marble> marbles) {
+        // TODO Auto-generated method stub
+        return (marbles.size()==1 || marbles.size()==2);
+    }
+    @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         // TODO Auto-generated method stub
-        super.act(marbles);
+        if(marbles.size()==1)
+            super.act(marbles);
+        else if(marbles.size()==2){
+            int steps1 = this.boardManager.getSplitDistance();
+            int steps2 = 7-steps1;
+            this.boardManager.moveBy(marbles.get(0), steps1, false);
+            this.boardManager.moveBy(marbles.get(1), steps2, false);
+
+        }
     }
 }

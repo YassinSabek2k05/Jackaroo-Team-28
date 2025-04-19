@@ -81,8 +81,9 @@ public class Player {
     }
     //4
     public void selectMarble(Marble marble) throws InvalidMarbleException{//Selects a marble to be used in the game
-        if(this.selectedMarbles.contains(marble)) return;
-        if(this.selectedMarbles.size()>2) //Throws an InvalidMarbleException if trying to select more than two marbles.
+        if(this.selectedMarbles.contains(marble)) 
+            return;
+        if(this.selectedMarbles.size()>=2) //Throws an InvalidMarbleException if trying to select more than two marbles.
             throw new InvalidMarbleException("Can't select more than 2 Marbles");
         this.selectedMarbles.add(marble);  //adding it to the selectedMarbles
     }
@@ -96,8 +97,9 @@ public class Player {
         if(this.selectedCard==null) //it checks if a card has been selected
             throw new InvalidCardException("No card has been selected");
         //It then validates the number and color of the selected marbles are appropriate for the selected card
-        this.selectedCard.validateMarbleSize(marbles);
-        this.selectedCard.validateMarbleColours(marbles);
-        this.selectedCard.act(marbles);// Upon passing all checks, the method allows the selected card to act with the selected marbles.
+        if(!this.selectedCard.validateMarbleSize(this.selectedMarbles)||!this.selectedCard.validateMarbleColours(this.selectedMarbles))
+            throw new InvalidMarbleException();
+        
+        this.selectedCard.act(this.selectedMarbles);// Upon passing all checks, the method allows the selected card to act with the selected marbles.
     }
 }
