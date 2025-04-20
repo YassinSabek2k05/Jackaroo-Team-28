@@ -237,25 +237,34 @@ public class Board implements BoardManager {
             movingOp = true;
         int i=0;
         int otherFreq = 0; 
+        Cell cell=null;
         for(;i<fullPath.size();i++){
-            Cell cell= fullPath.get(i);
+            cell= fullPath.get(i);
             Marble currentMarble = cell.getMarble();
-            // if(cell==this.track.get(this.getEntryPosition(this.gameManager.getActivePlayerColour()))&&i<fullPath.size()-1&&fullPath.get(i+1).getCellType()!=CellType.SAFE)
-            //     throw new IllegalMovementException();
+            if(cell==this.track.get(this.getEntryPosition(this.gameManager.getActivePlayerColour()))&&i<fullPath.size()-1&&fullPath.get(i+1).getCellType()!=CellType.SAFE&&!movingOp)
+                throw new IllegalMovementException();
+            System.out.println("hello");
             if(i!=0){
             if(currentMarble!=null){
-                if(cell.equals(this.track.get(this.getBasePosition(currentMarble.getColour()))))//Base Cell Blockage
+                System.out.println(cell.getCellType());
+                if(i<fullPath.size()-1)
+                System.out.println(fullPath.get(i+1).getCellType());
+                if(cell.getCellType()==CellType.ENTRY&&i<fullPath.size()-1&&fullPath.get(i+1).getCellType()==CellType.SAFE)
+                    throw new IllegalMovementException("Hello");
+                int currentPlayerEntry = this.getEntryPosition(this.gameManager.getActivePlayerColour());
+                if(this.track.get(currentPlayerEntry)==cell)
+                    throw new IllegalMovementException("a player cannot bypass or destroy his own marble.");
+                    
+                if(this.getBasePosition(currentMarble.getColour())>=0&&cell.equals(this.track.get(this.getBasePosition(currentMarble.getColour()))))//Base Cell Blockage
                     throw new IllegalMovementException("A marble's movement is blocked if another player's marble is in its player's Base cell, either in the path or target position.");
 
                 if(!destroy){//not a king: selfblocking, path-blockage and safezone entry
-                
-                    if(currentMarble.getColour()==this.gameManager.getActivePlayerColour())
+
+                    if(currentMarble.getColour()==this.gameManager.getActivePlayerColour())//Self-blocking:I, as a player cannot bypass or destroy my own marble.
                         throw new IllegalMovementException("a player cannot bypass or destroy his own marble.");
-                    otherFreq++;//path-blockage
-                    if(cell.equals(this.track.get(this.getEntryPosition(this.gameManager.getActivePlayerColour()))) 
-                    && currentMarble != null 
-                    && i < fullPath.size() - 1 
-                    && fullPath.get(i + 1).getCellType() == CellType.SAFE)
+                    if(i<fullPath.size()-1)
+                        otherFreq++;//path-blockage
+                    if(this.track.indexOf(cell)==this.getEntryPosition(this.gameManager.getActivePlayerColour()))
                      throw new IllegalMovementException("A marble cannot enter its player's Safe Zone if any marble is stationed at its player's Safe Zone Entry.");
                  
                 }
@@ -276,6 +285,8 @@ public class Board implements BoardManager {
                 if(otherFreq>1)
                     throw new IllegalMovementException("Movement is invalid if there is more than one marble (owned by any player) blocking the path.");
         }
+        // if(cell!=null&&cell.getCellType()==CellType.SAFE&&cell.getMarble()!=null)
+        //     throw new IllegalMovementException(null);
     }
 	
     //7 🔍 REVIEW: Needs code review – R/Y
@@ -308,7 +319,7 @@ public class Board implements BoardManager {
         }
     }
     //8
-private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException {
+    private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapException {
         int marb1Index = this.getPositionInPath(track, marble_1);
         int marb2Index = this.getPositionInPath(track, marble_2);
         // Track Marbles: Swapping is prohibited if either of the involved marbles are
@@ -482,12 +493,22 @@ private void validateSwap(Marble marble_1, Marble marble_2) throws IllegalSwapEx
         board.getSafeZone(mar.getColour()).get(0).setMarble(mar);
         board.track.get(99).setMarble(mar2);
 
-        ArrayList<Cell> a  = (board.validateSteps(mar, 1));
-        for(Cell b : a){
-            System.out.println(b.getMarble());
-            System.out.println(board.track.indexOf(b));
-        }
-
+        // ArrayList<Cell> a  = (board.validateSteps(mar, 1));
+        // for(Cell b : a){
+        //     System.out.println(b.getMarble());
+        //     System.out.println(board.track.indexOf(b));
+        // }
+        Cell cell0 = new Cell(CellType.NORMAL);
+        Cell cell1 = new Cell(CellType.ENTRY);
+        Cell cell2 = new Cell(CellType.NORMAL);
+        Marble marble = new Marble(game.getActivePlayerColour());
+        Marble marble2 = new Marble(null);
+        cell1.setMarble(marble2);
+        ArrayList<Cell> path = new ArrayList<>();
+        path.add(cell0);
+        path.add(cell1);
+        path.add(cell2);
+        game.getBoard().validatePath(marble2, path, false);
     }
 }
   
