@@ -24,16 +24,7 @@ public class King extends Standard {
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         // TODO Auto-generated method stub
         if(marbles.size()==0){
-            Marble homeMarble= null;
-            for(Player player:((Game)this.gameManager).getPlayers()){
-                if(player.getColour()==this.gameManager.getActivePlayerColour()){
-                    homeMarble = player.getOneMarble();
-                    break;
-                }
-            }
-            if(homeMarble==null)
-                throw new InvalidMarbleException("No Marbles in the homezone");
-            this.boardManager.sendToBase(homeMarble);
+            this.gameManager.fieldMarble();
         }
         else if(marbles.size()==1){
             this.boardManager.moveBy(marbles.get(0), getRank(), true);  

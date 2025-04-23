@@ -22,14 +22,7 @@ public class Ace extends Standard {
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         if(marbles.size()==0){
-            Marble homeMarble= null;
-            for(Player player:((Game)this.gameManager).getPlayers()){
-                if(player.getColour()==this.gameManager.getActivePlayerColour()){
-                    homeMarble = player.getOneMarble();
-                    break;
-                }
-            }
-            this.boardManager.sendToBase(homeMarble);
+            this.gameManager.fieldMarble();
         }
         else if(marbles.size()==1){
             super.act(marbles);  
