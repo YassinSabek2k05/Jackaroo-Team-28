@@ -134,7 +134,7 @@ public class Board implements BoardManager {
     }
     //5 🧪 TESTING: Check for edge cases – Y
     private ArrayList<Cell> validateSteps(Marble marble, int steps) throws IllegalMovementException {
-
+        if(getSafeZone(marble.getColour())==null) throw new IllegalMovementException("Invalid Marble");
         Game game = (Game) this.gameManager;
         boolean five = (game.getActivePlayerColour()!=marble.getColour()); //if true the steps will be performed by one of the players on an opponent's marble
         boolean backwards = steps<0;
@@ -195,43 +195,43 @@ public class Board implements BoardManager {
         return path;
     }
     //6
-    private void validatePath1(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
-        int counter=0;
 
-
-	for(int i=0;i<fullPath.size();i++){
-        if(fullPath.get(i)!=null&& destroy==false){
+    // private void validatePath1(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
+    //     int counter=0;
+	// for(int i=0;i<fullPath.size();i++){
+    //     if(fullPath.get(i)!=null&& destroy==false){
         	
-        	Colour currColour=fullPath.get(i).getMarble().getColour(); //NullPointerException
-        	CellType currType= fullPath.get(i).getCellType();
+    //     	Colour currColour=fullPath.get(i).getMarble().getColour(); //NullPointerException
+    //     	CellType currType= fullPath.get(i).getCellType();
         
-        if(i!=fullPath.size()-1)
-        	counter++;
+    //     if(i!=fullPath.size()-1)
+    //     	counter++;
         
         
-        	if(currColour==marble.getColour()) //will always throw an exception because the for loop starts at index 0 which contains the marble we want to move
-        		throw new IllegalMovementException("Self-Blocking: A marble cannot move if there is another marble owned by the same player either in its path or at the target position.");
+    //     	if(currColour==marble.getColour()) //will always throw an exception because the for loop starts at index 0 which contains the marble we want to move
+    //     		throw new IllegalMovementException("Self-Blocking: A marble cannot move if there is another marble owned by the same player either in its path or at the target position.");
        
     
         
-        	if(currType== CellType.ENTRY )
-        		throw new IllegalMovementException("Safe Zone Blockage: Cannot enter when a marble is at safezone Entry");
+    //     	if(currType== CellType.ENTRY )
+    //     		throw new IllegalMovementException("Safe Zone Blockage: Cannot enter when a marble is at safezone Entry");
         
         
     
-        	if(currType == CellType.BASE&& currColour!= marble.getColour())
-        		throw new IllegalMovementException("Base Cell Blockage: another player in current player's base cell/path");}
+    //     	if(currType == CellType.BASE&& currColour!= marble.getColour())
+    //     		throw new IllegalMovementException("Base Cell Blockage: another player in current player's base cell/path");}
 
-        //check not sure of the safe zone pt 
-        if(fullPath.get(i)!=null&& fullPath.get(i).getCellType()==CellType.SAFE)
-        	throw new IllegalMovementException("cannot bypass or land on Safe Zone marble");
+    //     //check not sure of the safe zone pt 
+    //     if(fullPath.get(i)!=null&& fullPath.get(i).getCellType()==CellType.SAFE)
+    //     	throw new IllegalMovementException("cannot bypass or land on Safe Zone marble");
 
         
-		if(counter>1)
-			throw new IllegalMovementException("Path Blockage: More than one marble blocking path");}
+	// 	if(counter>1)
+	// 		throw new IllegalMovementException("Path Blockage: More than one marble blocking path");}
 	
-    }
+    // }
     private void validatePath(Marble marble, ArrayList<Cell> fullPath, boolean destroy) throws IllegalMovementException {
+        if(getSafeZone(marble.getColour())==null) throw new IllegalMovementException("Invalid Marble");
         boolean movingOp = false;
         if(marble.getColour()!=this.gameManager.getActivePlayerColour())
             movingOp = true;
@@ -390,6 +390,7 @@ public class Board implements BoardManager {
     //12 🔍 REVIEW: Needs code review – Y
     @Override
     public void moveBy(Marble marble, int steps, boolean destroy) throws IllegalMovementException, IllegalDestroyException {
+        if(getSafeZone(marble.getColour())==null) throw new IllegalMovementException("Invalid Marble");
         ArrayList<Cell> fullPath = this.validateSteps(marble, steps);
         this.validatePath(marble, fullPath, destroy);
         move(marble, fullPath, destroy);
