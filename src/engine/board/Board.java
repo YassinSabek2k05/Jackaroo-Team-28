@@ -243,7 +243,6 @@ public class Board implements BoardManager {
             Marble currentMarble = cell.getMarble();
             if(cell==this.track.get(this.getEntryPosition(this.gameManager.getActivePlayerColour()))&&i<fullPath.size()-1&&fullPath.get(i+1).getCellType()!=CellType.SAFE&&!movingOp)
                 throw new IllegalMovementException();
-            System.out.println("hello");
             if(i!=0){
             if(currentMarble!=null){
                 System.out.println(cell.getCellType());
