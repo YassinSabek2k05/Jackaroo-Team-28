@@ -272,8 +272,6 @@ public class Board implements BoardManager {
                     if(cell.getCellType()==CellType.SAFE&&currentMarble.getColour()==this.gameManager.getActivePlayerColour())
                         throw new IllegalMovementException("a player cannot bypass or destroy his own marbles in the safezone.");                   
                 }
-
-
             }
         }
 
@@ -340,7 +338,7 @@ public class Board implements BoardManager {
 
     //9 🔍 REVIEW: Needs code review – R
     // Updated logic by Y – minor changes
-    private void validateDestroy(int positionInPath) throws IllegalDestroyException {//🔴position in track?
+    private void validateDestroy(int positionInPath) throws IllegalDestroyException {
         // if(positionInPath==-1 && this.track.get(positionInPath).getMarble()!=null) throw new IllegalDestroyException("Cannot destroy marble: Marble is not on track");
         
         if (positionInPath < 0 || positionInPath >= track.size()) {
