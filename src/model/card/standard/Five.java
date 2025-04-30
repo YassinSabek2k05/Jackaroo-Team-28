@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import engine.GameManager;
 import engine.board.BoardManager;
-import exception.ActionException;
-import exception.InvalidMarbleException;
 import model.player.Marble;
 
 public class Five extends Standard {
@@ -18,10 +16,4 @@ public class Five extends Standard {
         // TODO Auto-generated method stub
         return marbles.get(0).getColour()!=null;
     }
-    @Override
-    public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-        // TODO Auto-generated method stub
-        super.act(marbles);
-    }
-
 }

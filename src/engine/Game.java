@@ -19,7 +19,7 @@ import model.Colour;
 import model.card.Card;
 import model.card.Deck;
 import model.player.*;
-
+//Submission #1
 @SuppressWarnings("unused")
 public class Game implements GameManager {
     private final Board board;
@@ -66,7 +66,7 @@ public class Game implements GameManager {
         return firePit;
     }
     //milestone 2
-    //1 🔍 REVIEW: Needs code review – YS
+    //1 
     public void selectCard(Card card) throws InvalidCardException {
         this.players.get(this.currentPlayerIndex).selectCard(card);
     }
@@ -82,17 +82,14 @@ public class Game implements GameManager {
     //4
     public void editSplitDistance(int splitDistance) throws SplitOutOfRangeException{
 	    if(splitDistance<1 || splitDistance>6)
-	    	throw new SplitOutOfRangeException();
+            throw new SplitOutOfRangeException("Split distance must be between 1 and 6 inclusive");
 	    board.setSplitDistance(splitDistance);
-	    
-	    
-
     }
     //5
     public boolean canPlayTurn(){
         Player currentPlayer = this.players.get(currentPlayerIndex);
         
-        if (currentPlayer.getHand().size() >= turn) {
+        if (currentPlayer.getHand().size() + turn==4) {
             return true;  
         } else {
             return false;  
@@ -100,8 +97,11 @@ public class Game implements GameManager {
     }
     //6
     public void playPlayerTurn() throws GameException {
-	    this.players.get(this.currentPlayerIndex).play();
-
+        if(checkWin()==null){
+            if(this.canPlayTurn())
+	            this.players.get(this.currentPlayerIndex).play();
+            this.endPlayerTurn();
+        }
     }
     //7
     public void endPlayerTurn(){
@@ -121,33 +121,21 @@ public class Game implements GameManager {
                     firePit.clear();
                 }
                 pl.setHand(Deck.drawCards());
-
             }
         }
-
-        
-        
-        
-
     }
-    //8 🔍 REVIEW: Needs code review – YS
+    //8 
     public Colour checkWin(){ 
         ArrayList<SafeZone> safeZ = this.getBoard().getSafeZones();
         for(SafeZone safe: safeZ){
-            boolean noNulls = true;
-            for(Cell cell:safe.getCells()){
-                if(cell.getMarble()==null){
-                    noNulls=false;
-                    break;
-                }
-            }
-            if(noNulls)
+            if(safe.isFull())
                 return safe.getColour();
         }
         return null;
     }
-    //9 🔍 REVIEW: Needs code review – YS
+    //9 
     public void sendHome(Marble marble){
+        if(marble==null) return;
         Board board = this.getBoard();
         for(Player player: this.getPlayers()){
             if(player.getColour()==marble.getColour()){
@@ -157,12 +145,11 @@ public class Game implements GameManager {
     }
     //10
     public void fieldMarble() throws CannotFieldException, IllegalDestroyException{
-	Marble marble= this.players.get(this.currentPlayerIndex).getOneMarble();
+	    Marble marble= this.players.get(this.currentPlayerIndex).getOneMarble();
 	    if(marble ==null)
-		    throw new CannotFieldException();
+            throw new CannotFieldException("No marble available to field");
 	    board.sendToBase(marble);
 	    this.players.get(this.currentPlayerIndex).getMarbles().remove(0);
-	    
     }
     //11
     public void discardCard(Colour colour) throws CannotDiscardException {
@@ -190,19 +177,19 @@ public class Game implements GameManager {
         int rand = (int) (Math.random() * randomPlayer.getHand().size());
         firePit.add(randomPlayer.getHand().remove(rand));
     }
-    //13 🔍 REVIEW: Needs code review – YS
+    //13 
     public Colour getActivePlayerColour(){
         return this.players.get(currentPlayerIndex).getColour();
     }
-    //14 🔍 REVIEW: Needs code review – YS
+    //14 
     public Colour getNextPlayerColour(){
         return this.players.get((currentPlayerIndex>=3)?0:currentPlayerIndex+1).getColour();
     }
 
-    public static void main(String[] args) throws Throwable{
-        Game g = new Game("Y");
-        System.out.println(Deck.getPoolSize());
-
-    }
+//    public static void main(String[] args) throws Throwable{
+//        Game g = new Game("Y");
+//        System.out.println(Deck.getPoolSize());
+//
+//    }
     
 }

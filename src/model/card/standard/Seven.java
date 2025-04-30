@@ -16,7 +16,7 @@ public class Seven extends Standard {
     @Override
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
         if(marbles.size()==2)
-            return marbles.get(0).getColour()==marbles.get(1).getColour();
+            return marbles.get(0).getColour() == this.gameManager.getActivePlayerColour()&&marbles.get(0).getColour()==marbles.get(1).getColour();
         if(marbles.size()==1)
             return marbles.get(0).getColour() == this.gameManager.getActivePlayerColour();
         return false;

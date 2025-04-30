@@ -6,10 +6,6 @@ import engine.GameManager;
 import engine.board.BoardManager;
 import exception.ActionException;
 import exception.InvalidMarbleException;
-import model.card.standard.Jack;
-import model.card.standard.Queen;
-import model.card.standard.Seven;
-import model.card.standard.Ten;
 import model.player.Marble;
 
 public abstract class Card {
@@ -33,12 +29,19 @@ public abstract class Card {
         return description;
     }
     //milestone 2
-    //1 // 🚧 WIP: Logic under development – YS
+    //1 
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-        return marbles.size()==1;
+        return marbles!=null&&marbles.size()==1;
     }
+    //2
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-        if(marbles.size()==0) return true;
+        if(marbles==null)
+            return false;
+        if(marbles.isEmpty()) 
+            return true;
+        if (marbles.get(0).getColour() == null)
+            return false;
+    
         return marbles.get(0).getColour()==this.gameManager.getActivePlayerColour();
     }
     //3
