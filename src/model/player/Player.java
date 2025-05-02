@@ -97,8 +97,11 @@ public class Player {
         if(this.selectedCard==null) //it checks if a card has been selected
             throw new InvalidCardException("No card has been selected");
         //It then validates the number and color of the selected marbles are appropriate for the selected card
-        if(!this.selectedCard.validateMarbleSize(this.selectedMarbles)||!this.selectedCard.validateMarbleColours(this.selectedMarbles))
-            throw new InvalidMarbleException();
+        if(!this.selectedCard.validateMarbleSize(this.selectedMarbles))
+            throw new InvalidMarbleException("Invalid number of marbles selected");
+
+        if(!this.selectedCard.validateMarbleColours(this.selectedMarbles))
+            throw new InvalidMarbleException("Invalid marble color selected");
         
         this.selectedCard.act(this.selectedMarbles);// Upon passing all checks, the method allows the selected card to act with the selected marbles.
     }

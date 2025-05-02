@@ -19,7 +19,7 @@ import model.Colour;
 import model.card.Card;
 import model.card.Deck;
 import model.player.*;
-//Submission #1
+//Submission #2
 @SuppressWarnings("unused")
 public class Game implements GameManager {
     private final Board board;
@@ -100,7 +100,6 @@ public class Game implements GameManager {
         if(checkWin()==null){
             if(this.canPlayTurn())
 	            this.players.get(this.currentPlayerIndex).play();
-            this.endPlayerTurn();
         }
     }
     //7

@@ -15,15 +15,16 @@ public class Queen extends Standard {
     }
     @Override
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-        return (marbles.size()==0 || marbles.size()==1);
+        return (marbles.size()==0 || super.validateMarbleSize(marbles));
     }
 
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-        // TODO Auto-generated method stub
+        
+        if (marbles == null) return;
         if(marbles.size()==1)
             super.act(marbles);
-        if(marbles.size()==0)
+        else if(marbles.size()==0)
             this.gameManager.discardCard();
     }
 }

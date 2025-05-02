@@ -20,10 +20,11 @@ public class Jack extends Standard {
     }
     @Override
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
+        if(marbles==null) return false;
         if(marbles.size()==1){
-            return marbles.get(0).getColour()==this.gameManager.getActivePlayerColour();
+            return super.validateMarbleColours(marbles);
         }
-        if(marbles.size()==2){
+        else if(marbles.size()==2){
             Colour mar1 = marbles.get(0).getColour();
             Colour mar2 = marbles.get(1).getColour();
             if(mar1==mar2||(mar1!=this.gameManager.getActivePlayerColour()&&mar2!=this.gameManager.getActivePlayerColour()))
@@ -35,7 +36,7 @@ public class Jack extends Standard {
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         if(marbles.size()==2)
             this.boardManager.swap(marbles.get(0), marbles.get(1));
-        if(marbles.size()==1)
+        else if(marbles.size()==1)
             super.act(marbles);
     }
 }

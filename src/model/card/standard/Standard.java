@@ -28,7 +28,7 @@ public class Standard extends Card {
     }
     //milestone 2
     
-    // 🚧 WIP: Logic under development – YS
+    
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
         this.boardManager.moveBy(marbles.get(0), rank, false);

@@ -15,15 +15,14 @@ public class Ten extends Standard {
     }
     @Override
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-        return (marbles.size()==0 || marbles.size()==1);
+        return !(marbles == null) &&(marbles.size()==0 ||super.validateMarbleSize(marbles));
     }
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-        // TODO Auto-generated method stub
         if(marbles.size()==0)
             this.gameManager.discardCard(this.gameManager.getNextPlayerColour());
-        if(marbles.size()==1)
-        super.act(marbles);
+        else if(marbles.size()==1)
+            super.act(marbles);
     }
 
 }

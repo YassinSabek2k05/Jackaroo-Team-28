@@ -13,7 +13,7 @@ public class Five extends Standard {
     }
     @Override
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-        // TODO Auto-generated method stub
-        return marbles.get(0).getColour()!=null;
+        return marbles!=null&&!marbles.isEmpty()&&marbles.get(0) != null &&marbles.get(0).getColour() != null;
     }
+    
 }

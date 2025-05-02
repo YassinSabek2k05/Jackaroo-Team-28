@@ -17,7 +17,7 @@ public class Ace extends Standard {
     }
     @Override
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-        return (marbles.size()==1||marbles.size()==0);
+        return (super.validateMarbleSize(marbles)||marbles.size()==0);
     }
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {

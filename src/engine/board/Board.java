@@ -260,9 +260,6 @@ public class Board implements BoardManager {
                 throw new IllegalMovementException("Cannot bypass entry to safe zone when not entering the safe zone when controlling your marble and moving forward.");
             if(i!=0){
             if(currentMarble!=null){
-                System.out.println(cell.getCellType());
-                if(i<fullPath.size()-1)
-                System.out.println(fullPath.get(i+1).getCellType());
                 if(cell.getCellType()==CellType.ENTRY&&i<fullPath.size()-1&&fullPath.get(i+1).getCellType()==CellType.SAFE)
                     throw new IllegalMovementException("Cannot enter safe zone: Entry is blocked by another marble.");
                 int currentPlayerEntry = this.getEntryPosition(this.gameManager.getActivePlayerColour());
@@ -392,16 +389,23 @@ public class Board implements BoardManager {
         Colour currentColour = game.getActivePlayerColour();
         if(positionInSafeZone==-1 && positionOnTrack==-1)
             throw new InvalidMarbleException("The Selected Marble is in the Homezone");
-        
+
         if (positionOnTrack != -1) {
             if(this.track.get(positionOnTrack).getMarble() == null)
                 throw new InvalidMarbleException("Invalid marble: The selected marble is not on the track.");
-            else if(this.track.get(positionOnTrack).getMarble().getColour()!=this.gameManager.getActivePlayerColour())
-                throw new InvalidMarbleException("sdfs");
+            else if(this.track.get(positionOnTrack).getMarble().getColour()!=currentColour)
+                throw new InvalidMarbleException("Invalid marble: Cannot save an opponent's marble.");
+            ArrayList<Cell> safeZ = this.getSafeZone(this.track.get(positionOnTrack).getMarble().getColour());
+            boolean full=true;
+            for(Cell cell: safeZ){
+                if(cell.getMarble()==null) full=false;
+            }
+            if(full) throw new InvalidMarbleException("SafeZone is full");
         }
         if (positionInSafeZone != -1) {
             throw new InvalidMarbleException("Invalid marble: The selected marble is already in the Safe Zone.");
         }
+
     }
     //12 🔍 REVIEW: Needs code review – Y
     @Override
@@ -472,8 +476,7 @@ public class Board implements BoardManager {
         int rand = (int)(Math.random() * unoccupied.size());
         Cell target = safeZ.get(unoccupied.get(rand));
         target.setMarble(marble);
-        this.track.get(getPositionInPath(this.track, marble)).setMarble(null);
-        
+        this.track.get(getPositionInPath(this.track, marble)).setMarble(null);  
     }
     //17 🔍 REVIEW: Needs code review – Y
     @Override
@@ -493,21 +496,24 @@ public class Board implements BoardManager {
         return marbles;
     }
     public static void main(String[] args) throws IOException, InvalidMarbleException, ActionException {
-        // Game game = new Game("Yassin");
-        // ArrayList<Colour> colourOrder = new ArrayList<>();
-        // colourOrder.add(Colour.RED);
-        // colourOrder.add(Colour.BLUE);
-        // colourOrder.add(Colour.GREEN);
-        // colourOrder.add(Colour.YELLOW);
+        Game game = new Game("Yassin");
+        ArrayList<Colour> colourOrder = new ArrayList<>();
+        colourOrder.add(Colour.RED);
+        colourOrder.add(Colour.BLUE);
+        colourOrder.add(Colour.GREEN);
+        colourOrder.add(Colour.YELLOW);
 
-        // Board board = new Board(colourOrder, game);
-        // board.track.get(5).setMarble(new Marble(Colour.RED));
-        // Colour currColour=board.track.get(5).getMarble().getColour();
-        // Marble mar = new Marble(currColour);
-        // Marble mar2 = new Marble(currColour);
-        // // board.track.get(board.getEntryPosition(mar.getColour())).setMarble(mar);
-        // board.getSafeZone(mar.getColour()).get(0).setMarble(mar);
-        // board.track.get(99).setMarble(mar2);
+        Board board = game.getBoard();
+        Marble red = new Marble(game.getActivePlayerColour());
+        ArrayList<Cell> safe = board.getSafeZone(game.getActivePlayerColour());
+        board.track.get(97).setMarble(red);
+        ArrayList<Cell> path = board.validateSteps(red,5);
+        for(Cell cell : path)
+            if(board.track.indexOf(cell)!=-1)
+            System.out.println(board.track.indexOf(cell));
+            else System.out.println(safe.indexOf(cell));
+
+
 
         // // ArrayList<Cell> a  = (board.validateSteps(mar, 1));
         // // for(Cell b : a){
@@ -525,25 +531,25 @@ public class Board implements BoardManager {
         // path.add(cell1);
         // path.add(cell2);
         // game.getBoard().validatePath(marble2, path, false);
-                Game game = new Game("Y");
-        Scanner sc = new Scanner(System.in);
-        String input = "";
-        Four four = new Four("four", "sfsf", Suit.CLUB, game.getBoard(), game);
-        // while(input!="end"){
-        //     input = sc.nextLine();
+        //         Game game = new Game("Y");
+        // Scanner sc = new Scanner(System.in);
+        // String input = "";
+        // Four four = new Four("four", "sfsf", Suit.CLUB, game.getBoard(), game);
+        // // while(input!="end"){
+        // //     input = sc.nextLine();
+        // // }
+        // game.fieldMarble();
+        // System.out.println(game.getBoard().getTrack().get(0).getMarble().getColour());
+        // ArrayList<Marble> marbles = new ArrayList<>();
+        // Marble marble = game.getBoard().getTrack().get(0).getMarble();
+        // marbles.add(marble);
+        // four.act(marbles);
+        // ArrayList<Cell> path = game.getBoard().validateSteps(marble,-4);
+        // for(Cell cell: path){
+        //     System.out.println(game.getBoard().getTrack().indexOf(cell));
         // }
-        game.fieldMarble();
-        System.out.println(game.getBoard().getTrack().get(0).getMarble().getColour());
-        ArrayList<Marble> marbles = new ArrayList<>();
-        Marble marble = game.getBoard().getTrack().get(0).getMarble();
-        marbles.add(marble);
-        four.act(marbles);
-        ArrayList<Cell> path = game.getBoard().validateSteps(marble,-4);
-        for(Cell cell: path){
-            System.out.println(game.getBoard().getTrack().indexOf(cell));
-        }
-        game.getBoard().validatePath(marble,path,false);
-        System.out.println(game.getBoard().getTrack().get(96).getMarble().getColour());
+        // game.getBoard().validatePath(marble,path,false);
+        // System.out.println(game.getBoard().getTrack().get(96).getMarble().getColour());
 
     }
 }
