@@ -26,11 +26,10 @@ public class Standard extends Card {
     public Suit getSuit() {
         return suit;
     }
-    //milestone 2
-    
-    
+
     @Override
-    public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
+    public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException{
         this.boardManager.moveBy(marbles.get(0), rank, false);
     }
+
 }

@@ -55,54 +55,50 @@ public class Player {
     public Card getSelectedCard() {
         return selectedCard;
     }
-    //milestone 2
-    //1
-    public void regainMarble(Marble marble){
+    
+    public void regainMarble(Marble marble) {
         this.marbles.add(marble);
     }
-    //2
-    public Marble getOneMarble(){
-        if(this.marbles.size()>0)
-            return this.marbles.get(0);
-        return null;
-    }    
-    //3
-    public void selectCard(Card card) throws InvalidCardException{
-        boolean flag = false;
-        for(Card handCard: this.hand){
-            if(card==handCard){ //if the given card is available in the player’s hand
-                this.selectedCard = card; //sets it to the selectedCard
-                flag = true;
-                break;
-            }
+
+    public Marble getOneMarble() {
+        if(marbles.isEmpty())
+            return null;
+
+        return this.marbles.get(0);
+    }
+
+    public void selectCard(Card card) throws InvalidCardException {
+        if (!this.hand.contains(card)) 
+            throw new InvalidCardException("Card not in hand.");
+        
+        this.selectedCard = card;
+    }
+
+    public void selectMarble(Marble marble) throws InvalidMarbleException {
+        if (!this.selectedMarbles.contains(marble)) {
+            if(this.selectedMarbles.size() > 1)
+                throw new InvalidMarbleException("Cannot select more than 2 marbles.");
+            
+            selectedMarbles.add(marble);
         }
-        if(!flag) //Throws an InvalidCardException if the card does not belong to the current player’s hand.
-            throw new InvalidCardException("the card does not belong to the current player's hand");
     }
-    //4
-    public void selectMarble(Marble marble) throws InvalidMarbleException{//Selects a marble to be used in the game
-        if(this.selectedMarbles.contains(marble)) 
-            return;
-        if(this.selectedMarbles.size()>=2) //Throws an InvalidMarbleException if trying to select more than two marbles.
-            throw new InvalidMarbleException("Can't select more than 2 Marbles");
-        this.selectedMarbles.add(marble);  //adding it to the selectedMarbles
-    }
-    //5
-    public void deselectAll(){
+
+    public void deselectAll() {
         this.selectedCard = null;
         this.selectedMarbles.clear();
     }
-    //6
-    public void play() throws GameException{
-        if(this.selectedCard==null) //it checks if a card has been selected
-            throw new InvalidCardException("No card has been selected");
-        //It then validates the number and color of the selected marbles are appropriate for the selected card
-        if(!this.selectedCard.validateMarbleSize(this.selectedMarbles))
-            throw new InvalidMarbleException("Invalid number of marbles selected");
 
-        if(!this.selectedCard.validateMarbleColours(this.selectedMarbles))
-            throw new InvalidMarbleException("Invalid marble color selected");
+    public void play() throws GameException {
+        if(selectedCard == null)
+            throw new InvalidCardException("Must select a card to play.");
         
-        this.selectedCard.act(this.selectedMarbles);// Upon passing all checks, the method allows the selected card to act with the selected marbles.
+        if(!this.selectedCard.validateMarbleSize(this.selectedMarbles))
+            throw new InvalidMarbleException("Invalid number of marbles selected for " + selectedCard.getName() + ".");
+        
+        if(!this.selectedCard.validateMarbleColours(this.selectedMarbles))
+            throw new InvalidMarbleException("Invalid marble colours selected for " + selectedCard.getName() + ".");
+        
+        this.selectedCard.act(this.selectedMarbles);
     }
+
 }

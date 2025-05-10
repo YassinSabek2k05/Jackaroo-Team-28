@@ -82,19 +82,14 @@ public class Deck {
         cardsPool.subList(0, 4).clear();
         return cards;
     }
-	//milestone2
-	//1 🔍 REVIEW: Needs code review – Y
-	public static void refillPool(ArrayList<Card> cards){
-		cardsPool.addAll(cards);
+    
+    public static int getPoolSize() {
+		return cardsPool.size();
 	}
-	//2 🔍 REVIEW: Needs code review – Y
-	public static int getPoolSize(){
-		if(cardsPool==null){
-			return 0;
-		}
-		else	
-			return Deck.cardsPool.size();
-	}
+
+    public static void refillPool(ArrayList<Card> cards) {
+        cardsPool.addAll(cards);
+    }
 
 }
 

@@ -14,29 +14,30 @@ public class Jack extends Standard {
     public Jack(String name, String description, Suit suit, BoardManager boardManager, GameManager gameManager) {
         super(name, description, 11, suit, boardManager, gameManager);
     }
+    
     @Override
     public boolean validateMarbleSize(ArrayList<Marble> marbles) {
-        return marbles.size()==2 || marbles.size()==1;
+        return marbles.size() == 2 || super.validateMarbleSize(marbles);
     }
+
     @Override
     public boolean validateMarbleColours(ArrayList<Marble> marbles) {
-        if(marbles==null) return false;
-        if(marbles.size()==1){
-            return super.validateMarbleColours(marbles);
-        }
-        else if(marbles.size()==2){
-            Colour mar1 = marbles.get(0).getColour();
-            Colour mar2 = marbles.get(1).getColour();
-            if(mar1==mar2||(mar1!=this.gameManager.getActivePlayerColour()&&mar2!=this.gameManager.getActivePlayerColour()))
-                return false;
-        }
-        return true;
+    	if(marbles.size() == 2) {
+    		Colour myColour = gameManager.getActivePlayerColour();
+    		return marbles.get(0).getColour().equals(myColour) != marbles.get(1).getColour().equals(myColour); 		
+    	}
+    	
+    	else
+    		return super.validateMarbleColours(marbles);
     }
+
     @Override
     public void act(ArrayList<Marble> marbles) throws ActionException, InvalidMarbleException {
-        if(marbles.size()==2)
-            this.boardManager.swap(marbles.get(0), marbles.get(1));
-        else if(marbles.size()==1)
+        if(marbles.size() == 2)
+            boardManager.swap(marbles.get(0), marbles.get(1));
+        
+        else
             super.act(marbles);
     }
+
 }
