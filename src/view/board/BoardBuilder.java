@@ -29,23 +29,22 @@ public class BoardBuilder {
         int cellSize = boardMappings.getCellSize();
         int addPaddingAll = 30;
         int paddingTop = 25+addPaddingAll;
-        int paddingBottom = 670-25-cellSize-addPaddingAll;
+        int paddingBottom = 670-25-25-addPaddingAll;
         int paddingRight=670-25-cellSize-addPaddingAll;
         int paddingLeft=25+addPaddingAll;
         Pane cells = new Pane();
         cells.setPrefSize(670, 670);
-        Point2D[] positions = getPoints(paddingTop, paddingBottom,paddingLeft, paddingRight, cellSize,670,670);
+        cells.setMinSize(670, 670);
+
+        Point2D[] positions = getPoints(paddingTop, paddingBottom,paddingLeft, paddingRight, 20,670,670);
         for (int i = 0; i < positions.length && i < game.getBoard().getTrack().size(); i++) {
 
             StackPane cellPane = boardMappings.getCellMaps().getPane(game.getBoard().getTrack().get(i));
-            System.out.println(cellPane);
             cellPane.setLayoutX(positions[i].getX());
             cellPane.setLayoutY(positions[i].getY());
-            System.out.println(i);
-            cells.getChildren().add(cellPane);
-
+            pane.getChildren().add(cellPane);
         }
-        pane.getChildren().add(cells);
+//        pane.getChildren().add(cells);
         root.setCenter(this.pane);
 
     }

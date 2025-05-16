@@ -96,7 +96,6 @@ public class BoardMappings {
         Image cellImg = new Image("resources/images/CELL.png");
         if(order.size()!=4) return null;
         for(Cell cell : cells) {
-            System.out.println("hello");
             int cellIndex = cells.indexOf(cell);
             switch (cellIndex) {
                 case 0:
