@@ -1,4 +1,4 @@
-package view.mappings;
+package view.board.mappings;
 
 import javafx.scene.layout.StackPane;
 import model.Colour;

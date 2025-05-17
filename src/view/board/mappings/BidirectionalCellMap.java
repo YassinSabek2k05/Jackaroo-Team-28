@@ -1,4 +1,4 @@
-package view.mappings;
+package view.board.mappings;
 
 import engine.board.Cell;
 import javafx.scene.layout.StackPane;
@@ -21,7 +21,12 @@ public class BidirectionalCellMap {
     public Cell getCell(StackPane pane) {
         return paneToCell.get(pane);
     }
-
+    public Cell getCell() {
+        if (cellToPane.isEmpty()) {
+            return null; // or throw an exception
+        }
+        return cellToPane.keySet().iterator().next();
+    }
     public HashMap<Cell, StackPane> getCellToPane() {
         return cellToPane;
     }

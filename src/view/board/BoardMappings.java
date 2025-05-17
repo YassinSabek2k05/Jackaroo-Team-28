@@ -10,29 +10,35 @@ import javafx.scene.layout.StackPane;
 import model.Colour;
 import model.player.Marble;
 import model.player.Player;
-import view.mappings.BidirectionalCellMap;
-import view.mappings.BidirectionalMarbleMap;
-import view.mappings.BidirectionalPlayerMap;
+import view.board.mappings.BidirectionalCardMap;
+import view.board.mappings.BidirectionalCellMap;
+import view.board.mappings.BidirectionalMarbleMap;
+import view.board.mappings.BidirectionalPlayerMap;
 
 import java.util.ArrayList;
+
+import static model.Colour.*;
 
 public class BoardMappings {
     private final BidirectionalCellMap cellMap;
     private final ArrayList<BidirectionalMarbleMap> marbleMaps;
     private final ArrayList<BidirectionalPlayerMap> playerHomeZoneMaps;
-    public BoardMappings(Game game, int cellSize) {
+    private final ArrayList<BidirectionalCellMap> safeZoneCellsMaps;
+    private final BidirectionalCardMap cardMap;
+    public BoardMappings(Game game, int cellSize, int cardHeight, int cardWidth) {
         this.cellMap = createCellMapping(game, cellSize);
         this.playerHomeZoneMaps = getBidirectionalPlayerMaps(game, cellSize);
         this.marbleMaps = createMarblesMapping(game, cellSize);
+        this.safeZoneCellsMaps = createSafeZoneCellMapping(game, cellSize);
+        this.cardMap =  createCardMapping(game, cellSize, cardHeight, cardWidth);
     }
+    // Getters for the mappings
     public BidirectionalCellMap getCellMaps() {
         return cellMap;
     }
-
     public ArrayList<BidirectionalMarbleMap> getMarbleMaps() {
         return marbleMaps;
     }
-
     public BidirectionalMarbleMap getMarbleMap(int index) {
         if (index < 0 || index >= marbleMaps.size()) {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
@@ -64,6 +70,23 @@ public class BoardMappings {
         }
         return null;
     }
+    public ArrayList<BidirectionalCellMap> getSafeZoneMaps() {
+        return safeZoneCellsMaps;
+    }
+    public BidirectionalCellMap getSafeZoneMap(int index) {
+        if (index < 0 || index >= safeZoneCellsMaps.size()) {
+            throw new IndexOutOfBoundsException("Invalid index: " + index);
+        }
+        return safeZoneCellsMaps.get(index);
+    }
+    public BidirectionalCardMap getCardMap() {
+        return cardMap;
+    }
+    public int getCellSize() {
+        return cellMap.getCellSize();
+    }
+
+
 
     /**
      * Creates a mapping of cells to their corresponding StackPanes
@@ -71,7 +94,7 @@ public class BoardMappings {
      * @param cellSize The size of each cell in pixels
      * @return A BidirectionalCellMap mapping cells to StackPanes
      */
-    public static BidirectionalCellMap createCellMapping(Game game, int cellSize) {
+    public BidirectionalCellMap createCellMapping(Game game, int cellSize) {
         ArrayList<Image> order = new ArrayList<>();
         for(Player player: game.getPlayers()) {
             switch (player.getColour()) {
@@ -131,7 +154,38 @@ public class BoardMappings {
      * @param cellSize The size in pixels for rendering each cell
      * @return An ArrayList of BidirectionalPlayerMaps connecting players to their home zone cells
      */
-    public static ArrayList<BidirectionalPlayerMap> getBidirectionalPlayerMaps(Game game,int cellSize){
+    public ArrayList<BidirectionalCellMap> createSafeZoneCellMapping(Game game, int cellSize){
+        ArrayList<SafeZone> safeZones = game.getBoard().getSafeZones();
+        ArrayList<BidirectionalCellMap> safeZoneCells = new ArrayList<>();
+        Image cellImg = new Image("resources/images/CELL.png");
+        for(SafeZone safeZone : safeZones) {
+            BidirectionalCellMap mapping = new BidirectionalCellMap();
+            switch (safeZone.getColour()) {
+                case RED:
+                    cellImg = new Image("resources/images/redSafe.png");
+                    break;
+                case BLUE:
+                    cellImg = new Image("resources/images/blueSafe.png");
+                    break;
+                case GREEN:
+                    cellImg = new Image("resources/images/greenSafe.png");
+                    break;
+                case YELLOW:
+                    cellImg = new Image("resources/images/yellowSafe.png");
+                    break;
+            }
+            for (Cell cell : safeZone.getCells()) {
+                ImageView imageView = new ImageView(cellImg);
+                imageView.setFitWidth(cellSize);
+                imageView.setFitHeight(cellSize);
+                StackPane stackPane = new StackPane(imageView);
+                mapping.put(cell, stackPane);
+            }
+            safeZoneCells.add(mapping);
+        }
+        return safeZoneCells;
+    }
+    public ArrayList<BidirectionalPlayerMap> getBidirectionalPlayerMaps(Game game,int cellSize){
         ArrayList<BidirectionalPlayerMap> maps = new ArrayList<>();
         Image cell = new Image("resources/images/CELL.png");
 
@@ -149,7 +203,7 @@ public class BoardMappings {
         }
         return maps;
     }
-    public static ArrayList<BidirectionalMarbleMap> createMarblesMapping(Game game, int cellSize) {
+    public ArrayList<BidirectionalMarbleMap> createMarblesMapping(Game game, int cellSize) {
         ArrayList<Player> players = game.getPlayers();
         ArrayList<BidirectionalMarbleMap> mappings = new ArrayList<>();
         ArrayList<SafeZone> safeZones = game.getBoard().getSafeZones();
@@ -176,25 +230,31 @@ public class BoardMappings {
         return mappings;
 
     }
-    public static ArrayList<Image> getMarbleImagesOrdered(ArrayList<SafeZone> safeZones) {
+    public ArrayList<Image> getMarbleImagesOrdered(ArrayList<SafeZone> safeZones) {
         ArrayList<Image> marbleImages = new ArrayList<>();
 
         for(SafeZone safeZone: safeZones){
-            if(safeZone.getColour()==Colour.RED)
+            if(safeZone.getColour()== RED)
                 marbleImages.add(new Image("resources/images/RED.png"));
-            if(safeZone.getColour()==Colour.BLUE)
+            if(safeZone.getColour()== BLUE)
                 marbleImages.add(new Image("resources/images/BLUE.png"));
             if(safeZone.getColour()==Colour.GREEN)
                 marbleImages.add(new Image("resources/images/GREEN.png"));
-            if(safeZone.getColour()==Colour.YELLOW)
+            if(safeZone.getColour()== YELLOW)
                 marbleImages.add(new Image("resources/images/YELLOW.png"));
         }
 
         return marbleImages;
     }
-
-    public int getCellSize() {
-        return cellMap.getCellSize();
+    public BidirectionalCardMap createCardMapping(Game game, int cellSize, int cardHeight, int cardWidth) {
+        BidirectionalCardMap mapping = new BidirectionalCardMap();
+        ArrayList<Image> cardImages = new ArrayList<>();
+        return mapping;
     }
+
+
+
+
+
 }
 

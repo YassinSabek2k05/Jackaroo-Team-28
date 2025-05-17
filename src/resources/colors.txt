@@ -1,5 +1,5 @@
 Color Palette Generator
-#142D43
-#BF9E64
-#264F74
-#847C54
+#142D43 // Deep Navy Blue
+#BF9E64 // Sand Gold
+#264F74 // Steel Blue
+#847C54 // Olive Brown

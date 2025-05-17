@@ -1,4 +1,4 @@
-package view.mappings;
+package view.board.mappings;
 
 import javafx.scene.image.ImageView;
 import model.Colour;
