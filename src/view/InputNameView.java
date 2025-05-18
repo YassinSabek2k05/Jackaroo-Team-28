@@ -71,7 +71,6 @@ public class InputNameView {
                 playerName = inpuTextField.getText();
                 try {
                     gameView.setGame(new Game(playerName));
-                    gameView.setBoardView(new BoardView(gameView));
                     gameView.setToBoardView();
 
                 } catch (IOException e) {
@@ -85,7 +84,6 @@ public class InputNameView {
                     playerName = inpuTextField.getText();
                     try {
                         gameView.setGame(new Game(playerName));
-                        gameView.setBoardView(new BoardView(gameView));
                         gameView.setToBoardView();
 
                     } catch (IOException e) {

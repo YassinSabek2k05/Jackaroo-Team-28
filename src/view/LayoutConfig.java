@@ -5,8 +5,8 @@ public class LayoutConfig {
     private int paddingBottom = 670-25-this.cellSize-30;
     private int boardHeight = 670;
     private int boardWidth = 670;
-    private int cardWidth = 100;
-    private int cardHeight = 150;
+    private int cardWidth = 80;
+    private int cardHeight = 120;
 
     public int getCellSize() {
         return cellSize;

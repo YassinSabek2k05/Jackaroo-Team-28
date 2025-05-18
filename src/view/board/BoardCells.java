@@ -11,6 +11,7 @@ import view.board.mappings.BidirectionalCellMap;
 import view.board.mappings.BidirectionalPlayerMap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BoardCells {
     private final BoardCoordinates coordinates;
@@ -34,18 +35,19 @@ public class BoardCells {
         }
     }
     public void addHomeCells(Pane pane) {
+        ArrayList<HashMap<Player,StackPane[]>> playerMaps = boardMappings.getPlayerToHomeZoneMaps();
         ArrayList<Player> players = this.gameView.getGame().getPlayers();
         Point2D[] positionsHome = coordinates.getHomeCells();
         int k=0;
         for(Player player: players){
-            BidirectionalPlayerMap playerMap = boardMappings.getPlayerMaps().get(players.indexOf(player));
-            StackPane[] cellPanes = playerMap.getAllPanes();
-            System.out.println(players.indexOf(player));
-            for(int i = 0; k < positionsHome.length && i < 4; i++,k++) {
-                StackPane cellPane = cellPanes[i];
-                cellPane.setLayoutX(positionsHome[k].getX());
-                cellPane.setLayoutY(positionsHome[k].getY());
-                pane.getChildren().add(cellPane);
+            HashMap<Player,StackPane[]> map = playerMaps.get(players.indexOf(player));
+            StackPane[] homeCells = map.get(player);
+            for(StackPane cell: homeCells){
+                if(k>=positionsHome.length) break;
+                cell.setLayoutX(positionsHome[k].getX());
+                cell.setLayoutY(positionsHome[k].getY());
+                pane.getChildren().add(cell);
+                k++;
             }
         }
     }

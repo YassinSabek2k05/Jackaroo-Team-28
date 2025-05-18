@@ -28,6 +28,7 @@ public class GameView {
         this.inputNameView = new InputNameView(this);
         this.howToPlayView = new HowToPlayView(this);
         this.layoutConfig = new LayoutConfig();
+
         this.stage = primaryStage;
         stage.setHeight(windowHeight);
         stage.setWidth(windowWidth);
@@ -38,6 +39,7 @@ public class GameView {
         stage.centerOnScreen();
         stage.getIcons().add(new Image("resources/images/logo.png"));
         stage.setTitle("Jackaroo");
+//        this.boardView = new BoardView(this);
 
         this.forFullScreen();
         this.stage.show();
@@ -66,7 +68,7 @@ public class GameView {
     }
     public void setToBoardView(){
         if(game!=null){
-            this.stage.setScene(this.boardView.getScene());
+            this.stage.setScene((new BoardView(this).getScene()));
             this.stage.show();
         }
         else{

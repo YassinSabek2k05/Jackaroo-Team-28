@@ -16,22 +16,43 @@ import view.board.mappings.BidirectionalMarbleMap;
 import view.board.mappings.BidirectionalPlayerMap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static model.Colour.*;
 
 public class BoardMappings {
     private final BidirectionalCellMap cellMap;
     private final ArrayList<BidirectionalMarbleMap> marbleMaps;
-    private final ArrayList<BidirectionalPlayerMap> playerHomeZoneMaps;
     private final ArrayList<BidirectionalCellMap> safeZoneCellsMaps;
-    private final BidirectionalCardMap cardMap;
+//    private final BidirectionalCardMap cardMap;
+    private final ArrayList<HashMap<Player, StackPane[]>> playerToHomeZoneMaps;
+
     public BoardMappings(Game game, int cellSize, int cardHeight, int cardWidth) {
         this.cellMap = createCellMapping(game, cellSize);
-        this.playerHomeZoneMaps = getBidirectionalPlayerMaps(game, cellSize);
         this.marbleMaps = createMarblesMapping(game, cellSize);
         this.safeZoneCellsMaps = createSafeZoneCellMapping(game, cellSize);
-        this.cardMap =  createCardMapping(game, cellSize, cardHeight, cardWidth);
+//        this.cardMap =  createCardMapping(game, cellSize, cardHeight, cardWidth);
+        this.playerToHomeZoneMaps = createPlayerToHomeZoneMap(game, cellSize);
     }
+
+    private ArrayList<HashMap<Player, StackPane[]>> createPlayerToHomeZoneMap(Game game, int cellSize) {
+        Image cell = new Image("resources/images/CELL.png");
+        ArrayList<HashMap<Player, StackPane[]>> playerToHomeZoneMaps = new ArrayList<>();
+        for(Player player : game.getPlayers()) {
+            HashMap<Player, StackPane[]> playerToHomeZoneMap = new HashMap<>();
+            StackPane[] homeZoneCells = new StackPane[4];
+            for (int i = 0; i < 4; i++) {
+                ImageView img = new ImageView(cell);
+                img.setFitHeight(cellSize);
+                img.setFitWidth(cellSize);
+                homeZoneCells[i] = new StackPane(img);
+            }
+            playerToHomeZoneMap.put(player, homeZoneCells);
+            playerToHomeZoneMaps.add(playerToHomeZoneMap);
+        }
+        return playerToHomeZoneMaps;
+    }
+
     // Getters for the mappings
     public BidirectionalCellMap getCellMaps() {
         return cellMap;
@@ -51,25 +72,24 @@ public class BoardMappings {
                 return mapping;
             }
         }
+        System.out.println("Marble map not found for colour: " + colour);
         return null;
     }
-    public ArrayList<BidirectionalPlayerMap> getPlayerMaps() {
-        return playerHomeZoneMaps;
-    }
-    public BidirectionalPlayerMap getPlayerMap(int index) {
-        if (index < 0 || index >= playerHomeZoneMaps.size()) {
-            throw new IndexOutOfBoundsException("Invalid index: " + index);
-        }
-        return playerHomeZoneMaps.get(index);
-    }
-    public BidirectionalPlayerMap getPlayerMap(Colour colour) {
-        for (BidirectionalPlayerMap mapping : playerHomeZoneMaps) {
-            if (mapping.getColour().equals(colour)) {
-                return mapping;
-            }
-        }
-        return null;
-    }
+
+//    public BidirectionalPlayerMap getPlayerMap(int index) {
+//        if (index < 0 || index >= playerHomeZoneMaps.size()) {
+//            throw new IndexOutOfBoundsException("Invalid index: " + index);
+//        }
+//        return playerHomeZoneMaps.get(index);
+//    }
+//    public BidirectionalPlayerMap getPlayerMap(Colour colour) {
+//        for (BidirectionalPlayerMap mapping : playerHomeZoneMaps) {
+//            if (mapping.getColour().equals(colour)) {
+//                return mapping;
+//            }
+//        }
+//        return null;
+//    }
     public ArrayList<BidirectionalCellMap> getSafeZoneMaps() {
         return safeZoneCellsMaps;
     }
@@ -79,13 +99,15 @@ public class BoardMappings {
         }
         return safeZoneCellsMaps.get(index);
     }
-    public BidirectionalCardMap getCardMap() {
-        return cardMap;
-    }
+//    public BidirectionalCardMap getCardMap() {
+//        return cardMap;
+//    }
     public int getCellSize() {
         return cellMap.getCellSize();
     }
-
+    public ArrayList<HashMap<Player, StackPane[]>> getPlayerToHomeZoneMaps() {
+        return playerToHomeZoneMaps;
+    }
 
 
     /**
@@ -225,8 +247,10 @@ public class BoardMappings {
                 img.setFitWidth(marbleSize);
                 zoneMapping.put(marble, img);
             }
+
             mappings.add(zoneMapping);
         }
+
         return mappings;
 
     }
@@ -246,11 +270,7 @@ public class BoardMappings {
 
         return marbleImages;
     }
-    public BidirectionalCardMap createCardMapping(Game game, int cellSize, int cardHeight, int cardWidth) {
-        BidirectionalCardMap mapping = new BidirectionalCardMap();
-        ArrayList<Image> cardImages = new ArrayList<>();
-        return mapping;
-    }
+
 
 
 
