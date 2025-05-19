@@ -99,16 +99,7 @@ public class CardFunctions {
             cardImageView.setFitWidth(width);
             cardImageView.setFitHeight(height);
             cardImageView.setRotate(-90);
-            cardImageView.setOnMouseClicked(event -> {
-                System.out.println("Card selected: ");
-                try {
-                    cardImageView.setTranslateY(-20); // Raises the card slightly when clicked
-                } catch (Exception e) {
-                    System.out.println("Error playing card: " + e.getMessage());
-                }
-            });
             cardVBox.getChildren().add(cardImageView);
-
         }
 
         return cardVBox;
@@ -119,14 +110,6 @@ public class CardFunctions {
             ImageView cardImageView = new ImageView(img);
             cardImageView.setFitWidth(width);
             cardImageView.setFitHeight(height);
-            cardImageView.setOnMouseClicked(event -> {
-                System.out.println("Card selected: ");
-                try {
-                    cardImageView.setTranslateY(-20); // Raises the card slightly when clicked
-                } catch (Exception e) {
-                    System.out.println("Error playing card: " + e.getMessage());
-                }
-            });
             cardVBox.getChildren().add(cardImageView);
         }
         cardVBox.setRotate(180);
@@ -139,16 +122,7 @@ public class CardFunctions {
             cardImageView.setFitWidth(width);
             cardImageView.setFitHeight(height);
             cardImageView.setRotate(-90);
-            cardImageView.setOnMouseClicked(event -> {
-                System.out.println("Card selected: ");
-                try {
-                    cardImageView.setTranslateX(-20); // Raises the card slightly when clicked
-                } catch (Exception e) {
-                    System.out.println("Error playing card: " + e.getMessage());
-                }
-            });
             cardVBox.getChildren().add(cardImageView);
-
         }
 
         return cardVBox;
