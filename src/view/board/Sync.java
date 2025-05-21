@@ -86,4 +86,12 @@ public class Sync {
             bidirectionalCellMap.getPane(cell).getChildren().remove(1, bidirectionalCellMap.getPane(cell).getChildren().size());
         }
     }
+    public static void updateAll(){
+        // Update all cells
+        // This method should be called whenever the game state changes
+        // and you want to refresh the view
+        // For example, after a player moves a marble or plays a card
+
+    }
+
 }

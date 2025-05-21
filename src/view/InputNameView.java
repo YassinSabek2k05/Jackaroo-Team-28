@@ -4,6 +4,7 @@ package view;
 
 import java.io.IOException;
 
+import com.sun.deploy.si.SingleInstanceImpl;
 import engine.Game;
 import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
@@ -16,9 +17,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import view.board.cards.CardSelection;
 
 public class InputNameView {
     private final Scene scene;
+    private Runnable validateInput;
     private String playerName;
     private StartMenuView startMenuView;
 
@@ -67,31 +70,38 @@ public class InputNameView {
         });
 
         button.setOnAction(event ->{
-            if(inpuTextField.getText()!=null){
-                playerName = inpuTextField.getText();
-                try {
-                    gameView.setGame(new Game(playerName));
-                    gameView.setToBoardView();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            validateInput.run();
         });
         inpuTextField.setOnKeyPressed(event -> {
             if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
-                if(inpuTextField.getText()!=null){
-                    playerName = inpuTextField.getText();
-                    try {
-                        gameView.setGame(new Game(playerName));
-                        gameView.setToBoardView();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                validateInput.run();
             }
         });
+        this.validateInput = () -> {
+            String input = inpuTextField.getText().trim();
+            if (input.isEmpty()) {
+                CustomAlert.show("Invalid Input", "Please enter a name.");
+            } else if (input.length() < 2) {
+                CustomAlert.show("Invalid Input", "Name must be at least 2 characters.");
+            } else if (input.length() > 15) {
+                CustomAlert.show("Invalid Input", "Name must be less than 15 characters.");
+            } else {
+                playerName = input;
+                try {
+                    gameView.setGame(playerName);
+
+
+                } catch (IOException e) {
+                    CustomAlert.show("Invalid Input", "Please enter a valid name.");
+                    gameView.setToInputNameView();
+                }
+                gameView.initializeBoardView();
+                if(gameView.getBoardView()==null)
+                    gameView.setToInputNameView();
+
+                gameView.setToBoardView();
+            }
+        };
 
         //Return back
         Button back = new Button();

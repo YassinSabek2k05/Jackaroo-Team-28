@@ -1,5 +1,6 @@
 package view;
 
+import controller.GameController;
 import engine.Game;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -11,8 +12,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import view.board.BoardMappings;
+import view.board.cards.CardSelection;
+
+import java.io.IOException;
 
 public class GameView {
+    private GameController controller;
     private Stage stage;
     private Game game;
     private final LayoutConfig layoutConfig;
@@ -28,7 +34,7 @@ public class GameView {
         this.inputNameView = new InputNameView(this);
         this.howToPlayView = new HowToPlayView(this);
         this.layoutConfig = new LayoutConfig();
-
+        this.controller = new GameController(this);
         this.stage = primaryStage;
         stage.setHeight(windowHeight);
         stage.setWidth(windowWidth);
@@ -67,15 +73,21 @@ public class GameView {
         this.stage.show();
     }
     public void setToBoardView(){
+        if(this.boardView == null){
+            initializeBoardView();
+        }
         if(game!=null){
-            this.stage.setScene((new BoardView(this).getScene()));
+            this.stage.setScene(this.boardView.getScene());;
             this.stage.show();
         }
         else{
             this.setToStartMenuView();
         }
-
     }
+    public void initializeBoardView(){
+        this.boardView = new BoardView(this);
+    }
+
     public void setToHowToPlayView() {
         this.stage.setScene(this.howToPlayView.getScene());
         this.stage.show();
@@ -131,11 +143,14 @@ public class GameView {
     public void setStage(Stage stage){
         this.stage = stage;
     }
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGame(String name) throws IOException {
+        if(game==null) this.game = new Game(name);
     }
     public void setBoardView(BoardView boardView){
         this.boardView = new BoardView(this);
+    }
+    public void setController(GameController controller) {
+        this.controller = controller;
     }
 
     //getters
@@ -148,5 +163,21 @@ public class GameView {
     public LayoutConfig getLayoutConfig() {
         return layoutConfig;
     }
+    public StartMenuView getStartMenuView() {
+        return startMenuView;
+    }
+    public GameController getController() {
+        return controller;
+    }
+    public BoardView getBoardView() {
+        return boardView;
+    }
 
+    public BoardMappings getBoardMappings() {
+        if (boardView != null) {
+            return boardView.getBoardMappings();
+        } else {
+            return null;
+        }
+    }
 }

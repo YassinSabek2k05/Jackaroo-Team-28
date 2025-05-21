@@ -117,7 +117,9 @@ public class Game implements GameManager {
         }
         
     }
-
+    public int getCurrentPlayerIndex() {
+        return currentPlayerIndex;
+    }
     public Colour checkWin() {
         for(SafeZone safeZone : board.getSafeZones()) 
             if(safeZone.isFull())

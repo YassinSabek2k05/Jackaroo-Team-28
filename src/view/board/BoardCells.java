@@ -7,6 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import model.player.Player;
 import view.GameView;
+import view.board.cards.FirePitView;
 import view.board.mappings.BidirectionalCellMap;
 import view.board.mappings.BidirectionalPlayerMap;
 
@@ -82,5 +83,10 @@ public class BoardCells {
         this.addTrackCells(pane);
         this.addHomeCells(pane);
         this.addSafeZoneCells(pane);
+    }
+    public void addFirePit(Pane pane) {
+        StackPane stackPane = gameView.getBoardView().getBoardBuilder().getFirePitPane();
+        stackPane.setLayoutX(((double) 670 /2)+30);
+        stackPane.setLayoutX(((double) 670 /2)+30);
     }
 }

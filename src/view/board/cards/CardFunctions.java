@@ -92,9 +92,9 @@ public class CardFunctions {
         }
         return cardHBox;
     }
-    public static VBox createCardCPU1VBox(int cardNumber, int width, int height) {
+    public static VBox createCardCPU1VBox(int cardsAmount, int width, int height) {
         VBox cardVBox = new VBox(-30);
-        for(int i=0; i<cardNumber; i++) {
+        for(int i=0; i<cardsAmount; i++) {
             ImageView cardImageView = new ImageView(img);
             cardImageView.setFitWidth(width);
             cardImageView.setFitHeight(height);
@@ -104,9 +104,9 @@ public class CardFunctions {
 
         return cardVBox;
     }
-    public static HBox createCardCPU2HBox(int cardNumber, int width, int height) {
+    public static HBox createCardCPU2HBox(int cardsAmount, int width, int height) {
         HBox cardVBox = new HBox(20);
-        for(int i=0; i<cardNumber; i++) {
+        for(int i=0; i<cardsAmount; i++) {
             ImageView cardImageView = new ImageView(img);
             cardImageView.setFitWidth(width);
             cardImageView.setFitHeight(height);
@@ -115,9 +115,9 @@ public class CardFunctions {
         cardVBox.setRotate(180);
         return cardVBox;
     }
-    public static VBox createCardCPU3VBox(int cardNumber, int width, int height) {
+    public static VBox createCardCPU3VBox(int cardsAmount, int width, int height) {
         VBox cardVBox = new VBox(-30);
-        for(int i=0; i<cardNumber; i++) {
+        for(int i=0; i<cardsAmount; i++) {
             ImageView cardImageView = new ImageView(img);
             cardImageView.setFitWidth(width);
             cardImageView.setFitHeight(height);

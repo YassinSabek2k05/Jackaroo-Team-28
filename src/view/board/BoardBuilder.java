@@ -1,5 +1,6 @@
 package view.board;
 
+import controller.MarbleSelection;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.image.Image;
@@ -8,14 +9,20 @@ import model.card.Card;
 import view.GameView;
 import view.board.cards.CardFunctions;
 import view.board.cards.CardHand;
+import view.board.cards.CardSelection;
+import view.board.cards.FirePitView;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static javafx.geometry.Pos.*;
 
 public class BoardBuilder {
     private final BoardMappings boardMappings;
     Pane pane;
+    CardSelection cardSelection;
+    FirePitView firePitView;
+    StackPane firePitPane;
 
     public BoardBuilder(GameView gameView, BoardMappings boardMappings, GridPane root) {
         BoardCoordinates boardCoordinates = new BoardCoordinates(gameView);
@@ -23,6 +30,8 @@ public class BoardBuilder {
         this.pane = new Pane();
         this.pane.setMaxSize(670, 670);
         this.pane.setMinSize(670, 670);
+        firePitView = new FirePitView(gameView);
+        firePitPane = firePitView.getStackPane();
         pane.setBackground(new javafx.scene.layout.Background(
                 new javafx.scene.layout.BackgroundImage(
                         new Image("resources/images/board.png"),
@@ -36,11 +45,16 @@ public class BoardBuilder {
         BoardCells boardCells = new BoardCells(gameView, boardMappings);
         boardCells.addAllCells(pane);
 
+        MarbleSelection marbleSelection = new MarbleSelection(gameView, boardMappings);
+        this.cardSelection = new CardSelection(gameView);
+
+        HBox cardBox1 = cardSelection.getHumanPlayerHandBox();
         ArrayList<Card> cards = gameView.getGame().getPlayers().get(0).getHand();
 
+        pane.getChildren().add(firePitPane);
         HBox cardBox = CardFunctions.createCardHBox(cards,50,100);
         CardHand cardHand = new CardHand(gameView);
-        HBox humanPlayer = cardHand.getHumanPlayer();
+        HBox humanPlayer = cardSelection.getHumanPlayerHandBox();
         VBox computerPlayer1 = cardHand.getComputerPlayer1();
         HBox computerPlayer2 = cardHand.getComputerPlayer2();
         VBox computerPlayer3 = cardHand.getComputerPlayer3();
@@ -83,6 +97,17 @@ public class BoardBuilder {
 
     public BoardMappings getBoardMappings() {
         return boardMappings;
+    }
+    public CardSelection getCardSelection() {
+        return cardSelection;
+    }
+
+    public FirePitView getFirePitView() {
+        return firePitView;
+    }
+
+    public StackPane getFirePitPane() {
+        return firePitPane;
     }
 }
 
