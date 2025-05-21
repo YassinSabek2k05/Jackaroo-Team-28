@@ -24,7 +24,7 @@ public class InputNameView {
     private Runnable validateInput;
     private String playerName;
     private StartMenuView startMenuView;
-
+    String playerN;
     public InputNameView(GameView gameView){
 
         //Name Label
@@ -98,7 +98,7 @@ public class InputNameView {
                 gameView.initializeBoardView();
                 if(gameView.getBoardView()==null)
                     gameView.setToInputNameView();
-
+                gameView.playerN = playerName;
                 gameView.setToBoardView();
             }
         };

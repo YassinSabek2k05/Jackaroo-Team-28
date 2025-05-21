@@ -6,7 +6,10 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -16,8 +19,12 @@ import view.board.BoardMappings;
 import view.board.cards.CardSelection;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import static javafx.geometry.Pos.CENTER;
 
 public class GameView {
+    String playerN;
     private GameController controller;
     private Stage stage;
     private Game game;
@@ -51,6 +58,7 @@ public class GameView {
         this.stage.show();
         this.forMaximize();
     }
+
 
     //set scene
     public void setToStartMenuView(){
@@ -179,5 +187,12 @@ public class GameView {
         } else {
             return null;
         }
+    }
+    public String getPlayerName() {
+        return this.playerN;
+    }
+
+    public InputNameView getInputNameView() {
+        return inputNameView;
     }
 }

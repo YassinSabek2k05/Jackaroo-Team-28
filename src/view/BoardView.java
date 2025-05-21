@@ -2,6 +2,7 @@ package view;
 
 import controller.GameController;
 import exception.GameException;
+import javafx.animation.PauseTransition;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -10,15 +11,19 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import model.Colour;
 import model.player.Marble;
 import view.board.BoardBuilder;
 import view.board.BoardMappings;
+import view.board.NextPlayer;
 import view.board.Sync;
 import view.board.cards.CardHand;
 import view.board.cards.CardSelection;
 
 public class BoardView {
+    int splitDistance;
+    Boolean seven = false;
     Scene scene;
     GameController controller;
     BoardMappings boardMappings;
@@ -27,6 +32,7 @@ public class BoardView {
         GridPane pane = new GridPane();
         LayoutConfig layoutConfig = gameView.getLayoutConfig();
         if(gameView.getGame()!=null) {
+            this.splitDistance = gameView.getGame().getBoard().getSplitDistance();
             this.boardMappings = new BoardMappings(gameView.getGame(), layoutConfig.getCellSize(), layoutConfig.getCardWidth(), layoutConfig.getCardHeight());
             this.boardBuilder = new BoardBuilder(gameView, this.boardMappings, pane);
             controller = gameView.getController();
@@ -52,37 +58,16 @@ public class BoardView {
             });
 
             if(gameView.getGame().checkWin()==null) {
-//                if (gameView.getGame().getCurrentPlayerIndex() == 0){
-//                    scene.setOnKeyPressed(event -> {
-//                        if (event.getCode() == KeyCode.ENTER) {
-//                            controller.playHumanTurn();
-//                            for(int i =0;(gameView.getGame().getCurrentPlayerIndex()!=0)&&i<3;i++){
-//                                controller.playComputerTurn();
-//                                Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
-//                                boardBuilder.getFirePitView().updateFirePit();
-//                            }
-//
-//                        }
-//                    });
-//                }
                 scene.setOnKeyPressed(event -> {
+
+
                     if (event.getCode() == KeyCode.ENTER) {
-                        try {
-                            gameView.getGame().playPlayerTurn();
-                        } catch (GameException e) {
-                            System.out.println(e.getMessage());
-                        }
-                        if(gameView.getGame().getCurrentPlayerIndex()==3){
-                            CustomAlert.show("!!!!","Your Turn");
-                        }
-                        gameView.getGame().endPlayerTurn();
+                        controller.playHumanTurn();
+                        controller.playComputerTurn();
+                        boardBuilder.getCardHand().updateComputerHand();
 
                     }
-                    if(event.getCode() == KeyCode.ALT){
-                        this.controller.playHumanTurn();
-                    }
-
-                        Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
+                        Sync.updateAll(gameView, boardBuilder.getBoardMappings());
                         gameView.getBoardView().getBoardBuilder().updateHand();
                         boardBuilder.getFirePitView().updateFirePit();
                 });

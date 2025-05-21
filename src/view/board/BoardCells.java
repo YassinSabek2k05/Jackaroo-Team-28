@@ -2,6 +2,7 @@ package view.board;
 
 import engine.board.SafeZone;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -80,12 +81,33 @@ public class BoardCells {
             }
         }
     }
+    public void addProfilePictures(Pane main,ArrayList<Pane> namePanes){
+        Point2D[] positions = new Point2D[4];
+        positions[2] = new Point2D(50, -100);
+        positions[3] = new Point2D(760, -50);
+        positions[1] = new Point2D(-100,600);
+        positions[0] = new Point2D(760, 670);
 
-    public void addAllCells(Pane pane) {
+        int i = 0;
+        for(Pane pane: namePanes) {
+            if (i < positions.length) {
+                System.out.println(pane.getLayoutX());
+                pane.setLayoutX(positions[i].getX());
+                pane.setLayoutY(positions[i].getY());
+                i++;
+            }
+             main.getChildren().add(pane);
+        }
+
+
+    }
+
+    public void addAllCells(Pane pane, ArrayList<Pane> namePanes) {
         this.addTrackCells(pane);
         this.addHomeCells(pane);
         this.addSafeZoneCells(pane);
         this.addFirePit(pane);
+        this.addProfilePictures(pane,namePanes);
     }
     public void addFirePit(Pane pane) {
         StackPane stackPane = this.firePitView.getStackPane();

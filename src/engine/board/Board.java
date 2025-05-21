@@ -10,6 +10,7 @@ import exception.IllegalSwapException;
 import exception.InvalidMarbleException;
 import model.Colour;
 import model.player.Marble;
+import view.CustomAlert;
 
 @SuppressWarnings("unused")
 public class Board implements BoardManager {
@@ -226,6 +227,7 @@ public class Board implements BoardManager {
             destroyMarble(marble);
             targetCell.setTrap(false);
             assignTrapCell();
+            CustomAlert.show("Trap!", "A marble has landed on a trap cell! The marble has been sent home.");
         }
         
 	}

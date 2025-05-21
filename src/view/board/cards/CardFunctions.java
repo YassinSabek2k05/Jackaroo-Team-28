@@ -15,6 +15,9 @@ public class CardFunctions {
     static Image img = new Image("resources/deck/card_back_black.png");
 
     public static ImageView createCardImageView(Card card, int width, int height) {
+        if(card==null) {
+            return null;
+        }
         String cardName = card.getName();
         String rank = "";
         Image img = null;
