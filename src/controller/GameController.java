@@ -6,9 +6,13 @@ import exception.InvalidCardException;
 import exception.InvalidMarbleException;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
+import model.player.Marble;
 import view.CustomAlert;
 import view.GameView;
 import view.board.Sync;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class GameController {
     private GameView gameView;
@@ -17,7 +21,15 @@ public class GameController {
         this.gameView = gameView;
     }
     public void playHumanTurn() {
+        MarbleSelection marblesS = gameView.getBoardView().getBoardBuilder().getMarbleSelection();
+        LinkedList<Marble> marbles = marblesS.getSelection();
+        for (Marble marble: marbles){
+            try{
+                gameView.getGame().getPlayers().get(0).selectMarble(marble);
+            }
+            catch(InvalidMarbleException e){}
 
+        }
         if(gameView.getBoardView() == null||gameView.getGame() == null) {
             System.out.println("Game is not initialized.");
             return;
@@ -39,6 +51,8 @@ public class GameController {
             catch (InvalidCardException a){
 //                System.out.println("Error: " + a.getMessage());
                 CustomAlert.show("!!!!!", a.getMessage());
+                game.endPlayerTurn();
+
             }catch (InvalidMarbleException b){
                 CustomAlert.show("!!!!!", b.getMessage());
                 game.endPlayerTurn();

@@ -45,11 +45,6 @@ public class CardSelection {
                     clearSelectedCards();
                     selectedCards[index] = false;
                     imageView.setTranslateY(0);
-                    try {
-                        this.gameView.getGame().getPlayers().get(0).selectCard(null);
-                    } catch (InvalidCardException e) {
-                        throw new RuntimeException(e);
-                    }
                 }
                 else {
                     clearSelectedCards();

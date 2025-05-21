@@ -78,6 +78,9 @@ public class BoardView {
                         gameView.getGame().endPlayerTurn();
 
                     }
+                    if(event.getCode() == KeyCode.ALT){
+                        this.controller.playHumanTurn();
+                    }
 
                         Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
                         gameView.getBoardView().getBoardBuilder().updateHand();

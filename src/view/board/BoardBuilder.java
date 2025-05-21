@@ -47,7 +47,7 @@ public class BoardBuilder {
 
         boardCells.addAllCells(pane);
 
-        MarbleSelection marbleSelection = new MarbleSelection(gameView, boardMappings);
+        marbleSelection = new MarbleSelection(gameView, boardMappings);
         this.cardSelection = new CardSelection(gameView);
 
         HBox cardBox1 = cardSelection.getHumanPlayerHandBox();
@@ -114,5 +114,8 @@ public class BoardBuilder {
         this.cardSelection.updateHandView();
     }
 
+    public MarbleSelection getMarbleSelection() {
+        return marbleSelection;
+    }
 }
 
