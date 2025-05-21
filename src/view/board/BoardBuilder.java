@@ -22,7 +22,8 @@ public class BoardBuilder {
     Pane pane;
     CardSelection cardSelection;
     FirePitView firePitView;
-    StackPane firePitPane;
+    CardHand cardHand;
+    MarbleSelection marbleSelection;
 
     public BoardBuilder(GameView gameView, BoardMappings boardMappings, GridPane root) {
         BoardCoordinates boardCoordinates = new BoardCoordinates(gameView);
@@ -30,8 +31,10 @@ public class BoardBuilder {
         this.pane = new Pane();
         this.pane.setMaxSize(670, 670);
         this.pane.setMinSize(670, 670);
-        firePitView = new FirePitView(gameView);
-        firePitPane = firePitView.getStackPane();
+        BoardCells boardCells = new BoardCells(gameView, boardMappings);
+
+        firePitView = boardCells.getFirePitView();
+
         pane.setBackground(new javafx.scene.layout.Background(
                 new javafx.scene.layout.BackgroundImage(
                         new Image("resources/images/board.png"),
@@ -42,7 +45,6 @@ public class BoardBuilder {
                 )
         ));
 
-        BoardCells boardCells = new BoardCells(gameView, boardMappings);
         boardCells.addAllCells(pane);
 
         MarbleSelection marbleSelection = new MarbleSelection(gameView, boardMappings);
@@ -51,9 +53,9 @@ public class BoardBuilder {
         HBox cardBox1 = cardSelection.getHumanPlayerHandBox();
         ArrayList<Card> cards = gameView.getGame().getPlayers().get(0).getHand();
 
-        pane.getChildren().add(firePitPane);
+
         HBox cardBox = CardFunctions.createCardHBox(cards,50,100);
-        CardHand cardHand = new CardHand(gameView);
+        this.cardHand = new CardHand(gameView);
         HBox humanPlayer = cardSelection.getHumanPlayerHandBox();
         VBox computerPlayer1 = cardHand.getComputerPlayer1();
         HBox computerPlayer2 = cardHand.getComputerPlayer2();
@@ -105,9 +107,12 @@ public class BoardBuilder {
     public FirePitView getFirePitView() {
         return firePitView;
     }
-
-    public StackPane getFirePitPane() {
-        return firePitPane;
+    public CardHand getCardHand() {
+        return this.cardHand;
     }
+    public void updateHand(){
+        this.cardSelection.updateHandView();
+    }
+
 }
 

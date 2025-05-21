@@ -18,11 +18,13 @@ public class BoardCells {
     private final BoardCoordinates coordinates;
     private final GameView gameView;
     private final BoardMappings boardMappings;
+    FirePitView firePitView;
 
     public BoardCells(GameView gameView, BoardMappings boardMappings) {
         this.gameView = gameView;
         this.boardMappings = boardMappings;
         this.coordinates = new BoardCoordinates(gameView);
+        this.firePitView = new FirePitView(gameView);
     }
     public void addTrackCells(Pane pane) {
         this.coordinates.getTrackCells();
@@ -83,10 +85,16 @@ public class BoardCells {
         this.addTrackCells(pane);
         this.addHomeCells(pane);
         this.addSafeZoneCells(pane);
+        this.addFirePit(pane);
     }
     public void addFirePit(Pane pane) {
-        StackPane stackPane = gameView.getBoardView().getBoardBuilder().getFirePitPane();
-        stackPane.setLayoutX(((double) 670 /2)+30);
-        stackPane.setLayoutX(((double) 670 /2)+30);
+        StackPane stackPane = this.firePitView.getStackPane();
+        stackPane.setLayoutX(((double) 670 /2)-45);
+        stackPane.setLayoutY(((double) 670 /2)-60);
+        pane.getChildren().add(stackPane);
+    }
+
+    public FirePitView getFirePitView() {
+        return firePitView;
     }
 }

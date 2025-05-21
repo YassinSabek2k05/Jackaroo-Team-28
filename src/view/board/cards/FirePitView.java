@@ -16,8 +16,8 @@ public class FirePitView {
         this.gameView = gameView;
         cards = gameView.getGame().getFirePit();
         ImageView img = new ImageView(new Image("resources/images/firepit.png"));
-        img.setFitHeight(100);
-        img.setFitWidth(60);
+        img.setFitHeight(130);
+        img.setFitWidth(90);
         stackPane = new StackPane(img);
     }
     public StackPane getStackPane() {
@@ -26,7 +26,7 @@ public class FirePitView {
     public void updateFirePit() {
         if (stackPane.getChildren().size() > 1) stackPane.getChildren().remove(1, stackPane.getChildren().size() - 1);
         if(!cards.isEmpty()) {
-            ImageView cardImg = CardFunctions.createCardImageView(cards.get(cards.size()-1),50,100);
+            ImageView cardImg = CardFunctions.createCardImageView(cards.get(cards.size()-1),80,116);
             stackPane.getChildren().add(cardImg);
         }
     }

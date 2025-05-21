@@ -42,12 +42,11 @@ public class BoardView {
                             new BackgroundSize(100, 100, true, true, false, true)
                     )
             ));
-            CardHand cardHand = new CardHand(gameView);
-            cardHand.updateHand(gameView);
+
             this.scene = new Scene(pane, gameView.windowWidth, gameView.windowHeight);
             scene.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.F11) {
-                    cardHand.updateHand(gameView);
+//                    cardHand.updateHand(gameView);
                     gameView.getStage().setFullScreen(!gameView.getStage().isFullScreen());
                 }
             });
@@ -73,13 +72,15 @@ public class BoardView {
                         } catch (GameException e) {
                             System.out.println(e.getMessage());
                         }
+                        if(gameView.getGame().getCurrentPlayerIndex()==3){
+                            CustomAlert.show("!!!!","Your Turn");
+                        }
                         gameView.getGame().endPlayerTurn();
 
                     }
-                        if(gameView.getGame().getCurrentPlayerIndex()==0){
-                            CustomAlert.show("!!!!","Your Turn");
-                        }
+
                         Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
+                        gameView.getBoardView().getBoardBuilder().updateHand();
                         boardBuilder.getFirePitView().updateFirePit();
                 });
 
