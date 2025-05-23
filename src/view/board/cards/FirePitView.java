@@ -27,7 +27,9 @@ public class FirePitView {
         if (stackPane.getChildren().size() > 1) stackPane.getChildren().remove(1, stackPane.getChildren().size() - 1);
         if(!cards.isEmpty()) {
             ImageView cardImg = CardFunctions.createCardImageView(cards.get(cards.size()-1),80,116);
-            stackPane.getChildren().add(cardImg);
+            if(cardImg != null) {
+                stackPane.getChildren().add(cardImg);
+            }
         }
     }
 }

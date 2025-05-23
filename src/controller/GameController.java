@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class GameController {
-    private GameView gameView;
+    private final GameView gameView;
 
     public GameController(GameView gameView) {
         this.gameView = gameView;
@@ -50,6 +50,10 @@ public class GameController {
 //            return;
 //        }
         if (game.getCurrentPlayerIndex() == 0) {
+            if(!game.canPlayTurn()){
+                CustomAlert.show("You cannot play this turn.");
+                game.endPlayerTurn();
+            }
             try {
                 game.playPlayerTurn();
                 Sync.updateTrackCells(gameView, gameView.getBoardView().getBoardMappings());
@@ -59,10 +63,10 @@ public class GameController {
             }
             catch (InvalidCardException a){
 //                System.out.println("Error: " + a.getMessage());
-                CustomAlert.show("!!!!!", a.getMessage());
+                CustomAlert.show(a.getMessage());
 
             }catch (InvalidMarbleException b){
-                CustomAlert.show("!!!!!", b.getMessage());
+                CustomAlert.show(b.getMessage());
 //            }
 //            catch (InvalidMarbleException c){
 //
@@ -71,7 +75,7 @@ public class GameController {
 //            }catch (InvalidMarbleException e){
 
             }catch (Exception z) {
-                CustomAlert.show("!!!!!", z.getMessage());
+                CustomAlert.show(z.getMessage());
             }
             game.endPlayerTurn();
 
@@ -79,7 +83,7 @@ public class GameController {
         }
         gameView.getBoardView().getBoardBuilder().getFirePitView().updateFirePit();
         gameView.getBoardView().getBoardBuilder().updateCpuHands();
-        gameView.getBoardView().getBoardBuilder().updateLabel();
+
         marblesS.clearSelection();
     }
     public void playComputerTurn() {
@@ -90,50 +94,52 @@ public class GameController {
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event1 -> {
                 BoardBuilder boardBuilder = gameView.getBoardView().getBoardBuilder();
-                try {
-                    gameView.getGame().playPlayerTurn();
-                } catch (GameException ignored) {
+                if(gameView.getGame().canPlayTurn()){
+                    try {
+                        gameView.getGame().playPlayerTurn();
+                    } catch (GameException ignored) {
+                    }
                 }
                 gameView.getGame().endPlayerTurn();
                 Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
                 gameView.getBoardView().getBoardBuilder().updateHand();
                 boardBuilder.getFirePitView().updateFirePit();
                 gameView.getBoardView().getBoardBuilder().updateCpuHands();
-                gameView.getBoardView().getBoardBuilder().updateLabel();
 
                 // Second transition
                 PauseTransition pause2 = new PauseTransition(Duration.seconds(2));
                 pause2.setOnFinished(event2 -> {
-                    try {
-                        gameView.getGame().playPlayerTurn();
-                    } catch (GameException ignored) {
+                    if(gameView.getGame().canPlayTurn()){
+                        try {
+                            gameView.getGame().playPlayerTurn();
+                        } catch (GameException ignored) {
+                        }
                     }
                     gameView.getGame().endPlayerTurn();
                     Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
                     gameView.getBoardView().getBoardBuilder().updateHand();
                     boardBuilder.getFirePitView().updateFirePit();
                     gameView.getBoardView().getBoardBuilder().updateCpuHands();
-                    gameView.getBoardView().getBoardBuilder().updateLabel();
 
                     // Third transition
                     PauseTransition pause3 = new PauseTransition(Duration.seconds(2));
                     pause3.setOnFinished(event3 -> {
-                        try {
-                            gameView.getGame().playPlayerTurn();
-                        } catch (GameException ignored) {
+                        if(gameView.getGame().canPlayTurn()){
+                            try {
+                                gameView.getGame().playPlayerTurn();
+                            } catch (GameException ignored) {
+                            }
                         }
-                        boardBuilder.getCardHand().updateComputerHand();
                         gameView.getGame().endPlayerTurn();
                         Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
                         gameView.getBoardView().getBoardBuilder().updateHand();
                         boardBuilder.getFirePitView().updateFirePit();
 
                         // Use Platform.runLater to show alert after animation completes
-                        gameView.getBoardView().getBoardBuilder().updateLabel();
                         gameView.getBoardView().getBoardBuilder().updateCpuHands();
 
                         javafx.application.Platform.runLater(() -> {
-                            CustomAlert.show("Your Turn", "Please select your marbles.");
+                            CustomAlert.show("Your Turn");
                         });
                     });
                     pause3.play();
@@ -144,6 +150,7 @@ public class GameController {
         });
         pauseOuter.play();
     }
+
 
 //    public void playGame() {
 //

@@ -11,6 +11,7 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
         GameView gameView = new GameView(primaryStage);
         gameView.setToBoardView();
+//        TestView testView = new TestView(primaryStage);
     }
     public static void main(String[] args) {
         launch(args);

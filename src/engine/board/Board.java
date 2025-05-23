@@ -227,7 +227,7 @@ public class Board implements BoardManager {
             destroyMarble(marble);
             targetCell.setTrap(false);
             assignTrapCell();
-            CustomAlert.show("Trap!", "A marble has landed on a trap cell! The marble has been sent home.");
+            CustomAlert.show("Trap!, A marble has landed on a trap cell! The marble has been sent home.");
         }
         
 	}

@@ -42,6 +42,13 @@ public class MarbleSelection {
         }
     }
     public void clearSelection() {
+        for(BidirectionalMarbleMap b : bm) {
+            for(Marble m : b.getAllMarbles()) {
+                ImageView imageView = b.getImageView(m);
+                imageView.setScaleX(1);
+                imageView.setScaleY(1);
+            }
+        }
         selectedMarbles.clear();
     }
 

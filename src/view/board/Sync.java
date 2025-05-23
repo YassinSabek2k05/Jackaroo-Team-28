@@ -4,6 +4,7 @@ import engine.board.Cell;
 import engine.board.SafeZone;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import model.Colour;
 import model.player.Marble;
 import model.player.Player;
 import view.GameView;
@@ -43,13 +44,7 @@ public class Sync {
                 if(cell.getMarble()!=null){
                     Marble marble = cell.getMarble();
                     BidirectionalMarbleMap bidirectionalMarbleMap = mappings.getMarbleMap(marble.getColour());
-                    BidirectionalCellMap bidirectionalCellMap = mappings.getCellMaps();
-                    cleanCellView(cell, marble, bidirectionalMarbleMap, bidirectionalCellMap);
-                    if(bidirectionalMarbleMap.getImageView(marble)==null){
-                        System.out.println(false);
-                    }
-                    if(bidirectionalMarbleMap.getImageView(marble)!=null)
-                        bidirectionalCellMap.getPane(cell).getChildren().add(bidirectionalMarbleMap.getImageView(marble));
+                    cleanCellView(cell, marble, bidirectionalMarbleMap, mappings.getCellMaps());
                 }
                 else {
                     if(mappings.getCellMaps().getPane(cell) != null && mappings.getCellMaps().getPane(cell).getChildren().size() > 1){
@@ -86,13 +81,18 @@ public class Sync {
             bidirectionalCellMap.getPane(cell).getChildren().remove(1, bidirectionalCellMap.getPane(cell).getChildren().size());
         }
     }
+    public static void updateNextPlayer(GameView gameView){
+        int[] a = gameView.getBoardView().getBoardBuilder().getCurrentPlayerArray();
+        gameView.getBoardView().getBoardBuilder().getBoardCells().updateNextPlayer();
+        System.out.println("ALT");
+    }
     public static void updateAll(GameView gameView, BoardMappings mappings){
         updateTrackCells(gameView, mappings);
         updateSafeCells(gameView, mappings);
         updateHomeCells(gameView, mappings);
         gameView.getBoardView().getBoardBuilder().getMarbleSelection().clearSelection();
         gameView.getBoardView().getBoardBuilder().getCardSelection().updateHandView();
-
+        updateNextPlayer(gameView);
     }
 
 }

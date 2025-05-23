@@ -11,8 +11,7 @@ import javafx.stage.StageStyle;
 
 public class CustomAlert extends Stage {
 
-    public CustomAlert(String title, String message) {
-        setTitle(title);
+    public CustomAlert(String message) {
         initModality(Modality.APPLICATION_MODAL);
         initStyle(StageStyle.UNDECORATED);
 
@@ -30,8 +29,9 @@ public class CustomAlert extends Stage {
         setScene(scene);
     }
 
-    public static void show(String title, String message) {
-        CustomAlert alert = new CustomAlert(title, message);
+    public static void show(String message) {
+        CustomAlert alert = new CustomAlert(message);
         alert.showAndWait();
     }
+
 }

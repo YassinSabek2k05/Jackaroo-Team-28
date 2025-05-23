@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
+import model.Colour;
 import model.player.Player;
 import view.GameView;
 import view.board.cards.FirePitView;
@@ -19,9 +20,11 @@ public class BoardCells {
     private final BoardCoordinates coordinates;
     private final GameView gameView;
     private final BoardMappings boardMappings;
-    FirePitView firePitView;
+    private final FirePitView firePitView;
+    private NextPlayer nextPlayer = new NextPlayer();
 
     public BoardCells(GameView gameView, BoardMappings boardMappings) {
+        this.nextPlayer = new NextPlayer();
         this.gameView = gameView;
         this.boardMappings = boardMappings;
         this.coordinates = new BoardCoordinates(gameView);
@@ -108,12 +111,22 @@ public class BoardCells {
         this.addSafeZoneCells(pane);
         this.addFirePit(pane);
         this.addProfilePictures(pane,namePanes);
+        this.addNextPlayerBanner(pane);
     }
     public void addFirePit(Pane pane) {
         StackPane stackPane = this.firePitView.getStackPane();
         stackPane.setLayoutX(((double) 670 /2)-45);
         stackPane.setLayoutY(((double) 670 /2)-60);
         pane.getChildren().add(stackPane);
+    }
+    public void addNextPlayerBanner(Pane pane) {
+        StackPane playersPane = nextPlayer.getStackPane();
+        playersPane.setLayoutX(-400);
+        playersPane.setLayoutY(-100);
+        pane.getChildren().add(playersPane);
+    }
+    public void updateNextPlayer() {
+        nextPlayer.update(gameView.getBoardView().getBoardBuilder().getNames(gameView.getBoardView().getBoardBuilder().getCurrentPlayerIndex()), gameView.getBoardView().getBoardBuilder().getCurrentPlayerColour(), gameView.getBoardView().getBoardBuilder().getNextPlayerColour(), gameView.getBoardView().getBoardBuilder().getCurrentPlayerIndex());
     }
 
     public FirePitView getFirePitView() {

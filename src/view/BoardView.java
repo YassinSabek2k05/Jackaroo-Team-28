@@ -7,10 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 import model.Colour;
 import model.player.Marble;
@@ -18,7 +15,6 @@ import view.board.BoardBuilder;
 import view.board.BoardMappings;
 import view.board.NextPlayer;
 import view.board.Sync;
-import view.board.cards.CardHand;
 import view.board.cards.CardSelection;
 
 public class BoardView {
@@ -30,6 +26,12 @@ public class BoardView {
     BoardBuilder boardBuilder;
     public BoardView(GameView gameView){
         GridPane pane = new GridPane();
+        RowConstraints firstRowConstraints = new RowConstraints();
+        firstRowConstraints.setPrefHeight(150); // Set your desired constant height
+        firstRowConstraints.setMinHeight(150);  // Minimum height
+        firstRowConstraints.setMaxHeight(150);  // Maximum height
+        firstRowConstraints.setVgrow(Priority.NEVER); // Prevent growing
+        pane.getRowConstraints().add(firstRowConstraints);
         LayoutConfig layoutConfig = gameView.getLayoutConfig();
         if(gameView.getGame()!=null) {
             this.splitDistance = gameView.getGame().getBoard().getSplitDistance();
@@ -59,12 +61,16 @@ public class BoardView {
 
             if(gameView.getGame().checkWin()==null) {
                 scene.setOnKeyPressed(event -> {
-
-
+                    if (event.getCode() == KeyCode.ALT) {
+                        System.out.println("ALT");
+                        int[] a = boardBuilder.getCurrentPlayerArray();
+//                        NextPlayer nextPlayer = boardCe.getNextPlayer();
+//                        nextPlayer.update("sfdf", Colour.BLUE, Colour.GREEN, a[0], a[1]);
+                        Sync.updateNextPlayer(gameView);
+                    }
                     if (event.getCode() == KeyCode.ENTER) {
                         controller.playHumanTurn();
                         controller.playComputerTurn();
-                        boardBuilder.getCardHand().updateComputerHand();
 
                     }
                         Sync.updateAll(gameView, boardBuilder.getBoardMappings());

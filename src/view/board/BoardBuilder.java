@@ -4,18 +4,22 @@ import controller.MarbleSelection;
 import javafx.geometry.HPos;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import model.Colour;
 import model.card.Card;
 import model.player.Player;
 import view.GameView;
 import view.LayoutConfig;
+import view.PauseAlert;
 import view.board.cards.CardFunctions;
-import view.board.cards.CardHand;
 import view.board.cards.CardSelection;
 import view.board.cards.FirePitView;
+
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -33,11 +37,20 @@ public class BoardBuilder {
     Pane pane;
     CardSelection cardSelection;
     FirePitView firePitView;
-    CardHand cardHand;
     MarbleSelection marbleSelection;
     String playerName;
     GameView gameView;
+    BoardCells boardCells;
     public BoardBuilder(GameView gameView, BoardMappings boardMappings, GridPane root) {
+        this.computerPlayer1 = new VBox();
+        this.computerPlayer1.setAlignment(CENTER);
+        this.computerPlayer1.setSpacing(10);
+        this.computerPlayer2 = new HBox();
+        this.computerPlayer2.setAlignment(CENTER);
+        this.computerPlayer2.setSpacing(10);
+        this.computerPlayer3 = new VBox();
+        this.computerPlayer3.setAlignment(CENTER);
+        this.computerPlayer3.setSpacing(10);
         label = new Label();
         this.gameView = gameView;
         if(gameView.getGame()!=null) this.playerName = gameView.getGame().getPlayers().get(0).getName();
@@ -47,7 +60,7 @@ public class BoardBuilder {
         this.pane = new Pane();
         this.pane.setMaxSize(670, 670);
         this.pane.setMinSize(670, 670);
-        BoardCells boardCells = new BoardCells(gameView, boardMappings);
+        boardCells = new BoardCells(gameView, boardMappings);
         this.names = this.initializeNames();
         firePitView = boardCells.getFirePitView();
         this.namePanes = this.initializeNamePanes();
@@ -63,16 +76,13 @@ public class BoardBuilder {
         ));
 
         boardCells.addAllCells(pane,namePanes);
-
-        marbleSelection = new MarbleSelection(gameView, boardMappings);
+        this.marbleSelection = new MarbleSelection(gameView, boardMappings);
         this.cardSelection = new CardSelection(gameView);
 
         HBox cardBox1 = cardSelection.getHumanPlayerHandBox();
         ArrayList<Card> cards = gameView.getGame().getPlayers().get(0).getHand();
 
-
         HBox cardBox = CardFunctions.createCardHBox(cards,50,100);
-        this.cardHand = new CardHand(gameView);
         HBox humanPlayer = cardSelection.getHumanPlayerHandBox();
 
 
@@ -82,15 +92,22 @@ public class BoardBuilder {
 
         ColumnConstraints center = new ColumnConstraints();
         center.setPercentWidth(50);
-        int[] a = this.getCurrentPlayerIndex();
-        label.setText("NextPlayer:"+a[1]+"\n"+"CurrentPlayer:"+a[0]);
-        label.setLayoutX(900);
-        label.setLayoutY(500);
-        root.getChildren().add(label);
+
         ColumnConstraints right = new ColumnConstraints();
-        right.setPercentWidth(0);
-        root.setGridLinesVisible(true);
+        right.setPercentWidth(25);
         this.updateCpuHands();
+        ImageView pause = new ImageView(new Image("resources/images/pause.png"));
+        pause.setFitWidth(100);
+        pause.setFitHeight(100);
+        Button pauseButton = new Button(" ");
+        pauseButton.setGraphic(pause);
+        pauseButton.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
+        pauseButton.setOnAction(event -> {
+            PauseAlert.showPauseAlert(gameView);
+            System.out.println("Pause clicked");
+        });
+        GridPane.setHalignment(pauseButton, HPos.RIGHT);
+        root.add(pauseButton, 2,0);
         root.getColumnConstraints().addAll(left, center, right);
         GridPane.setHalignment(this.pane, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(this.pane, javafx.geometry.VPos.CENTER);
@@ -118,45 +135,38 @@ public class BoardBuilder {
 
     public void updateCpuHands() {
         LayoutConfig layoutConfig = gameView.getLayoutConfig();
-        int cpu1 = this.gameView.getGame().getPlayers().get(1).getHand().size();
-        int cpu2 = this.gameView.getGame().getPlayers().get(2).getHand().size();
-        int cpu3 = this.gameView.getGame().getPlayers().get(3).getHand().size();
-        System.out.println(cpu1);
-
-        this.computerPlayer1 = createCardCPUV(cpu1, layoutConfig.getCardWidth(), layoutConfig.getCardHeight());
-        this.computerPlayer2 = createCardCPUH(cpu2, layoutConfig.getCardWidth(), layoutConfig.getCardHeight());
-        this.computerPlayer3 = createCardCPUV(cpu3, layoutConfig.getCardWidth(), layoutConfig.getCardHeight());
+        this.computerPlayer1.getChildren().clear();
+        this.computerPlayer2.getChildren().clear();
+        this.computerPlayer3.getChildren().clear();
+        this.computerPlayer1.getChildren().addAll(createCardCPUV(gameView.getGame().getPlayers().get(1).getHand().size(), layoutConfig.getCardWidth(), layoutConfig.getCardHeight()));
+        this.computerPlayer2.getChildren().addAll(createCardCPUH(gameView.getGame().getPlayers().get(2).getHand().size(), layoutConfig.getCardWidth(), layoutConfig.getCardHeight()));
+        this.computerPlayer3.getChildren().addAll(createCardCPUV(gameView.getGame().getPlayers().get(3).getHand().size(), layoutConfig.getCardWidth(), layoutConfig.getCardHeight()));
     }
-    public VBox createCardCPUV(int size, int width, int height) {
+    public ArrayList<ImageView> createCardCPUV(int size, int width, int height) {
         Image image = new Image("resources/deck/card_back_black.png");
-        VBox cardBox = new VBox();
-        cardBox.setSpacing(-10);
-        cardBox.setAlignment(CENTER);
+        ArrayList<ImageView> cardBox = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(width);
             imageView.setFitHeight(height);
-            cardBox.getChildren().add(imageView);
+            cardBox.add(imageView);
             imageView.setRotate(90);
         }
 
         return cardBox;
     }
-    public HBox createCardCPUH(int size, int width, int height) {
+    public ArrayList<ImageView> createCardCPUH(int size, int width, int height) {
         Image image = new Image("resources/deck/card_back_black.png");
-        HBox cardBox = new HBox();
-        cardBox.setSpacing(20);
-        cardBox.setAlignment(CENTER);
+        ArrayList<ImageView> cardBox = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(width);
             imageView.setFitHeight(height);
-            cardBox.getChildren().add(imageView);
+            cardBox.add(imageView);
         }
+
         return cardBox;
     }
-
-
     public BoardMappings getBoardMappings() {
         return boardMappings;
     }
@@ -167,9 +177,7 @@ public class BoardBuilder {
     public FirePitView getFirePitView() {
         return firePitView;
     }
-    public CardHand getCardHand() {
-        return this.cardHand;
-    }
+
     public void updateHand(){
         this.cardSelection.updateHandView();
     }
@@ -193,13 +201,20 @@ public class BoardBuilder {
         return namePanes;
     }
 
-    private ArrayList<Object[]> initializeNames() {
+    public ArrayList<Object[]> initializeNames() {
         ArrayList<Object[]> names = new ArrayList<>();
         names.add(new Object[]{this.playerName, new Image("resources/images/profile/player1.png")});
         names.add(new Object[]{"Ismaeil", new Image("resources/images/profile/player2.png")});
         names.add(new Object[]{"Malak", new Image("resources/images/profile/player3.png")});
         names.add(new Object[]{"Raghad", new Image("resources/images/profile/player4.png")});
         return names;
+    }
+    public ArrayList<String> getNamesList() {
+        ArrayList<String> namesList = new ArrayList<>();
+        for (Object[] name : names) {
+            namesList.add((String) name[0]);
+        }
+        return namesList;
     }
 
     public Pane[] getNamePanes() {
@@ -215,7 +230,7 @@ public class BoardBuilder {
         }
         return (String) names.get(currentPlayerIndex)[0];
     }
-    public int[] getCurrentPlayerIndex() {
+    public int[] getCurrentPlayerArray() {
         ArrayList<Player> players = gameView.getGame().getPlayers();
         int i = 0;
         for (; i < players.size(); i++) {
@@ -223,12 +238,40 @@ public class BoardBuilder {
                 break;
             }
         }
-        int[] a = {i,(i+1)%4};
-        return a;
+        return new int[]{i,(i+1)%4};
     }
-    public void updateLabel(){
-        int[] a = this.getCurrentPlayerIndex();
-        label.setText("NextPlayer:"+a[1]+"\n"+"CurrentPlayer:"+a[0]);
+    public BoardCells getBoardCells() {
+        return boardCells;
+    }
+    public Colour getCurrentPlayerColour() {
+        return gameView.getGame().getActivePlayerColour();
+    }
+    public Colour getNextPlayerColour() {
+        ArrayList<Player> players = gameView.getGame().getPlayers();
+        int i =-1;
+        for(Player p : players) {
+            if(p.getColour()==gameView.getGame().getActivePlayerColour()) {
+                i = players.indexOf(p);
+                break;
+            }
+        }
+        if(i == players.size()-1) {
+            i = 0;
+        }
+        else {
+            i++;
+        }
+        return players.get(i).getColour();
+    }
+    public int getCurrentPlayerIndex() {
+        ArrayList<Player> players = gameView.getGame().getPlayers();
+        int i = 0;
+        for (; i < players.size(); i++) {
+            if (players.get(i).getColour()==gameView.getGame().getActivePlayerColour()) {
+                break;
+            }
+        }
+        return i;
     }
 }
 

@@ -80,11 +80,11 @@ public class InputNameView {
         this.validateInput = () -> {
             String input = inpuTextField.getText().trim();
             if (input.isEmpty()) {
-                CustomAlert.show("Invalid Input", "Please enter a name.");
+                CustomAlert.show("Invalid Input, Please enter a name.");
             } else if (input.length() < 2) {
-                CustomAlert.show("Invalid Input", "Name must be at least 2 characters.");
+                CustomAlert.show("Invalid Input, Name must be at least 2 characters.");
             } else if (input.length() > 15) {
-                CustomAlert.show("Invalid Input", "Name must be less than 15 characters.");
+                CustomAlert.show("Invalid Input,Name must be less than 15 characters.");
             } else {
                 playerName = input;
                 try {
@@ -92,7 +92,7 @@ public class InputNameView {
 
 
                 } catch (IOException e) {
-                    CustomAlert.show("Invalid Input", "Please enter a valid name.");
+                    CustomAlert.show("Invalid Input, Please enter a valid name.");
                     gameView.setToInputNameView();
                 }
                 gameView.initializeBoardView();
