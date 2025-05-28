@@ -1,8 +1,8 @@
 package engine.board;
 
-import java.util.ArrayList;
-
 import model.Colour;
+
+import java.util.ArrayList;
 
 public class SafeZone {
     private final Colour colour;

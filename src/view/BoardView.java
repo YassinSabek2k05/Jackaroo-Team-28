@@ -1,21 +1,16 @@
 package view;
 
 import controller.GameController;
-import exception.GameException;
-import javafx.animation.PauseTransition;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
-import javafx.util.Duration;
-import model.Colour;
-import model.player.Marble;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import view.board.BoardBuilder;
 import view.board.BoardMappings;
-import view.board.NextPlayer;
 import view.board.Sync;
-import view.board.cards.CardSelection;
 
 public class BoardView {
     int splitDistance;
@@ -38,9 +33,10 @@ public class BoardView {
             this.boardMappings = new BoardMappings(gameView.getGame(), layoutConfig.getCellSize(), layoutConfig.getCardWidth(), layoutConfig.getCardHeight());
             this.boardBuilder = new BoardBuilder(gameView, this.boardMappings, pane);
             controller = gameView.getController();
-
-            Sync.updateHomeCells(gameView, boardBuilder.getBoardMappings());
-            Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
+            this.boardBuilder.getBoardCells().updateNextPlayer();
+            Sync.updateHomeCells(gameView, boardMappings);
+            Sync.updateTrackCells(gameView, boardMappings);
+            Sync.updateSafeCells(gameView, boardMappings);
             pane.setBackground(new javafx.scene.layout.Background(
                     new javafx.scene.layout.BackgroundImage(
                             new Image("resources/images/Background.png"),
@@ -52,23 +48,17 @@ public class BoardView {
             ));
 
             this.scene = new Scene(pane, gameView.windowWidth, gameView.windowHeight);
-            scene.setOnKeyPressed(event -> {
-                if (event.getCode() == KeyCode.F11) {
-//                    cardHand.updateHand(gameView);
-                    gameView.getStage().setFullScreen(!gameView.getStage().isFullScreen());
-                }
-            });
 
             if(gameView.getGame().checkWin()==null) {
                 scene.setOnKeyPressed(event -> {
-                    if (event.getCode() == KeyCode.ALT) {
-                        System.out.println("ALT");
-                        int[] a = boardBuilder.getCurrentPlayerArray();
-//                        NextPlayer nextPlayer = boardCe.getNextPlayer();
-//                        nextPlayer.update("sfdf", Colour.BLUE, Colour.GREEN, a[0], a[1]);
-                        Sync.updateNextPlayer(gameView);
+                    if (event.getCode() == KeyCode.F11) {
+                        gameView.getStage().setFullScreen(!gameView.getStage().isFullScreen());
                     }
+
                     if (event.getCode() == KeyCode.ENTER) {
+                        if(!gameView.getGame().canPlayTurn()&&gameView.getGame().getCurrentPlayerIndex()==0){
+                            gameView.getGame().endPlayerTurn();
+                        }
                         controller.playHumanTurn();
                         controller.playComputerTurn();
 
@@ -77,10 +67,9 @@ public class BoardView {
                         gameView.getBoardView().getBoardBuilder().updateHand();
                         boardBuilder.getFirePitView().updateFirePit();
                 });
-
-
-
             }
+//            Sync.updateNextPlayer(gameView);
+
 
         }
     }

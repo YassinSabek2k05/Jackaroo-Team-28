@@ -1,13 +1,9 @@
 package engine.board;
 
-import java.util.ArrayList;
-
-import exception.CannotFieldException;
-import exception.IllegalDestroyException;
-import exception.IllegalMovementException;
-import exception.IllegalSwapException;
-import exception.InvalidMarbleException;
+import exception.*;
 import model.player.Marble;
+
+import java.util.ArrayList;
 
 public interface BoardManager { 
 	public int getSplitDistance();

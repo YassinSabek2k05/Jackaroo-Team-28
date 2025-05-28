@@ -13,12 +13,12 @@ import view.GameView;
 import view.LayoutConfig;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CardSelection {
     ArrayList<Card> cards;
     HBox humanPlayerHandBox;
     GameView gameView;
-    Card selectedCard;
     Boolean[] selectedCards = {false,false,false,false};
     public CardSelection(GameView gameView) {
         this.cards = gameView.getGame().getPlayers().get(0).getHand();
@@ -35,6 +35,7 @@ public class CardSelection {
         this.humanPlayerHandBox.getChildren().clear();
         LayoutConfig layoutConfig = gameView.getLayoutConfig();
         for(Card card : cards) {
+            if(card==null) continue;
             int index = cards.indexOf(card);
             Image img = createCardImage(card);
             ImageView imageView = new ImageView(img);
@@ -62,6 +63,7 @@ public class CardSelection {
         }
     }
     public Image createCardImage(Card card) {
+        if(card == null) return null;
         String cardName = card.getName();
         String rank = "";
         Image img = null;
@@ -121,9 +123,7 @@ public class CardSelection {
         return img;
     }
     public void clearSelectedCards() {
-        for(int i = 0; i < selectedCards.length; i++) {
-            selectedCards[i] = false;
-        }
+        Arrays.fill(selectedCards, false);
         for(Node imageView : this.humanPlayerHandBox.getChildren()) {
             imageView.setTranslateY(0);
         }

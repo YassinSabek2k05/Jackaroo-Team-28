@@ -1,25 +1,16 @@
 package model.card;
 
+import engine.GameManager;
+import engine.board.BoardManager;
+import model.card.standard.*;
+import model.card.wild.Burner;
+import model.card.wild.Saver;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import engine.GameManager;
-import engine.board.BoardManager;
-import model.card.standard.Ace;
-import model.card.standard.Five;
-import model.card.standard.Four;
-import model.card.standard.Jack;
-import model.card.standard.King;
-import model.card.standard.Queen;
-import model.card.standard.Seven;
-import model.card.standard.Standard;
-import model.card.standard.Suit;
-import model.card.standard.Ten;
-import model.card.wild.Burner;
-import model.card.wild.Saver;
 
 public class Deck {
     private static final String CARDS_FILE = "Cards.csv";

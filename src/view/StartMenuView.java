@@ -1,23 +1,27 @@
 package view;
 
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class StartMenuView {
     Scene scene;
     ImageView logoView;
+    TypingLabel typingLabel;
     public StartMenuView(GameView gameView){
+        this.typingLabel = new TypingLabel("Created by Team #28");
+        Label teamLabel = typingLabel.getLabel();
         StackPane stackPane = getStackPane();
-
+        teamLabel.setTranslateX(350);
+        teamLabel.setTranslateY(-160);
         //Logo
         Image logo = new Image("resources/images/logo_longx.png");
         logoView = new ImageView(logo);
@@ -57,12 +61,18 @@ public class StartMenuView {
                     "dropshadow(gaussian, gray, 8, 0.5, 5, 5)");
         });
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(3),logoView);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(5),logoView);
         button.setOnAction(event -> {
             gameView.setToInputNameView();
         });
 
 
+        PauseTransition t = new PauseTransition(Duration.seconds(3));
+        t.play();
+
+        t.setOnFinished(e -> {
+            typingLabel.playTypingAnimation();
+        });
         //TUTORIAL
         Button tutorial = new Button("How To Play?");
         tutorial.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px;"
@@ -88,7 +98,7 @@ public class StartMenuView {
         tutorial.setPrefWidth(300);
         tutorial.setTranslateY(80);
         stackPane.getChildren().addAll(button,tutorial,BoardImage);
-        stackPane.getChildren().add(logoView);
+        stackPane.getChildren().addAll(logoView, teamLabel);
 
         tutorial.setOnAction(event -> {
             System.out.println("Button clicked");

@@ -1,12 +1,12 @@
 package model.card.wild;
 
-import java.util.ArrayList;
-
 import engine.GameManager;
 import engine.board.BoardManager;
 import exception.ActionException;
 import exception.InvalidMarbleException;
 import model.player.Marble;
+
+import java.util.ArrayList;
 
 public class Saver extends Wild {
 

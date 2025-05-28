@@ -1,16 +1,12 @@
 package engine.board;
 
-import java.util.ArrayList;
-
 import engine.GameManager;
-import exception.CannotFieldException;
-import exception.IllegalDestroyException;
-import exception.IllegalMovementException;
-import exception.IllegalSwapException;
-import exception.InvalidMarbleException;
+import exception.*;
 import model.Colour;
 import model.player.Marble;
 import view.CustomAlert;
+
+import java.util.ArrayList;
 
 @SuppressWarnings("unused")
 public class Board implements BoardManager {

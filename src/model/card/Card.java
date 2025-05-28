@@ -1,13 +1,13 @@
 package model.card;
 
-import java.util.ArrayList;
-
 import engine.GameManager;
 import engine.board.BoardManager;
 import exception.ActionException;
 import exception.InvalidMarbleException;
 import model.Colour;
 import model.player.Marble;
+
+import java.util.ArrayList;
 
 public abstract class Card {
 	private final String name;

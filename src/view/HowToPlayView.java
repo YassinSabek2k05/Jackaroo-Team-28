@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
 import java.net.URL;
 

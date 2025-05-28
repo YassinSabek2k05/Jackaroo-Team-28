@@ -1,12 +1,12 @@
 package model.player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import engine.board.BoardManager;
 import exception.GameException;
 import model.Colour;
 import model.card.Card;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class CPU extends Player {
 	private final BoardManager boardManager;

@@ -44,13 +44,13 @@ public class BoardBuilder {
     public BoardBuilder(GameView gameView, BoardMappings boardMappings, GridPane root) {
         this.computerPlayer1 = new VBox();
         this.computerPlayer1.setAlignment(CENTER);
-        this.computerPlayer1.setSpacing(10);
+        this.computerPlayer1.setSpacing(-25);
         this.computerPlayer2 = new HBox();
         this.computerPlayer2.setAlignment(CENTER);
         this.computerPlayer2.setSpacing(10);
         this.computerPlayer3 = new VBox();
         this.computerPlayer3.setAlignment(CENTER);
-        this.computerPlayer3.setSpacing(10);
+        this.computerPlayer3.setSpacing(-25);
         label = new Label();
         this.gameView = gameView;
         if(gameView.getGame()!=null) this.playerName = gameView.getGame().getPlayers().get(0).getName();
@@ -107,7 +107,7 @@ public class BoardBuilder {
             System.out.println("Pause clicked");
         });
         GridPane.setHalignment(pauseButton, HPos.RIGHT);
-        root.add(pauseButton, 2,0);
+
         root.getColumnConstraints().addAll(left, center, right);
         GridPane.setHalignment(this.pane, javafx.geometry.HPos.CENTER);
         GridPane.setValignment(this.pane, javafx.geometry.VPos.CENTER);
@@ -131,6 +131,7 @@ public class BoardBuilder {
         root.add(humanPlayer,1,3);
         root.add(computerPlayer2,1,0);
         root.add(computerPlayer3,2,1);
+        root.add(pauseButton, 2,0);
     }
 
     public void updateCpuHands() {
@@ -191,7 +192,9 @@ public class BoardBuilder {
             VBox namePane = new VBox();
             namePane.setAlignment(CENTER);
             namePane.setSpacing(10);
-            namePane.getChildren().add(new Label((String) name[0]));
+            Label nameLabel = new Label((String) name[0]);
+            nameLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+            namePane.getChildren().add(nameLabel);
             ImageView imageView = new ImageView((Image) name[1]);
             imageView.setFitWidth(100);
             imageView.setFitHeight(100);
@@ -204,9 +207,9 @@ public class BoardBuilder {
     public ArrayList<Object[]> initializeNames() {
         ArrayList<Object[]> names = new ArrayList<>();
         names.add(new Object[]{this.playerName, new Image("resources/images/profile/player1.png")});
-        names.add(new Object[]{"Ismaeil", new Image("resources/images/profile/player2.png")});
-        names.add(new Object[]{"Malak", new Image("resources/images/profile/player3.png")});
-        names.add(new Object[]{"Raghad", new Image("resources/images/profile/player4.png")});
+        names.add(new Object[]{"CPU1", new Image("resources/images/profile/player2.png")});
+        names.add(new Object[]{"CPU2", new Image("resources/images/profile/player3.png")});
+        names.add(new Object[]{"CPU3", new Image("resources/images/profile/player4.png")});
         return names;
     }
     public ArrayList<String> getNamesList() {

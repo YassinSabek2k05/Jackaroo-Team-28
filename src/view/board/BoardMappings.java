@@ -10,7 +10,6 @@ import javafx.scene.layout.StackPane;
 import model.Colour;
 import model.player.Marble;
 import model.player.Player;
-import view.board.mappings.BidirectionalCardMap;
 import view.board.mappings.BidirectionalCellMap;
 import view.board.mappings.BidirectionalMarbleMap;
 import view.board.mappings.BidirectionalPlayerMap;

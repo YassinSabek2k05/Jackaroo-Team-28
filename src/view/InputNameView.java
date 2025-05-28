@@ -1,12 +1,6 @@
 package view;
 
 
-
-import java.io.IOException;
-
-import com.sun.deploy.si.SingleInstanceImpl;
-import engine.Game;
-import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,18 +9,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.util.Duration;
-import view.board.cards.CardSelection;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+
+import java.io.IOException;
 
 public class InputNameView {
     private final Scene scene;
     private Runnable validateInput;
     private String playerName;
     private StartMenuView startMenuView;
-    String playerN;
     public InputNameView(GameView gameView){
-
+        this.playerName = "";
         //Name Label
         Label label = new Label("Enter your Name");
         label.setStyle("-fx-font-family: 'tex gyre termes'; " +

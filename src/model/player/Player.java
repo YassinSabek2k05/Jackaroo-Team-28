@@ -1,12 +1,12 @@
 package model.player;
 
-import java.util.ArrayList;
-
 import exception.GameException;
 import exception.InvalidCardException;
 import exception.InvalidMarbleException;
 import model.Colour;
 import model.card.Card;
+
+import java.util.ArrayList;
 
 @SuppressWarnings("unused")
 public class Player {

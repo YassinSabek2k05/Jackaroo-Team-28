@@ -69,6 +69,7 @@ public class PauseAlert extends Stage {
         exit.setOnAction(e -> System.exit(0));
         restart.setOnAction(e -> {
             gameView.setToInputNameView();
+            gameView.setGameNull();
             close();
         });
 

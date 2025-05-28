@@ -13,7 +13,6 @@ import view.SevenAlert;
 import view.board.BoardBuilder;
 import view.board.Sync;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class GameController {
@@ -101,10 +100,7 @@ public class GameController {
                     }
                 }
                 gameView.getGame().endPlayerTurn();
-                Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
-                gameView.getBoardView().getBoardBuilder().updateHand();
-                boardBuilder.getFirePitView().updateFirePit();
-                gameView.getBoardView().getBoardBuilder().updateCpuHands();
+                Sync.updateAll(gameView, boardBuilder.getBoardMappings());
 
                 // Second transition
                 PauseTransition pause2 = new PauseTransition(Duration.seconds(2));
@@ -116,10 +112,7 @@ public class GameController {
                         }
                     }
                     gameView.getGame().endPlayerTurn();
-                    Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
-                    gameView.getBoardView().getBoardBuilder().updateHand();
-                    boardBuilder.getFirePitView().updateFirePit();
-                    gameView.getBoardView().getBoardBuilder().updateCpuHands();
+                    Sync.updateAll(gameView, boardBuilder.getBoardMappings());
 
                     // Third transition
                     PauseTransition pause3 = new PauseTransition(Duration.seconds(2));
@@ -131,12 +124,7 @@ public class GameController {
                             }
                         }
                         gameView.getGame().endPlayerTurn();
-                        Sync.updateTrackCells(gameView, boardBuilder.getBoardMappings());
-                        gameView.getBoardView().getBoardBuilder().updateHand();
-                        boardBuilder.getFirePitView().updateFirePit();
-
-                        // Use Platform.runLater to show alert after animation completes
-                        gameView.getBoardView().getBoardBuilder().updateCpuHands();
+                        Sync.updateAll(gameView, boardBuilder.getBoardMappings());
 
                         javafx.application.Platform.runLater(() -> {
                             CustomAlert.show("Your Turn");

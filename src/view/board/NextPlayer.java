@@ -19,6 +19,7 @@ public class NextPlayer {
     StackPane stackPane;
     Rectangle rectangle1;
     Rectangle rectangle2;
+    Rectangle rectangle3;
     StackPane currentPlayer;
 
 
@@ -26,16 +27,18 @@ public class NextPlayer {
         this.currentPlayerIndex = 0;
         this.nextPlayerIndex = 1;
         Image image = new Image("resources/images/nextPlayer.png");
-        rectangle1 = new Rectangle(190,210);
-        rectangle2 = new Rectangle(160,50);
+        rectangle1 = new Rectangle(150,110);
+        rectangle2 = new Rectangle(150,70);
+        rectangle3 = new Rectangle(150,50);
+        rectangle3.setFill(Color.TRANSPARENT);
         this.currentPlayer = new StackPane(rectangle1);
 
-        VBox vbox = new VBox(currentPlayer,rectangle2);
+        VBox vbox = new VBox(currentPlayer,rectangle2, rectangle3);
         vbox.setAlignment(Pos.BOTTOM_CENTER);
         this.stackPane = new StackPane();
-        this.stackPane.getChildren().add(vbox);
+        this.stackPane.getChildren().addAll(vbox);
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(200);
+        imageView.setFitWidth(150);
         imageView.setFitHeight(300);
         stackPane.setLayoutY(imageView.getLayoutY());
         stackPane.setLayoutX(imageView.getLayoutX());

@@ -21,7 +21,7 @@ public class SevenAlert extends Stage {
         initStyle(StageStyle.UNDECORATED);
 
         Label label = new Label(message);
-        Button num1 = new Button("2");
+        Button num1 = new Button("1");
         num1.setOnAction(e -> {
             gameView.getGame().getBoard().setSplitDistance(1);
             close();
@@ -51,17 +51,22 @@ public class SevenAlert extends Stage {
             gameView.getGame().getBoard().setSplitDistance(6);
             close();
         });
-        HBox buttonBox = new HBox(10, num2, num3, num4, num5, num6);
+        HBox buttonBox = new HBox(10,num1, num2, num3, num4, num5, num6);
         VBox layout = new VBox(15, label, buttonBox);
         layout.setAlignment(Pos.CENTER);
         buttonBox.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-background-color: #2c3e50; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;");
+        String btnStyle = "-fx-background-color: #BF9E64; -fx-text-fill: white; -fx-font-size: 15px;"
+                + " -fx-font-weight: bold; -fx-font-family: 'Georgia'; -fx-font-style: italic;"
+                + "-fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0)" +
+                "dropshadow(gaussian, gray, 8, 0.5, 5, 5)";
         label.setStyle("-fx-text-fill: white; -fx-font-size: 14;");
-        num2.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
-        num3.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
-        num4.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
-        num5.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
-        num6.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
+        num1.setStyle(btnStyle);
+        num2.setStyle(btnStyle);
+        num3.setStyle(btnStyle);
+        num4.setStyle(btnStyle);
+        num5.setStyle(btnStyle);
+        num6.setStyle(btnStyle);
 
         Scene scene = new Scene(layout, 300, 150);
         setScene(scene);

@@ -1,23 +1,19 @@
 package engine;
 
+import engine.board.Board;
+import engine.board.SafeZone;
+import exception.*;
+import model.Colour;
+import model.card.Card;
+import model.card.Deck;
+import model.player.CPU;
+import model.player.Marble;
+import model.player.Player;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-
-import engine.board.Board;
-import engine.board.SafeZone;
-import exception.CannotDiscardException;
-import exception.CannotFieldException;
-import exception.GameException;
-import exception.IllegalDestroyException;
-import exception.InvalidCardException;
-import exception.InvalidMarbleException;
-import exception.SplitOutOfRangeException;
-import model.Colour;
-import model.card.Card;
-import model.card.Deck;
-import model.player.*;
 
 @SuppressWarnings("unused")
 public class Game implements GameManager {

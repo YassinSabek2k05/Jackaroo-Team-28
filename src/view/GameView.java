@@ -4,24 +4,14 @@ import controller.GameController;
 import engine.Game;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
-import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import view.board.BoardMappings;
-import view.board.cards.CardSelection;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import static javafx.geometry.Pos.CENTER;
 
 public class GameView {
     String playerN;
@@ -29,7 +19,7 @@ public class GameView {
     private Stage stage;
     private Game game;
     private final LayoutConfig layoutConfig;
-    private final StartMenuView startMenuView;
+    private StartMenuView startMenuView;
     private BoardView boardView;
     private final InputNameView inputNameView;
     private final HowToPlayView howToPlayView;
@@ -62,6 +52,7 @@ public class GameView {
 
     //set scene
     public void setToStartMenuView(){
+        this.startMenuView = new StartMenuView(this);
         startMenuView.logoView.setFitWidth(-200);
         startMenuView.logoView.setFitHeight(-400);
         startMenuView.logoView.setStyle("-fx-opacity: 0;");
@@ -148,6 +139,9 @@ public class GameView {
     }
 
     //setters
+    public void setGameNull(){
+        this.game = null;
+    }
     public void setStage(Stage stage){
         this.stage = stage;
     }

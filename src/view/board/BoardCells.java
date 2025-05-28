@@ -1,17 +1,17 @@
 package view.board;
 
 import engine.board.SafeZone;
+import exception.GameException;
 import javafx.geometry.Point2D;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Circle;
-import model.Colour;
+import model.player.Marble;
 import model.player.Player;
 import view.GameView;
 import view.board.cards.FirePitView;
 import view.board.mappings.BidirectionalCellMap;
-import view.board.mappings.BidirectionalPlayerMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +22,6 @@ public class BoardCells {
     private final BoardMappings boardMappings;
     private final FirePitView firePitView;
     private NextPlayer nextPlayer = new NextPlayer();
-
     public BoardCells(GameView gameView, BoardMappings boardMappings) {
         this.nextPlayer = new NextPlayer();
         this.gameView = gameView;
@@ -63,7 +62,7 @@ public class BoardCells {
         System.out.println(boardMappings.getSafeZoneMaps().size());
         int k=0;
         int i=0;
-
+        Marble marble = gameView.getGame().getBoard().getTrack().get(0).getMarble();
         for(BidirectionalCellMap curr: boardMappings.getSafeZoneMaps()){
             System.out.println(curr);
             if(k>=positionsSafeZone.length) break;
@@ -72,10 +71,9 @@ public class BoardCells {
                 if(k>=positionsSafeZone.length) break;
                 StackPane imgPane = curr.getPane(safeZone.getCells().get(j));
                 System.out.println(positionsSafeZone[k].getX());
-                Circle blue = new Circle(20, javafx.scene.paint.Color.BLUE);
                 imgPane.setOnMouseClicked(event -> {
                     System.out.println(gameView.getGame().getBoard().getTrack().indexOf(curr.getCell(imgPane)));
-                    imgPane.getChildren().add(blue);
+                    imgPane.getChildren().add(boardMappings.getMarbleMap(marble.getColour()).getImageView(marble));
                 });
                 imgPane.setLayoutX(positionsSafeZone[k].getX());
                 imgPane.setLayoutY(positionsSafeZone[k].getY());
@@ -86,10 +84,10 @@ public class BoardCells {
     }
     public void addProfilePictures(Pane main,ArrayList<Pane> namePanes){
         Point2D[] positions = new Point2D[4];
-        positions[2] = new Point2D(50, -100);
-        positions[3] = new Point2D(760, -50);
-        positions[1] = new Point2D(-100,600);
-        positions[0] = new Point2D(760, 670);
+        positions[2] = new Point2D(30, -150);
+        positions[3] = new Point2D(720, -40);
+        positions[1] = new Point2D(-150,570);
+        positions[0] = new Point2D(600, 650);
 
         int i = 0;
         for(Pane pane: namePanes) {
@@ -112,6 +110,8 @@ public class BoardCells {
         this.addFirePit(pane);
         this.addProfilePictures(pane,namePanes);
         this.addNextPlayerBanner(pane);
+        this.updateNextPlayer();
+        this.addHowToPlayBox(pane);
     }
     public void addFirePit(Pane pane) {
         StackPane stackPane = this.firePitView.getStackPane();
@@ -125,11 +125,26 @@ public class BoardCells {
         playersPane.setLayoutY(-100);
         pane.getChildren().add(playersPane);
     }
-    public void updateNextPlayer() {
-        nextPlayer.update(gameView.getBoardView().getBoardBuilder().getNames(gameView.getBoardView().getBoardBuilder().getCurrentPlayerIndex()), gameView.getBoardView().getBoardBuilder().getCurrentPlayerColour(), gameView.getBoardView().getBoardBuilder().getNextPlayerColour(), gameView.getBoardView().getBoardBuilder().getCurrentPlayerIndex());
+    public void addHowToPlayBox(Pane pane) {
+        Image image = new Image("resources/images/enter.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(300);
+        imageView.setFitHeight(300);
+        StackPane stackPane = new StackPane(imageView);
+        stackPane.setLayoutX(670+180);
+        stackPane.setLayoutY(480);
+        pane.getChildren().add(stackPane);
     }
+    public void updateNextPlayer() {
+        try{
+            nextPlayer.update(gameView.getBoardView().getBoardBuilder().getNames(gameView.getBoardView().getBoardBuilder().getCurrentPlayerIndex()), gameView.getBoardView().getBoardBuilder().getCurrentPlayerColour(), gameView.getBoardView().getBoardBuilder().getNextPlayerColour(), gameView.getBoardView().getBoardBuilder().getCurrentPlayerIndex());
+        } catch (Exception e) {
+            System.out.println("Error updating next player: " + e.getMessage());
+        }
+           }
 
     public FirePitView getFirePitView() {
         return firePitView;
     }
+
 }
