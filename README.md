@@ -18,3 +18,9 @@ This repository contains a single-player digital adaptation of the strategic boa
 - Fielding: Use an Ace or King to move a marble from the Home Zone to the Base Cell.
 - Movement: Play cards to advance marbles clockwise along the track.
 - Strategy: Use special cards like the Burner or Jack to disrupt opponents by sending marbles home or swapping positions.
+
+## Media
+- Gameplay video: [Watch here](https://drive.google.com/file/d/10FtyhjtI2Int_aH2nBxK8FNUywrGpFGJ/view?usp=drive_link).
+- Gameplay screenshot:
+
+	<img src="src/resources/Screenshot.png" alt="Jackaroo board" width="450" />
